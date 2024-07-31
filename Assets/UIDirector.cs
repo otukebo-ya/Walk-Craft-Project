@@ -8,14 +8,15 @@ public class UIDirector : MonoBehaviour
     [SerializeField] GameObject DisplayWindow;
 
     public ItemDataBase ItemDataBase;
-    // Start is called before the first frame update
-
     public GameObject ItemButton;
+
+    // Start is called before the first frame update
     void Start()
     {
         DisplayWindow.SetActive(false);
     }
 
+    // 与えられたゲームオブジェクトの表示非表示を切り替える
     public void switchVisibility(bool visible, GameObject gameObject)
     {
         gameObject.SetActive(visible);

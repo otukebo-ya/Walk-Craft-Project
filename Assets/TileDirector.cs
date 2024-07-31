@@ -13,15 +13,20 @@ public class TileDirector : MonoBehaviour
     public Tilemap effectMap;
     public TileBase effect;
     public TileBase newItemTile = null;
-    public bool tileChangeMode;
     private Vector3 previousPosition;
     private Vector3 currentPosition;
-    
 
-    void start()
+    GameObject gm;
+    GameManager gmScript;
+
+
+    void Start()
     {
-        tileChangeMode = false;
+        
+        gm = GameObject.Find("GameManager");
+        gmScript = gm.GetComponent<GameManager>();
         previousPosition = Vector3.zero;
+        
     }
 
     void Update()
@@ -31,10 +36,11 @@ public class TileDirector : MonoBehaviour
         {
             Vector3 mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             emphasizeCrickedTile(mouse_position);
-            if (tileChangeMode && newItemTile != null)
+            if (gmScript.isTileChangeMode() && newItemTile != null)
             {
+                // 配置するか確認する処理
                 changeTile(mouse_position, newItemTile, itemMap);
-                tileChangeMode =false;
+                gmScript.setTileChangeModeOff();
             }
         }
     }
