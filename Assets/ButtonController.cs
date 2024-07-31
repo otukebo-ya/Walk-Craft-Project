@@ -9,12 +9,29 @@ public class ButtonController : MonoBehaviour
     public Sprite _off;
     private bool flg = false;
 
+    GameObject uid;
+    UIDirector uidScript;
+    GameObject td;
+    TileDirector tdScript;
+    GameObject gm;
+    GameManager gmScript;
+
+    void Start()
+    {
+        uid = GameObject.Find("UIDirector");
+        uidScript = uid.GetComponent<UIDirector>();
+
+        td = GameObject.Find("TileDirector");
+        tdScript = td.GetComponent<TileDirector>();
+
+        gm = GameObject.Find("GameManager");
+        gmScript = gm.GetComponent<GameManager>();
+        
+    }
+
     [SerializeField] GameObject visibilityChangeTarget;
     public void changeImage()
     {
-        GameObject uid = GameObject.Find("UIDirector");
-        UIDirector uidScript = uid.GetComponent<UIDirector>();
-
         flg = !flg;
         var img = GetComponent<Image>();
         img.sprite = (flg) ? _on : _off;
@@ -36,12 +53,7 @@ public class ButtonController : MonoBehaviour
 
     public void onDisplayButtonClick()
     {
-        GameObject td = GameObject.Find("TileDirector");
-        TileDirector tdScript = td.GetComponent<TileDirector>();
-        GameObject uid = GameObject.Find("UIDirector");
-        UIDirector uidScript = uid.GetComponent<UIDirector>();
-
-        tdScript.tileChangeMode = true;
+        gmScript.setTileChangeModeOn();
         var name = this.gameObject.name;
         Item item = uidScript.ItemDataBase.getItemByName(name);
         tdScript.newItemTile = item.tileBase;

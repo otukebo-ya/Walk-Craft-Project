@@ -685,6 +685,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 445128445}
+  - component: {fileID: 445128446}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -707,6 +708,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &445128446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445128444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c82a32af5b858a47a550132fc4e900c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &498658582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,7 +1052,6 @@ MonoBehaviour:
   effectMap: {fileID: 354380971}
   effect: {fileID: 11400000, guid: 6360698b2c8aec248bb7c169c43e6d42, type: 2}
   newItemTile: {fileID: 0}
-  tileChangeMode: 0
 --- !u!4 &680219703
 Transform:
   m_ObjectHideFlags: 0

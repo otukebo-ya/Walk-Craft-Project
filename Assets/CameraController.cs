@@ -18,12 +18,10 @@ public class CameraController : MonoBehaviour
         cantScrollTag.Clear();
         scrollable = true;
         if (Input.GetMouseButton(0)) {
-
-            touchPosition   = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
             isOnUIElement();
-            
-            //Debug.Log(hit2d.transform.gameObject.tag);
+
             if (scrollable) {
                 if(scrollStartPos.x == 0.0f){
 　　　　　　　　       // スクロール開始位置を取得
@@ -57,7 +55,7 @@ public class CameraController : MonoBehaviour
         EventSystem.current.RaycastAll(pointData, RayResult);
         foreach (RaycastResult result in RayResult)
         {
-            //中身の確認処理
+            // 中身の確認処理
             var tag = result.gameObject.tag;
 
             if (tag == "CantScroll")
