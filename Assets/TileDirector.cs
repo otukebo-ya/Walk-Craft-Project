@@ -45,7 +45,7 @@ public class TileDirector : MonoBehaviour
     void changeTile(Vector3 position, TileBase tile,Tilemap map)
     {
         Vector3Int grid = map.WorldToCell(position);
-
+        grid.z = 0;
         map.SetTile(grid, tile);
     }
 
