@@ -22,13 +22,16 @@ public class TileDirector : MonoBehaviour
 
     void Start()
     {
+        
         gm = GameObject.Find("GameManager");
         gmScript = gm.GetComponent<GameManager>();
         previousPosition = Vector3.zero;
+        
     }
 
     void Update()
     {
+        
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
