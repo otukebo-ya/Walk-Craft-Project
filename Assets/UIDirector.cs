@@ -36,7 +36,6 @@ public class UIDirector : MonoBehaviour
             itemButton.GetComponent<Image>().sprite = icon;
             TMP_Text buttonText = itemButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
-            Debug.Log("display: " + name);
         }
     }
 

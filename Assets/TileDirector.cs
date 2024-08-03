@@ -32,6 +32,7 @@ public class TileDirector : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            checkTile(mouse_position);
             emphasizeCrickedTile(mouse_position);
             if (gmScript.isTileChangeMode() && newItemTile != null)
             {
@@ -45,7 +46,7 @@ public class TileDirector : MonoBehaviour
     void changeTile(Vector3 position, TileBase tile,Tilemap map)
     {
         Vector3Int grid = map.WorldToCell(position);
-
+        grid.z = 0;
         map.SetTile(grid, tile);
     }
 
@@ -54,6 +55,20 @@ public class TileDirector : MonoBehaviour
         changeTile(previousPosition, null, effectMap);
         changeTile(currentPosition, effect, effectMap);
         previousPosition = currentPosition;
+    }
+
+    void checkTile(Vector3 position)
+    {
+        Vector3Int grid1 = groundMap.WorldToCell(position);
+        Vector3Int grid2 = itemMap.WorldToCell(position);
+        Vector3Int grid3 = effectMap.WorldToCell(position);
+        TileBase clickedGroundTile = groundMap.GetTile(grid1);
+        TileBase clickedItemTile = itemMap.GetTile(grid2);
+        TileBase clickedEffectTile = effectMap.GetTile(grid3);
+        //Debug.Log("g" + clickedGroundTile);
+        Debug.Log("I" + clickedItemTile);
+        Debug.Log("E" + clickedEffectTile);
+        Debug.Log(grid1);
     }
 
 }
