@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6380815923200169297}
   - component: {fileID: 3400840377155884772}
   - component: {fileID: 5449550030084083417}
-  - component: {fileID: 1004239666938527538}
+  - component: {fileID: 1819401277733531612}
   m_Layer: 5
   m_Name: ItemButton
   m_TagString: Untagged
@@ -256,9 +256,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1004239666938527538}
-        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
-        m_MethodName: onDisplayButtonClick
+      - m_Target: {fileID: 1819401277733531612}
+        m_TargetAssemblyTypeName: ItemButton, Assembly-CSharp
+        m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -268,7 +268,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1004239666938527538
+--- !u!114 &1819401277733531612
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,9 +277,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5021904271498158596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c7e5543963134c43b3bfa3c69a87799, type: 3}
+  m_Script: {fileID: 11500000, guid: d35203daff072924ab84ad3502a241be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _on: {fileID: 0}
   _off: {fileID: 0}
-  visibilityChangeTarget: {fileID: 0}

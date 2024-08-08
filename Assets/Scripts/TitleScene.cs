@@ -16,7 +16,6 @@ public class TitleScene : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("clicked!");
             moveTownScene();
         }
     }

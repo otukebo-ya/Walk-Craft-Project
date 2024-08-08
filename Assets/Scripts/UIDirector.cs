@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class UIDirector : MonoBehaviour
+
+public class UIDirector : TownSceneInitializer
 {
     [SerializeField] GameObject DisplayWindow;
 
@@ -36,7 +37,6 @@ public class UIDirector : MonoBehaviour
             itemButton.GetComponent<Image>().sprite = icon;
             TMP_Text buttonText = itemButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
-            Debug.Log("display: " + name);
         }
     }
 

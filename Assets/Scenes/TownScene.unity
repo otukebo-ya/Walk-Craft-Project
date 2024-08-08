@@ -512,9 +512,10 @@ GameObject:
   - component: {fileID: 568911370}
   - component: {fileID: 568911369}
   - component: {fileID: 568911368}
+  - component: {fileID: 568911371}
   m_Layer: 5
   m_Name: ItemWindow
-  m_TagString: Untagged
+  m_TagString: CantScroll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -609,6 +610,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568911366}
   m_CullTransparentMesh: 1
+--- !u!65 &568911371
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568911366}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 600, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1099,7 @@ GameObject:
   - component: {fileID: 991465739}
   - component: {fileID: 991465738}
   - component: {fileID: 991465737}
-  - component: {fileID: 991465736}
+  - component: {fileID: 991465740}
   m_Layer: 0
   m_Name: DisplayButton
   m_TagString: CantScroll
@@ -1104,21 +1126,6 @@ RectTransform:
   m_AnchoredPosition: {x: -150, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &991465736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 991465734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c7e5543963134c43b3bfa3c69a87799, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _on: {fileID: 21300000, guid: bf94cf4116a48e94093f6162ec838595, type: 3}
-  _off: {fileID: 21300000, guid: 76b31fc6928293645a9bd01e8e3f0217, type: 3}
-  visibilityChangeTarget: {fileID: 568911366}
 --- !u!114 &991465737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1163,7 +1170,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 991465736}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
         m_MethodName: changeImage
         m_Mode: 1
@@ -1213,6 +1220,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991465734}
   m_CullTransparentMesh: 1
+--- !u!114 &991465740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991465734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71aad7b0ac547204bb70b3f3a798a551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _on: {fileID: 21300000, guid: 76b31fc6928293645a9bd01e8e3f0217, type: 3}
+  _off: {fileID: 21300000, guid: bf94cf4116a48e94093f6162ec838595, type: 3}
+  visibilityChangeTarget: {fileID: 568911366}
 --- !u!1 &1112569862
 GameObject:
   m_ObjectHideFlags: 0

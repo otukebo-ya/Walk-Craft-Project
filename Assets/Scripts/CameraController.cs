@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     private Vector3 touchPosition   =   new Vector3(); // タッチポジション初期化
     private List<string> cantScrollTag = new List<string>();
     private bool scrollable = true;
+    private bool scrolled = true;
 
     // Update is called once per frame
     void Update () {
@@ -24,11 +25,13 @@ public class CameraController : MonoBehaviour
 
             if (scrollable) {
                 if(scrollStartPos.x == 0.0f){
-　　　　　　　　       // スクロール開始位置を取得
+                    scrolled = false;
+                    // スクロール開始位置を取得
                     scrollStartPos   = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 }else{
                     Vector3 touchMovePos = touchPosition;
                     if(scrollStartPos != touchMovePos){
+                        scrolled = true;
                         // 直前のタッチ位置との差を取得する
                         Vector3 diffPos   =   SCROLL_DISTANCE_CORRECTION * (touchMovePos - scrollStartPos);
 
@@ -44,7 +47,6 @@ public class CameraController : MonoBehaviour
             // タッチを離したらフラグを落とし、スクロール開始位置も初期化する 
             scrollStartPos  =   new Vector2();
         }
-
     }
 
     private void isOnUIElement()
@@ -66,12 +68,17 @@ public class CameraController : MonoBehaviour
 
         if (cantScrollTag.Count != 0)
         {
-            scrollable = false;
+            changeScrollable(false);
         }
     }
 
     public void changeScrollable(bool change)
     {
         scrollable = change;
+    }
+
+    public bool checkScrolled()
+    {
+        return scrolled;
     }
 }
