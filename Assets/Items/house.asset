@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: house
   m_EditorClassIdentifier: 
   ItemType: 0
-  Sprite: {fileID: 21300000, guid: 9678efc71e925d1498d441c64c3aa2f1, type: 3}
   Name: house
   TileBase: {fileID: 11400000, guid: ac34355c43f09a345a111f180d3c5fe9, type: 2}
+  ActiveImage: {fileID: 21300000, guid: 9678efc71e925d1498d441c64c3aa2f1, type: 3}
+  InacriveImage: {fileID: 21300000, guid: 827678aae36edd64ca8f97191b5856e5, type: 3}
