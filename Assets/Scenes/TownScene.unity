@@ -1276,8 +1276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71aad7b0ac547204bb70b3f3a798a551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _on: {fileID: 21300000, guid: 76b31fc6928293645a9bd01e8e3f0217, type: 3}
-  _off: {fileID: 21300000, guid: bf94cf4116a48e94093f6162ec838595, type: 3}
+  Active: {fileID: 21300000, guid: 76b31fc6928293645a9bd01e8e3f0217, type: 3}
+  Inactive: {fileID: 21300000, guid: bf94cf4116a48e94093f6162ec838595, type: 3}
   _visibilityChangeTarget: {fileID: 568911366}
 --- !u!1 &1112569862
 GameObject:
