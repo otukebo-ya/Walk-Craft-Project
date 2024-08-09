@@ -9,7 +9,7 @@ public class ItemDataBase : ScriptableObject
 {
     public List<Item> items = new List<Item>();
 
-    public Item getItemByName(string name)
+    public Item GetItemByName(string name)
     {
         foreach (var item in items)
         {

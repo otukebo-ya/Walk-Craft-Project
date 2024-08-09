@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class DisplayButton : Button
 {
-    [SerializeField] GameObject visibilityChangeTarget;
-    public override void changeImage()
+    [SerializeField] GameObject _visibilityChangeTarget;
+    public override void OnClick()
     {
-        base.changeImage();
+        base.OnClick();
+        DisplayItemWindow();
+    }
 
+    public void DisplayItemWindow()
+    {
         // 表示する場合はactiveにしてから子要素を作成
-        if (flg)
+        if (_flg)
         {
-            uidScript.switchVisibility(flg, visibilityChangeTarget);
-            uidScript.displayItemWindow();
+            uidScript.SwitchVisibility(_flg, _visibilityChangeTarget);
+            uidScript.DisplayItemWindow();
         }
+
         // 非表示にする場合、windowがacriveのうちに子要素を消去
         else
         {
-            uidScript.destroyItemWindow();
-            uidScript.switchVisibility(flg, visibilityChangeTarget);
+            uidScript.DestroyItemWindow();
+            uidScript.SwitchVisibility(_flg, _visibilityChangeTarget);
         }
     }
 }

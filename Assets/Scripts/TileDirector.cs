@@ -8,13 +8,13 @@ using UnityEngine.Tilemaps;
 public class TileDirector : TownSceneInitializer
 {
     // タイルを配置する先のgrid
-    public Tilemap groundMap;
-    public Tilemap itemMap;
-    public Tilemap effectMap;
-    public TileBase effect;
-    public TileBase newItemTile = null;
-    private Vector3Int previousPosition;
-    private Vector3Int currentPosition;
+    public Tilemap GroundMap;
+    public Tilemap ItemMap;
+    public Tilemap EffectMap;
+    public TileBase Effect;
+    public TileBase NewItemTile = null;
+    private Vector3 _previousPosition;
+    private Vector3 _currentPosition;
 
     void Start()
     {
@@ -25,36 +25,41 @@ public class TileDirector : TownSceneInitializer
     {
         if (Input.GetMouseButton(0))
         {
-            Vector3 mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int grid = itemMap.WorldToCell(mouse_position);
-            grid.z = 0;
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            emphasizeCrickedTile(grid);
-
-            if (gmScript.isTileChangeMode() && newItemTile != null)
+            if (gmScript.IsTileChangeMode() && NewItemTile != null)
             {
                 // 配置するか確認する処理
-                changeTile(grid, newItemTile, itemMap);
-                gmScript.setTileChangeModeOff();
+                ChangeTile(mousePosition, NewItemTile, ItemMap);
+                gmScript.SetTileChangeModeOff();
             }
 
             // タイルがある場合、消すかを問う
-            if (itemMap.GetTile(grid))
+            if (ItemMap.GetTile(ConvertVec3Int(mousePosition)))
             {
-                //Debug.Log(itemMap.GetTile(grid));
+
             }
         }
     }
 
-    void changeTile(Vector3Int grid, TileBase tile,Tilemap map)
+    void ChangeTile(Vector3 position, TileBase tile,Tilemap map)
     {
+        Vector3Int grid = ConvertVec3Int(position);
         map.SetTile(grid, tile);
     }
 
-    void emphasizeCrickedTile(Vector3Int currentPosition)
+    public void EmphasizeCrickedTile(Vector3 _currentPosition)
     {
-        changeTile(previousPosition, null, effectMap);
-        changeTile(currentPosition, effect, effectMap);
-        previousPosition = currentPosition;
+        ChangeTile(_previousPosition, null, EffectMap);
+        ChangeTile(_currentPosition, Effect, EffectMap);
+        _previousPosition = _currentPosition;
+    }
+
+    private Vector3Int ConvertVec3Int(Vector3 position)
+    {
+        Vector3Int grid = ItemMap.WorldToCell(position);
+        grid.z = 0;
+
+        return grid;
     }
 }

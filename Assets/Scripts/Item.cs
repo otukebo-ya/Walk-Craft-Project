@@ -14,35 +14,35 @@ public class Item : ScriptableObject
         //KeyItem,
     }
 
-    public Type type; // Ží—Þ
-    public Sprite sprite;// ‰æ‘œ
-    public string name;
-    public TileBase tileBase;
+    public Type ItemType; // Ží—Þ
+    public Sprite Sprite;// ‰æ‘œ
+    public string Name;
+    public TileBase TileBase;
 
     
 
     public Item(Item item)
     {
-        this.type = item.type;
+        this.ItemType = item.ItemType;
         
     }
-    public Type getType()
+    public Type GetType()
     {
-        return type;
+        return ItemType;
     }
 
-    public Sprite getIcon()
+    public Sprite GetIcon()
     {
-        return sprite;
+        return Sprite;
     }
 
-    public string getName()
+    public string GetName()
     {
-        return name;
+        return Name;
     }
 
     public TileBase GetTile()
     {
-        return tileBase;
+        return TileBase;
     }
 }

@@ -6,7 +6,7 @@ using TMPro;
 
 public class UIDirector : TownSceneInitializer
 {
-    [SerializeField] GameObject DisplayWindow;
+    [SerializeField] GameObject _displayWindow;
 
     public ItemDataBase ItemDataBase;
     public GameObject ItemButton;
@@ -14,22 +14,22 @@ public class UIDirector : TownSceneInitializer
     // Start is called before the first frame update
     void Start()
     {
-        DisplayWindow.SetActive(false);
+        _displayWindow.SetActive(false);
     }
 
     // 与えられたゲームオブジェクトの表示非表示を切り替える
-    public void switchVisibility(bool visible, GameObject gameObject)
+    public void SwitchVisibility(bool visible, GameObject gameObject)
     {
         gameObject.SetActive(visible);
     }
 
-    public void displayItemWindow()
+    public void DisplayItemWindow()
     {
         GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
         foreach (Item item in ItemDataBase.items)
         {
-            var icon = item.getIcon();
-            string name = item.getName();
+            var icon = item.GetIcon();
+            string name = item.GetName();
             GameObject itemButton = Instantiate(ItemButton);
 
             itemButton.transform.parent = content.transform;
@@ -40,7 +40,7 @@ public class UIDirector : TownSceneInitializer
         }
     }
 
-    public void destroyItemWindow()
+    public void DestroyItemWindow()
     {
         GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
         if (content == null || content.transform == null)
