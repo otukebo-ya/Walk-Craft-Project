@@ -2,15 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+    View,
+    ItemWindow,
+    Place,
+    Shop,
+}
+
+
 public class GameManager : TownSceneInitializer
 {
+    private GameState _currentGameState;
 
+    private bool _tileChangeMode;
 
-    private bool tileChangeMode;
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        tileChangeMode = false;
+        SetCurrentState(GameState.View);
+        //tileChangeMode = false;
     }
 
     // Update is called once per frame
@@ -19,17 +29,29 @@ public class GameManager : TownSceneInitializer
         
     }
 
-    // タイルチェンジモード
-    public bool isTileChangeMode() {
-        return tileChangeMode;
-    }
-
-    public void setTileChangeModeOn() {
-        tileChangeMode = true;
-    }
-
-    public void setTileChangeModeOff()
+    public void SetCurrentState(GameState state)
     {
-        tileChangeMode = false;
+        _currentGameState = state;
+        //OnGameStateChanged(currentGameState);
+    }
+
+    public GameState CheckGameState()
+    {
+        return _currentGameState;
+    }
+
+    public void SetTileChangeModeOn()
+    {
+        _tileChangeMode = true;
+    }
+
+    public void SetTileChangeModeOff()
+    {
+        _tileChangeMode = false;
+    }
+
+    public bool IsTileChangeMode()
+    {
+        return _tileChangeMode;
     }
 }

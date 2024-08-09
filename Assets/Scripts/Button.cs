@@ -7,24 +7,24 @@ public class Button : TownSceneInitializer
 {
 
     [SerializeField] protected Sprite _on;
-    public Sprite _off;
-    protected bool flg = false;
+    [SerializeField] protected Sprite _off;
+    protected bool _flg = false;
 
     void Start()
     {
         
     }
 
-    public virtual void onClick()
+    public virtual void OnClick()
     {
-        changeImage();
+        ChangeImage();
     }
 
-    public virtual void changeImage()
+    public virtual void ChangeImage()
     {
-        flg = !flg;
+        _flg = !_flg;
         var img = GetComponent<Image>();
-        img.sprite = (flg) ? _on : _off;
+        img.sprite = (_flg) ? _on : _off;
 
     }
 }

@@ -16,12 +16,12 @@ public class TitleScene : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            moveTownScene();
+            MoveTownScene();
         }
     }
 
     // ƒV[ƒ“‚ğTownScene‚ÉØ‚è‘Ö‚¦
-    private void moveTownScene() {
+    private void MoveTownScene() {
         Debug.Log("ToTownScene!");
         SceneManager.LoadScene("TownScene");
     }
