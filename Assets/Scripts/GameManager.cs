@@ -11,10 +11,27 @@ public enum GameState
 }
 
 
-public class GameManager : TownSceneInitializer
+public class GameManager : MonoBehaviour
 {
-    private GameState _currentGameState;
+    // ƒVƒ“ƒOƒ‹ƒgƒ“
+    private static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (null == _instance)
+            {
+                _instance = (GameManager)FindObjectOfType(typeof(GameManager));
+                if (null == _instance)
+                {
+                    Debug.Log("GameManager Instance Error");
+                }
+            }
+            return _instance;
+        }
+    }
 
+    private GameState _currentGameState;
     private bool _tileChangeMode;
 
     void Awake()

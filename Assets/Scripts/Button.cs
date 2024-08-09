@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Button : TownSceneInitializer
+public class Button : MonoBehaviour
 {
-
-    [SerializeField] protected Sprite _on;
-    [SerializeField] protected Sprite _off;
+    // _on‚Í’ÊíA_off‚ÍÀs’†
+    public Sprite Active;
+    public Sprite Inactive;
     protected bool _flg = false;
 
     void Start()
@@ -24,7 +24,6 @@ public class Button : TownSceneInitializer
     {
         _flg = !_flg;
         var img = GetComponent<Image>();
-        img.sprite = (_flg) ? _on : _off;
-
+        img.sprite = (_flg) ? Active : Inactive;
     }
 }

@@ -15,11 +15,12 @@ public class Item : ScriptableObject
     }
 
     public Type ItemType; // Ží—Þ
-    public Sprite Sprite;// ‰æ‘œ
     public string Name;
     public TileBase TileBase;
+    public Sprite ActiveImage;
+    public Sprite InacriveImage;
 
-    
+
 
     public Item(Item item)
     {
@@ -31,9 +32,10 @@ public class Item : ScriptableObject
         return ItemType;
     }
 
-    public Sprite GetIcon()
+    public Sprite [] GetIcon()
     {
-        return Sprite;
+        Sprite[] icons = { ActiveImage, InacriveImage };
+        return icons;
     }
 
     public string GetName()

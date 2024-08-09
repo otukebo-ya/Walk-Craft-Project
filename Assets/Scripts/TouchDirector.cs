@@ -4,8 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class TouchDirector : TownSceneInitializer
+public class TouchDirector : MonoBehaviour
 {
+    // シングルトン
+    private static TouchDirector _instance;
+    public static TouchDirector Instance
+    {
+        get
+        {
+            if (null == _instance)
+            {
+                _instance = (TouchDirector)FindObjectOfType(typeof(TouchDirector));
+                if (null == _instance)
+                {
+                    Debug.Log("TouchDirector Instance Error");
+                }
+            }
+            return _instance;
+        }
+    }
+
     private Vector3 _scrollStartPos = new Vector3(); // スクロールの起点となるタッチポジション
     private Vector3 _sceenPosition = new Vector3();
     private static float SCROLL_DISTANCE_CORRECTION = 0.8f; // スクロール距離の調整
@@ -32,7 +50,7 @@ public class TouchDirector : TownSceneInitializer
 
             ChangeScrollable(IsScrollable(rayCastResults));
 
-            tdScript.EmphasizeCrickedTile(_sceenPosition);
+            TileDirector.Instance.EmphasizeCrickedTile(_sceenPosition);
 
             // スクロール可能ならスクロール処理を行う。
             if (_scrollable) Scroll();
@@ -72,11 +90,11 @@ public class TouchDirector : TownSceneInitializer
 
         if (_cantScrollTag.Count != 0)
         {
-            isScrollable = true;
+            isScrollable = false;
         }
         else
         {
-            isScrollable = false;
+            isScrollable = true;
         }
 
         return isScrollable;
@@ -99,7 +117,7 @@ public class TouchDirector : TownSceneInitializer
                 _scrolled = true;
                 // 直前のタッチ位置との差を取得する
                 Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
-                ccScript.CamPosMove(diffPos);
+                CameraController.Instance.CamPosMove(diffPos);
                 _scrollStartPos = touchMovePos;
             }
         }
