@@ -5,8 +5,26 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
 
-public class TileDirector : TownSceneInitializer
+public class TileDirector : MonoBehaviour
 {
+    // シングルトン
+    private static TileDirector _instance;
+    public static TileDirector Instance
+    {
+        get
+        {
+            if (null == _instance)
+            {
+                _instance = (TileDirector)FindObjectOfType(typeof(TileDirector));
+                if (null == _instance)
+                {
+                    Debug.Log("TileDirector Instance Error");
+                }
+            }
+            return _instance;
+        }
+    }
+
     // タイルを配置する先のgrid
     public Tilemap GroundMap;
     public Tilemap ItemMap;
@@ -16,22 +34,17 @@ public class TileDirector : TownSceneInitializer
     private Vector3 _previousPosition;
     private Vector3 _currentPosition;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         if (Input.GetMouseButton(0))
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (gmScript.IsTileChangeMode() && NewItemTile != null)
+            if (GameManager.Instance.IsTileChangeMode() && NewItemTile != null)
             {
                 // 配置するか確認する処理
                 ChangeTile(mousePosition, NewItemTile, ItemMap);
-                gmScript.SetTileChangeModeOff();
+                GameManager.Instance.SetTileChangeModeOff();
             }
 
             // タイルがある場合、消すかを問う

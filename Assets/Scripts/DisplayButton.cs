@@ -16,15 +16,15 @@ public class DisplayButton : Button
         // 表示する場合はactiveにしてから子要素を作成
         if (_flg)
         {
-            uidScript.SwitchVisibility(_flg, _visibilityChangeTarget);
-            uidScript.DisplayItemWindow();
+            UIDirector.Instance.SwitchVisibility(_flg, _visibilityChangeTarget);
+            UIDirector.Instance.DisplayItemWindow();
         }
 
         // 非表示にする場合、windowがacriveのうちに子要素を消去
         else
         {
-            uidScript.DestroyItemWindow();
-            uidScript.SwitchVisibility(_flg, _visibilityChangeTarget);
+            UIDirector.Instance.DestroyItemWindow();
+            UIDirector.Instance.SwitchVisibility(_flg, _visibilityChangeTarget);
         }
     }
 }

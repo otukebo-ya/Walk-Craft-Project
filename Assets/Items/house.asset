@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c83502a72205c4ca4fd55c74f50378, type: 3}
   m_Name: house
   m_EditorClassIdentifier: 
-  type: 0
-  sprite: {fileID: 21300000, guid: 9678efc71e925d1498d441c64c3aa2f1, type: 3}
-  name: house
-  tileBase: {fileID: 11400000, guid: ac34355c43f09a345a111f180d3c5fe9, type: 2}
+  ItemType: 0
+  Sprite: {fileID: 21300000, guid: 9678efc71e925d1498d441c64c3aa2f1, type: 3}
+  Name: house
+  TileBase: {fileID: 11400000, guid: ac34355c43f09a345a111f180d3c5fe9, type: 2}

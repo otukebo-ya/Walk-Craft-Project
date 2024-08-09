@@ -9,9 +9,9 @@ public class ItemButton : Button
         // ここでボタンの見た目も変化させる
 
         // タイルチェンジモードに切り替えする
-        gmScript.SetTileChangeModeOn();
+        GameManager.Instance.SetTileChangeModeOn();
         var name = this.gameObject.name;
-        Item item = uidScript.ItemDataBase.GetItemByName(name);
-        tdScript.NewItemTile = item.TileBase;
+        Item item = UIDirector.Instance.ItemDataBase.GetItemByName(name);
+        TileDirector.Instance.NewItemTile = item.TileBase;
     }
 }
