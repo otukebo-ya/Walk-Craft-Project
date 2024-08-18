@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c83502a72205c4ca4fd55c74f50378, type: 3}
   m_Name: house
   m_EditorClassIdentifier: 
-  ItemType: 0
-  Name: house
-  TileBase: {fileID: 11400000, guid: ac34355c43f09a345a111f180d3c5fe9, type: 2}
-  ActiveImage: {fileID: 21300000, guid: 9678efc71e925d1498d441c64c3aa2f1, type: 3}
-  InacriveImage: {fileID: 21300000, guid: 827678aae36edd64ca8f97191b5856e5, type: 3}
+  _itemType: 0
+  _name: house
+  _tile: {fileID: 11400000, guid: ac34355c43f09a345a111f180d3c5fe9, type: 2}
+  _activeImage: {fileID: 21300000, guid: b2fbf00de78ea6e4d8f49905106ee608, type: 3}
+  _inactiveImage: {fileID: 21300000, guid: bf94cf4116a48e94093f6162ec838595, type: 3}

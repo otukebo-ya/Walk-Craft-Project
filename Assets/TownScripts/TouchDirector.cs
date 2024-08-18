@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class TouchDirector : MonoBehaviour
 {
-    // ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     private static TouchDirector _instance;
     public static TouchDirector Instance
     {
@@ -24,45 +24,50 @@ public class TouchDirector : MonoBehaviour
         }
     }
 
-    private Vector3 _scrollStartPos = new Vector3(); // ƒXƒNƒ[ƒ‹‚Ì‹N“_‚Æ‚È‚éƒ^ƒbƒ`ƒ|ƒWƒVƒ‡ƒ“
+    private Vector3 _scrollStartPos = new Vector3(); // ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã®èµ·ç‚¹ã¨ãªã‚‹ã‚¿ãƒƒãƒãƒã‚¸ã‚·ãƒ§ãƒ³
     private Vector3 _sceenPosition = new Vector3();
-    private static float SCROLL_DISTANCE_CORRECTION = 0.8f; // ƒXƒNƒ[ƒ‹‹——£‚Ì’²®
+    private static float SCROLL_DISTANCE_CORRECTION = 0.8f; // ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«è·é›¢ã®èª¿æ•´
 
     private List<string> _cantScrollTag = new List<string>();
-    private bool _scrollable = true;
     private bool _scrolled = true;
+
+    public bool Scrollable { get; set; }
+
+    void Awake() {
+        this.Scrollable = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        // ’†g‚Ì‰Šú‰»
+        // ä¸­èº«ã®åˆæœŸåŒ–
         _cantScrollTag.Clear();
-        _scrollable = true;
+        this.Scrollable = true;
 
         if (Input.GetMouseButton(0))
         {
-            // ƒ^ƒbƒ`‘€ì‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğæ“¾
+            // ã‚¿ãƒƒãƒæ“ä½œã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’å–å¾—
             var touchPosition = Input.mousePosition;
             _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
 
-            // ƒŒƒCƒLƒƒƒXƒg‚µAƒ^ƒbƒ`‚µ‚½êŠ‚É‚ ‚éƒIƒuƒWƒFƒNƒg‚ğ‚©‚­‚É‚ñ
+            // ãƒ¬ã‚¤ã‚­ãƒ£ã‚¹ãƒˆã—ã€ã‚¿ãƒƒãƒã—ãŸå ´æ‰€ã«ã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‹ãã«ã‚“
             var rayCastResults = RayCast(touchPosition);
 
             ChangeScrollable(IsScrollable(rayCastResults));
 
             TileDirector.Instance.EmphasizeCrickedTile(_sceenPosition);
 
-            // ƒXƒNƒ[ƒ‹‰Â”\‚È‚çƒXƒNƒ[ƒ‹ˆ—‚ğs‚¤B
-            if (_scrollable) Scroll();
+            // ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãªã‚‰ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å‡¦ç†ã‚’è¡Œã†ã€‚
+            if (this.Scrollable) Scroll();
         }
         else
         {
-            // ƒ^ƒbƒ`‚ğ—£‚µ‚½‚çƒXƒNƒ[ƒ‹ŠJnˆÊ’u‚ğ‰Šú‰»‚·‚é 
+            // ã‚¿ãƒƒãƒã‚’é›¢ã—ãŸã‚‰ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é–‹å§‹ä½ç½®ã‚’åˆæœŸåŒ–ã™ã‚‹ 
             _scrollStartPos = new Vector3();
         }
     }
 
-    // ƒŒƒCƒLƒƒƒXƒg‚ğ“Š‚°‚ÄAŒ‹‰Ê‚ğ•Ô‚·
+    // ãƒ¬ã‚¤ã‚­ãƒ£ã‚¹ãƒˆã‚’æŠ•ã’ã¦ã€çµæœã‚’è¿”ã™
     public List<RaycastResult> RayCast(Vector3 position)
     {
         PointerEventData pointData = new PointerEventData(EventSystem.current);
@@ -73,13 +78,13 @@ public class TouchDirector : MonoBehaviour
         return rayResults;
     }
 
-    // ƒŒƒCƒLƒƒƒXƒgŒ‹‰Ê‚Ìƒ^ƒO‚ğŠm”F‚µAƒXƒNƒ[ƒ‹‰Â”\‚©‚ğ•Ô‚·
+    // ãƒ¬ã‚¤ã‚­ãƒ£ã‚¹ãƒˆçµæœã®ã‚¿ã‚°ã‚’ç¢ºèªã—ã€ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ã‹ã‚’è¿”ã™
     private bool IsScrollable(List<RaycastResult> rayResults)
     {
         bool isScrollable;
         foreach (RaycastResult result in rayResults)
         {
-            // ’†g‚ÌŠm”Fˆ—
+            // ä¸­èº«ã®ç¢ºèªå‡¦ç†
             var tag = result.gameObject.tag;
 
             if (tag == "CantScroll")
@@ -100,13 +105,13 @@ public class TouchDirector : MonoBehaviour
         return isScrollable;
     }
 
-    // ƒXƒNƒ[ƒ‹î•ñ‚ğæ“¾‚µACamera‚ÌˆÊ’u‚ğˆÚ“®‚³‚¹‚é
+    // ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«æƒ…å ±ã‚’å–å¾—ã—ã€Cameraã®ä½ç½®ã‚’ç§»å‹•ã•ã›ã‚‹
     private void Scroll()
     {
         if (_scrollStartPos.x == 0.0f)
         {
             _scrolled = false;
-            // ƒXƒNƒ[ƒ‹ŠJnˆÊ’u‚ğæ“¾
+            // ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é–‹å§‹ä½ç½®ã‚’å–å¾—
             _scrollStartPos = _sceenPosition;
         }
         else
@@ -115,7 +120,7 @@ public class TouchDirector : MonoBehaviour
             if (_scrollStartPos != touchMovePos)
             {
                 _scrolled = true;
-                // ’¼‘O‚Ìƒ^ƒbƒ`ˆÊ’u‚Æ‚Ì·‚ğæ“¾‚·‚é
+                // ç›´å‰ã®ã‚¿ãƒƒãƒä½ç½®ã¨ã®å·®ã‚’å–å¾—ã™ã‚‹
                 Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
                 CameraController.Instance.CamPosMove(diffPos);
                 _scrollStartPos = touchMovePos;
@@ -125,11 +130,6 @@ public class TouchDirector : MonoBehaviour
 
     public void ChangeScrollable(bool change)
     {
-        _scrollable = change;
-    }
-
-    public bool CheckScrolled()
-    {
-        return _scrolled;
+        this.Scrollable = change;
     }
 }
