@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    // ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -32,12 +32,26 @@ public class GameManager : MonoBehaviour
     }
 
     private GameState _currentGameState;
-    private bool _tileChangeMode;
+
+    public bool TileChangeMode{ get; set; }
+
+    public GameState CurrentGameState {
+        get
+        {
+            return this._currentGameState;
+        }
+        set
+        { 
+            this._currentGameState = value;
+            // OnGameStateChanged(currentGameState);
+        }
+    }
+
 
     void Awake()
     {
-        SetCurrentState(GameState.View);
-        //tileChangeMode = false;
+        this.CurrentGameState = GameState.View;
+        TileChangeMode = false;
     }
 
     // Update is called once per frame
@@ -46,29 +60,8 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SetCurrentState(GameState state)
+    private void OnGameStateChanged(GameState state)
     {
-        _currentGameState = state;
-        //OnGameStateChanged(currentGameState);
-    }
 
-    public GameState CheckGameState()
-    {
-        return _currentGameState;
-    }
-
-    public void SetTileChangeModeOn()
-    {
-        _tileChangeMode = true;
-    }
-
-    public void SetTileChangeModeOff()
-    {
-        _tileChangeMode = false;
-    }
-
-    public bool IsTileChangeMode()
-    {
-        return _tileChangeMode;
     }
 }

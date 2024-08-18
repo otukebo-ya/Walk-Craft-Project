@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class TileDirector : MonoBehaviour
 {
-    // ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     private static TileDirector _instance;
     public static TileDirector Instance
     {
@@ -25,7 +25,7 @@ public class TileDirector : MonoBehaviour
         }
     }
 
-    // ƒ^ƒCƒ‹‚ğ”z’u‚·‚éæ‚Ìgrid
+    // ã‚¿ã‚¤ãƒ«ã‚’é…ç½®ã™ã‚‹å…ˆã®grid
     public Tilemap GroundMap;
     public Tilemap ItemMap;
     public Tilemap EffectMap;
@@ -40,14 +40,14 @@ public class TileDirector : MonoBehaviour
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (GameManager.Instance.IsTileChangeMode() && NewItemTile != null)
+            if (GameManager.Instance.TileChangeMode && NewItemTile != null)
             {
-                // ”z’u‚·‚é‚©Šm”F‚·‚éˆ—
+                // é…ç½®ã™ã‚‹ã‹ç¢ºèªã™ã‚‹å‡¦ç†
                 ChangeTile(mousePosition, NewItemTile, ItemMap);
-                GameManager.Instance.SetTileChangeModeOff();
+                GameManager.Instance.TileChangeMode = false;
             }
 
-            // ƒ^ƒCƒ‹‚ª‚ ‚éê‡AÁ‚·‚©‚ğ–â‚¤
+            // ã‚¿ã‚¤ãƒ«ãŒã‚ã‚‹å ´åˆã€æ¶ˆã™ã‹ã‚’å•ã†
             if (ItemMap.GetTile(ConvertVec3Int(mousePosition)))
             {
 

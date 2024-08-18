@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +13,7 @@ public class ItemDataBase : ScriptableObject
     {
         foreach (var item in items)
         {
-            if (item.name == name)
+            if (item.Name == name)
             {
                 return item; 
             }

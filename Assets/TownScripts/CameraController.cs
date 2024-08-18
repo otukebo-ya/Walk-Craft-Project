@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
-    // ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     private static CameraController _instance;
     public static CameraController Instance
     {
@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
         
     }
 
-    // ƒJƒƒ‰‚ÌˆÊ’u‚ğ•ÏX‚·‚é
+    // ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’å¤‰æ›´ã™ã‚‹
     public void CamPosMove(Vector3 difference)
     {
         Vector3 pos = this.transform.position;

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,7 +20,7 @@ public class TitleScene : MonoBehaviour
         }
     }
 
-    // ƒV[ƒ“‚ğTownScene‚ÉØ‚è‘Ö‚¦
+    // ã‚·ãƒ¼ãƒ³ã‚’TownSceneã«åˆ‡ã‚Šæ›¿ãˆ
     private void MoveTownScene() {
         Debug.Log("ToTownScene!");
         SceneManager.LoadScene("TownScene");

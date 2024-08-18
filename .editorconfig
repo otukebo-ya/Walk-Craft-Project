@@ -1,0 +1,6 @@
+root = true
+
+[*.cs]
+charset = utr-8-bom
+
+[EOF]

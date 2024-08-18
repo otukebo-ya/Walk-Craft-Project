@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,20 +7,20 @@ public class DisplayButton : Button
     [SerializeField] GameObject _visibilityChangeTarget;
     public override void OnClick()
     {
-        base.OnClick();
         DisplayItemWindow();
+        base.OnClick();
     }
 
     public void DisplayItemWindow()
     {
-        // •\¦‚·‚éê‡‚Íactive‚É‚µ‚Ä‚©‚çq—v‘f‚ğì¬
+        // è¡¨ç¤ºã™ã‚‹å ´åˆã¯activeã«ã—ã¦ã‹ã‚‰å­è¦ç´ ã‚’ä½œæˆ
         if (_flg)
         {
             UIDirector.Instance.SwitchVisibility(_flg, _visibilityChangeTarget);
             UIDirector.Instance.DisplayItemWindow();
         }
 
-        // ”ñ•\¦‚É‚·‚éê‡Awindow‚ªacrive‚Ì‚¤‚¿‚Éq—v‘f‚ğÁ‹
+        // éè¡¨ç¤ºã«ã™ã‚‹å ´åˆã€windowãŒacriveã®ã†ã¡ã«å­è¦ç´ ã‚’æ¶ˆå»
         else
         {
             UIDirector.Instance.DestroyItemWindow();

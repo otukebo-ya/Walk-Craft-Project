@@ -1,12 +1,13 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Tilemaps;
 
 public class UIDirector : MonoBehaviour
 {
-    // ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     private static UIDirector _instance;
     public static UIDirector Instance
     {
@@ -35,7 +36,7 @@ public class UIDirector : MonoBehaviour
         _displayWindow.SetActive(false);
     }
 
-    // —^‚¦‚ç‚ê‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì•\¦”ñ•\¦‚ğØ‚è‘Ö‚¦‚é
+    // ä¸ãˆã‚‰ã‚ŒãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¡¨ç¤ºéè¡¨ç¤ºã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
     public void SwitchVisibility(bool visible, GameObject gameObject)
     {
         gameObject.SetActive(visible);
@@ -46,8 +47,8 @@ public class UIDirector : MonoBehaviour
         GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
         foreach (Item item in ItemDataBase.items)
         {
-            Sprite[] icon = item.GetIcon();
-            string name = item.GetName();
+            Sprite[] icon = item.Icons;
+            string name = item.Name;
             GameObject itemButton = Instantiate(ItemButton);
 
             itemButton.transform.parent = content.transform;
@@ -55,6 +56,7 @@ public class UIDirector : MonoBehaviour
             itemButton.GetComponent<Image>().sprite = icon[0];
             itemButton.GetComponent<ItemButton>().Active = icon[0];
             itemButton.GetComponent<ItemButton>().Inactive = icon[1];
+            itemButton.GetComponent<ItemButton>().Tile = item.Tile;
             TMP_Text buttonText = itemButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
             
