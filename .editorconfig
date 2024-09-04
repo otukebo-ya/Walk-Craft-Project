@@ -1,6 +1,3 @@
 root = true
-
-[*.cs]
-charset = utr-8-bom
-
-[EOF]
+[*.{cs}]
+charset = utf-8-bom

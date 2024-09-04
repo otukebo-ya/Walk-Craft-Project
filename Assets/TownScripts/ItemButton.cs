@@ -12,8 +12,6 @@ public class ItemButton : Button
     public override void OnClick()
     {
         base.OnClick();
-        // タイルチェンジモードに切り替えする
-        GameManager.Instance.TileChangeMode = true;
         var name = this.gameObject.name;
         Item item = UIDirector.Instance.ItemDataBase.GetItemByName(name);
         TileDirector.Instance.NewItemTile = item.Tile;
