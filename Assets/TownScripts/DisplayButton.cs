@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DisplayButton : Button
 {
-    [SerializeField] GameObject _visibilityChangeTarget;
     public override void OnClick()
     {
         DisplayItemWindow();
@@ -13,18 +12,16 @@ public class DisplayButton : Button
 
     public void DisplayItemWindow()
     {
-        // 表示する場合はactiveにしてから子要素を作成
+        // 表示する場合
         if (_flg)
         {
-            UIDirector.Instance.SwitchVisibility(_flg, _visibilityChangeTarget);
-            UIDirector.Instance.DisplayItemWindow();
+            TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ItemPlaceState);
         }
 
-        // 非表示にする場合、windowがacriveのうちに子要素を消去
+        // 非表示にする場合
         else
         {
-            UIDirector.Instance.DestroyItemWindow();
-            UIDirector.Instance.SwitchVisibility(_flg, _visibilityChangeTarget);
+            TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ViewState);
         }
     }
 }

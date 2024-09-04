@@ -34,40 +34,38 @@ public class TileDirector : MonoBehaviour
     private Vector3 _previousPosition;
     private Vector3 _currentPosition;
 
-    void Update()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            if (GameManager.Instance.TileChangeMode && NewItemTile != null)
-            {
-                // 配置するか確認する処理
-                ChangeTile(mousePosition, NewItemTile, ItemMap);
-                GameManager.Instance.TileChangeMode = false;
-            }
-
-            // タイルがある場合、消すかを問う
-            if (ItemMap.GetTile(ConvertVec3Int(mousePosition)))
-            {
-
-            }
-        }
-    }
-
+    /// <summary>
+    /// Camera.main.ScreenToWorldPoint(Input.mousePosition)にて、
+    /// 座標を変換してから使いましょう。
+    /// </summary>
     void ChangeTile(Vector3 position, TileBase tile,Tilemap map)
     {
         Vector3Int grid = ConvertVec3Int(position);
         map.SetTile(grid, tile);
     }
 
+    // オーバーロード。アイテムを設置するためだけ用。
+    /// <summary>
+    /// Camera.main.ScreenToWorldPoint(Input.mousePosition)にて、
+    /// 座標を変換してから使いましょう。
+    /// </summary>
+    public void ChangeTile(Vector3 position) 
+    {
+        if (NewItemTile != null)
+        {
+            Vector3Int grid = ConvertVec3Int(position);
+            ItemMap.SetTile(grid, NewItemTile);
+        }
+    }
+
+    // 触っているところを強調する。（TODO：リッチなアニメーションに変更）
     public void EmphasizeCrickedTile(Vector3 _currentPosition)
     {
         ChangeTile(_previousPosition, null, EffectMap);
         ChangeTile(_currentPosition, Effect, EffectMap);
         _previousPosition = _currentPosition;
     }
-
+     
     private Vector3Int ConvertVec3Int(Vector3 position)
     {
         Vector3Int grid = ItemMap.WorldToCell(position);

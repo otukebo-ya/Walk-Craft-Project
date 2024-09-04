@@ -70,9 +70,9 @@ public class UIDirector : MonoBehaviour
         {
             return;
         }
-        foreach (Transform n in content.transform)
+        foreach (Transform t in content.transform)
         {
-            GameObject.Destroy(n.gameObject);
+            GameObject.Destroy(t.gameObject);
         }
     }
 }
