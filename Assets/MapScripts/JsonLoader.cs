@@ -10,19 +10,20 @@ public class JsonLoader: MonoBehaviour
 
     private GeoJsonFeatureCollection GeoJson;
     private JsonData jsonData;
-    private string WAKAYAMA_GEOJSON_PATH = "Assets/GeoJsonFiles/135_136_34_34666.geojson";
+    private string WAKAYAMA_GEOJSON_PATH = "Assets/GeoJsonFiles/testdata.json";
 
     private IEnumerator LoadGeoJson(string path)
     {
         if (File.Exists(path))
         {
+            /*
             string json = File.ReadAllText(path);
             jsonData = JsonMapper.ToObject(json);
-            /*
+            */
             string json = File.ReadAllText(path);
             GeoJson = JsonUtility.FromJson<GeoJsonFeatureCollection>(json);
             Debug.Log(GeoJson.Type);
-            */
+            
         }
         else
         {
