@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f466b735a788d23d8209623781b654ac19d7eb48dc4aeb3e48215aa89293998b
-size 708
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c83502a72205c4ca4fd55c74f50378, type: 3}
+  m_Name: houseAndGround
+  m_EditorClassIdentifier: 
+  _itemType: 0
+  _name: houseAndGround
+  _tile: {fileID: 11400000, guid: 876e5154cb28ba548bb7890d31579d6f, type: 2}
+  _activeImage: {fileID: 21300000, guid: 42b1e07cd8eebd74bad58801e6257042, type: 3}
+  _inactiveImage: {fileID: 21300000, guid: bf94cf4116a48e94093f6162ec838595, type: 3}
