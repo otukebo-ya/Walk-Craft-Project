@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class ToTownButton : Button
+public class ToMapButton : Button
 {
     public void OnClick() 
     {

@@ -585,7 +585,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 543383850}
-        m_TargetAssemblyTypeName: ToTownButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: ToMapButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
