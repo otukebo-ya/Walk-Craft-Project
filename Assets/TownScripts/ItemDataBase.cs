@@ -9,6 +9,7 @@ public class ItemDataBase : ScriptableObject
 {
     public List<Item> items = new List<Item>();
 
+    // 名前（string）の一致するものがあれば取り出す
     public Item GetItemByName(string name)
     {
         foreach (var item in items)
