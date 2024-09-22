@@ -21,7 +21,6 @@ public class ItemPlaceState : ITownSceneState
 
     public void Exit()
     {
-        
         UIDirector.Instance.DestroyItemWindow();
         UIDirector.Instance.SwitchVisibility(false, _target);
     }
