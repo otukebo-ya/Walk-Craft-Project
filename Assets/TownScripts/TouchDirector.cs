@@ -40,36 +40,65 @@ public class TouchDirector : MonoBehaviour
         TownSceneStateMachine.Instance.Update();
 
     　　// スクロール処理
-        if (Input.GetMouseButton(0))
-        {
-            // タッチ操作のポジションを取得
-            var touchPosition = Input.mousePosition;
-            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-
-            // スクロールしているか調べる。
-            if (_sceenPosition != _scrollStartPos)
+        #if UNITY_IOS || UNITY_ANDROID //IOSまたはAndroidの時
+        	if (Input.GetMouseButtonDown (0))
             {
-                _scrolled = true;
+                // タッチ操作のポジションを取得
+                var touchPosition = Input.mousePosition;
+                _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+        
+                // スクロールしているか調べる。
+                if (_sceenPosition != _scrollStartPos)
+                {
+                    _scrolled = true;
+                }
+        
+                // タッチした場所がUIの上か調べる
+                var isOnUI = IsOnUI(touchPosition);
+        
+                // UIの上でないならスクロール処理を行う。
+                if (!isOnUI)
+                {
+                    // マスを強調
+                    TileDirector.Instance.EmphasizeCrickedTile(_sceenPosition);
+        
+                    Scroll();
+                }
+            } else{
+                // タッチを離したらスクロール開始位置を初期化する 
+                _scrollStartPos = new Vector3();
+                _scrolled = false;
             }
-
-            // タッチした場所がUIの上か調べる
-            var isOnUI = IsOnUI(touchPosition);
-
-            // UIの上でないならスクロール処理を行う。
-            if (!isOnUI)
+        #else //Unityエディターの時
+        	if (Input.GetMouseButton(0))
             {
-                // マスを強調
-                TileDirector.Instance.EmphasizeCrickedTile(_sceenPosition);
-
-                Scroll();
+                // タッチ操作のポジションを取得
+                var touchPosition = Input.mousePosition;
+                _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+        
+                // スクロールしているか調べる。
+                if (_sceenPosition != _scrollStartPos)
+                {
+                    _scrolled = true;
+                }
+        
+                // タッチした場所がUIの上か調べる
+                var isOnUI = IsOnUI(touchPosition);
+        
+                // UIの上でないならスクロール処理を行う。
+                if (!isOnUI)
+                {
+                    // マスを強調
+                    TileDirector.Instance.EmphasizeCrickedTile(_sceenPosition);
+        
+                    Scroll();
+                }
+            } else{
+                // タッチを離したらスクロール開始位置を初期化する 
+                _scrollStartPos = new Vector3();
+                _scrolled = false;
             }
-        }
-        else
-        {
-            // タッチを離したらスクロール開始位置を初期化する 
-            _scrollStartPos = new Vector3();
-            _scrolled = false;
-        }
+        #endif
     }
 
     // レイキャストを投げて、結果を返す
