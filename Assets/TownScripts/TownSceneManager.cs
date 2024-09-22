@@ -27,10 +27,4 @@ public class TownSceneManager : MonoBehaviour
     {
         TownSceneStateMachine.Instance.Initialize(TownSceneStateMachine.Instance.ViewState);
     }
-
-    public void OnDestroy() 
-    {
-        // ステートマシンの削除
-        TownSceneStateMachine.Instance.Cleanup();
-    }
 }

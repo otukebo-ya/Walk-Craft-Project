@@ -61,10 +61,4 @@ public class TownSceneStateMachine
     {
         return CurrentState.StateName;
     }
-
-    // 破棄メソッド  
-    public void Cleanup()
-    {
-        _instance = null; // インスタンスを破棄  
-    }
 }

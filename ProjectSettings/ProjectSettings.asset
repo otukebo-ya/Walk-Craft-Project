@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!129 &1
@@ -776,8 +775,3 @@ PlayerSettings:
   platformRequiresReadableAssets: 0
   virtualTexturingSupportEnabled: 0
   insecureHttpOption: 0
-=======
-version https://git-lfs.github.com/spec/v1
-oid sha256:9db6660370a50a7697aaa66df09b0d3268bd55d28b7b983a85e581440bd41412
-size 21637
->>>>>>> Stashed changes
