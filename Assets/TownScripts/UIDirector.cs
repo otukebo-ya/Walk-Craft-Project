@@ -50,6 +50,8 @@ public class UIDirector : MonoBehaviour
             Sprite[] icon = item.Icons;
             string name = item.Name;
             GameObject itemButton = Instantiate(ItemButton);
+            float ITEM_BUTTON_SCALE = 0.9f;
+
 
             itemButton.transform.parent = content.transform;
             itemButton.name = name;
@@ -57,9 +59,14 @@ public class UIDirector : MonoBehaviour
             itemButton.GetComponent<ItemButton>().Active = icon[0];
             itemButton.GetComponent<ItemButton>().Inactive = icon[1];
             itemButton.GetComponent<ItemButton>().Tile = item.Tile;
+
+            // scaleを調整する
+            Vector3 unitVector = new Vector3(ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE);
+            itemButton.GetComponent<RectTransform>().localScale = unitVector;
+
             TMP_Text buttonText = itemButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
-            
+
         }
     }
 

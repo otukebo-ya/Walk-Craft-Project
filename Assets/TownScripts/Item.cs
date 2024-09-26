@@ -14,11 +14,12 @@ public class Item : ScriptableObject
         //KeyItem,
     }
 
-    [SerializeField] private  Type _itemType; // 種類
+    [SerializeField] private Type _itemType; // 種類
     [SerializeField] private string _name;
     [SerializeField] private TileBase _tile;
     [SerializeField] private Sprite _activeImage;
     [SerializeField] private Sprite _inactiveImage;
+    [SerializeField] public  int NumberOfPossessions = 0;
 
     public Type ItemType{ get; protected set; }
     public string Name
