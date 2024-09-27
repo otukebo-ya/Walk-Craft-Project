@@ -28,7 +28,7 @@ public class UIDirector : MonoBehaviour
     [SerializeField] GameObject _displayWindow;
 
     public ItemDataBase ItemDataBase;
-    public GameObject ItemButton;
+    public GameObject ItemPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -49,11 +49,12 @@ public class UIDirector : MonoBehaviour
         {
             Sprite[] icon = item.Icons;
             string name = item.Name;
-            GameObject itemButton = Instantiate(ItemButton);
+            GameObject itemPanel = Instantiate(ItemPanel);
+            GameObject itemButton = itemPanel.transform.Find("ItemButton").gameObject;
+            GameObject itemShadow = itemPanel.transform.Find("ItemShadow").gameObject;
             float ITEM_BUTTON_SCALE = 0.7f;
 
-
-            itemButton.transform.parent = content.transform;
+            itemPanel.transform.parent = content.transform;
             itemButton.name = name;
             itemButton.GetComponent<Image>().sprite = icon[0];
             itemButton.GetComponent<ItemButton>().Active = icon[0];
@@ -62,11 +63,10 @@ public class UIDirector : MonoBehaviour
 
             // scaleを調整する
             Vector3 unitVector = new Vector3(ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE, 0);
-            itemButton.GetComponent<RectTransform>().localScale = unitVector;
+            itemPanel.GetComponent<RectTransform>().localScale = unitVector;
 
             TMP_Text buttonText = itemButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
-
         }
     }
 
