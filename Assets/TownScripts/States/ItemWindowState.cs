@@ -22,7 +22,7 @@ public class ItemWindowState : ITownSceneState
     // windowがacriveのうちに子要素を消去
     public void Exit()
     {
-        UIDirector.Instance.DestroyItemWindow();
+        UIDirector.Instance.DestroyWindow();
         UIDirector.Instance.SwitchVisibility(false, _target);
     }
 }
