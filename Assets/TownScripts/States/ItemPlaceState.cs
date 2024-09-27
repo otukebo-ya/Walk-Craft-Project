@@ -6,11 +6,11 @@ public class ItemPlaceState : ITownSceneState
 {
     public string StateName => "ItemPlaceState";
 
-    private GameObject _target = GameObject.Find("ItemWindow");
+    private GameObject _window = GameObject.Find("Window");
 
     public void Enter()
     {
-        UIDirector.Instance.SwitchVisibility(true, _target);
+        UIDirector.Instance.SwitchVisibility(true, _window);
         UIDirector.Instance.DisplayItemWindow();
     }
 
@@ -22,7 +22,7 @@ public class ItemPlaceState : ITownSceneState
     public void Exit()
     {
         
-        UIDirector.Instance.DestroyItemWindow();
-        UIDirector.Instance.SwitchVisibility(false, _target);
+        UIDirector.Instance.DestroyWindow();
+        UIDirector.Instance.SwitchVisibility(false, _window);
     }
 }

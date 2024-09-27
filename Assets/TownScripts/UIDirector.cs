@@ -44,7 +44,7 @@ public class UIDirector : MonoBehaviour
 
     public void DisplayItemWindow()
     {
-        GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
+        GameObject content = GameObject.Find("Window/Viewport/Content");
         foreach (Item item in ItemDataBase.items)
         {
             Sprite[] icon = item.Icons;
@@ -70,9 +70,9 @@ public class UIDirector : MonoBehaviour
         }
     }
 
-    public void DestroyItemWindow()
+    public void DestroyWindow()
     {
-        GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
+        GameObject content = GameObject.Find("Window/Viewport/Content");
         if (content == null || content.transform == null)
         {
             return;
