@@ -40,6 +40,7 @@ public class TouchDirector : MonoBehaviour
         TownSceneStateMachine.Instance.Update();
 
     　　// スクロール処理
+        /*
         #if UNITY_IOS || UNITY_ANDROID //IOSまたはAndroidの時
         	if (Input.GetMouseButtonDown (0))
             {
@@ -69,13 +70,13 @@ public class TouchDirector : MonoBehaviour
                 _scrollStartPos = new Vector3();
                 _scrolled = false;
             }
-        #else //Unityエディターの時
+        #else */ //Unityエディターの時
         	if (Input.GetMouseButton(0))
             {
                 // タッチ操作のポジションを取得
                 var touchPosition = Input.mousePosition;
                 _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-        
+                Debug.Log("pos" +  _sceenPosition);
                 // スクロールしているか調べる。
                 if (_sceenPosition != _scrollStartPos)
                 {
@@ -98,7 +99,7 @@ public class TouchDirector : MonoBehaviour
                 _scrollStartPos = new Vector3();
                 _scrolled = false;
             }
-        #endif
+        // #endif
     }
 
     // レイキャストを投げて、結果を返す
@@ -156,6 +157,7 @@ public class TouchDirector : MonoBehaviour
             Vector3 touchMovePos = _sceenPosition;
             if (_scrollStartPos != touchMovePos)
             {
+                Debug.Log("diff");
                 _scrolled = true;
                 // 直前のタッチ位置との差を取得する
                 Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);

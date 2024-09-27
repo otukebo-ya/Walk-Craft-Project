@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour
     {
         Vector3 pos = this.transform.position;
         pos -= difference;
-
+        Debug.Log(this.transform.position);
         this.transform.position = pos;
     }
 }
