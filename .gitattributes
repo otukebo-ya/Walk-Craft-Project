@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+AssetsFontsBugMaruGothic-16.asset filter=lfs diff=lfs merge=lfs -text
+AssetsFontsnicokaku_v2-5 filter=lfs diff=lfs merge=lfs -text
+SDF.asset filter=lfs diff=lfs merge=lfs -text
+Assets/Fonts/BugMaruGothic-16.asset filter=lfs diff=lfs merge=lfs -text
+Assets/Fonts/nicokaku_v2-5[[:space:]]SDF.asset filter=lfs diff=lfs merge=lfs -text
