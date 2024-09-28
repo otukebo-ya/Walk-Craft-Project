@@ -39,7 +39,7 @@ public class TouchDirector : MonoBehaviour
         // ステートごとの固有の処理
         TownSceneStateMachine.Instance.Update();
 
-    　　// スクロール処理
+        // スクロール処理
         /*
         #if UNITY_IOS || UNITY_ANDROID //IOSまたはAndroidの時
         	if (Input.GetMouseButtonDown (0))
@@ -71,106 +71,106 @@ public class TouchDirector : MonoBehaviour
                 _scrolled = false;
             }
         #else */ //Unityエディターの時
-        	if (Input.GetMouseButton(0))
+
+            // スクロール処理
+
+            if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Down");
+                var touchPosition = Input.mousePosition;
+                // スクロール開始位置を取得
+                _scrollStartPos = Camera.main.ScreenToWorldPoint(touchPosition);
+                _scrolled = true;
+            }
+            if (Input.GetMouseButton(0))
+            {
+
                 // タッチ操作のポジションを取得
                 var touchPosition = Input.mousePosition;
                 _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-                Debug.Log("pos" +  _sceenPosition);
+                Debug.Log("pos" + _sceenPosition);
                 // スクロールしているか調べる。
-                if (_sceenPosition != _scrollStartPos)
-                {
-                    _scrolled = true;
-                }
-        
+
                 // タッチした場所がUIの上か調べる
                 var isOnUI = IsOnUI(touchPosition);
-        
+
                 // UIの上でないならスクロール処理を行う。
                 if (!isOnUI)
                 {
                     // マスを強調
                     TileDirector.Instance.EmphasizeCrickedTile(_sceenPosition);
-        
+
                     Scroll();
                 }
-            } else{
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Up");
+                if (!_scrolled) { HandleTilePlacement(); }
                 // タッチを離したらスクロール開始位置を初期化する 
                 _scrollStartPos = new Vector3();
                 _scrolled = false;
             }
         // #endif
-    }
+        }
 
-    // レイキャストを投げて、結果を返す
-    public List<RaycastResult> RayCast(Vector3 position)
-    {
-        PointerEventData pointData = new PointerEventData(EventSystem.current);
-        pointData.position = position;
-        List<RaycastResult> rayResults = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointData, rayResults);
-
-        return rayResults;
-    }
-
-    // レイキャスト結果のタグを確認し、スクロール可能かを返す
-    private bool IsOnUI(Vector3 position)
-    {
-        bool isOnUI;
-        var rayResults = RayCast(position);
-
-        foreach (RaycastResult result in rayResults)
+        // レイキャストを投げて、結果を返す
+        public List<RaycastResult> RayCast(Vector3 position)
         {
-            // 中身の確認処理
-            var tag = result.gameObject.tag;
+            PointerEventData pointData = new PointerEventData(EventSystem.current);
+            pointData.position = position;
+            List<RaycastResult> rayResults = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointData, rayResults);
 
-            if (tag == "UI")
+            return rayResults;
+        }
+
+        // レイキャスト結果のタグを確認し、スクロール可能かを返す
+        private bool IsOnUI(Vector3 position)
+        {
+            bool isOnUI;
+            var rayResults = RayCast(position);
+
+            foreach (RaycastResult result in rayResults)
             {
-                OnUITag.Add(tag);
+                // 中身の確認処理
+                var tag = result.gameObject.tag;
+
+                if (tag == "UI")
+                {
+                    OnUITag.Add(tag);
+                }
             }
+
+            // ３項演算子を使った方が短くなるけど、どうする？
+            if (OnUITag.Count != 0)
+            {
+                isOnUI = true;
+            }
+            else
+            {
+                isOnUI = false;
+            }
+
+            return isOnUI;
         }
 
-        // ３項演算子を使った方が短くなるけど、どうする？
-        if (OnUITag.Count != 0)
-        {
-            isOnUI = true;
-        }
-        else
-        {
-            isOnUI = false;
-        }
-
-        return isOnUI;
-    }
-
-    // スクロール情報を取得し、Cameraの位置を移動させる
-    private void Scroll()
-    {
-        if (_scrollStartPos.x == 0.0f)
-        {
-            _scrolled = false;
-            // スクロール開始位置を取得
-            _scrollStartPos = _sceenPosition;
-        }
-        else
+        // スクロール情報を取得し、Cameraの位置を移動させる
+        private void Scroll()
         {
             Vector3 touchMovePos = _sceenPosition;
-            if (_scrollStartPos != touchMovePos)
-            {
-                Debug.Log("diff");
-                _scrolled = true;
-                // 直前のタッチ位置との差を取得する
-                Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
-                CameraController.Instance.CamPosMove(diffPos);
-                _scrollStartPos = touchMovePos;
-            }
-        }
-    }
+            Debug.Log("diff");
+            _scrolled = true;
+            // 直前のタッチ位置との差を取得する
+            Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
+            CameraController.Instance.CamPosMove(diffPos);
+            _scrollStartPos = touchMovePos;
 
-    // 主にstateがItemPlaceStateのときに用いることになると思う
-    public void HandleTilePlacement()
-    {
-        if (Input.GetMouseButtonUp(0) && !_scrolled)
+
+        }
+
+        // 主にstateがItemPlaceStateのときに用いることになると思う
+        public void HandleTilePlacement()
         {
             // タッチ操作のポジションを取得
             var touchPosition = Input.mousePosition;
@@ -190,4 +190,3 @@ public class TouchDirector : MonoBehaviour
             }
         }
     }
-}
