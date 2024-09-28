@@ -23,17 +23,10 @@ public class CameraController : MonoBehaviour
             return _instance;
         }
     }
-    // Update is called once per frame
-    void Update () {
-        
-    }
 
     // カメラの位置を変更する
     public void CamPosMove(Vector3 difference)
     {
-        Vector3 pos = this.transform.position;
-        pos -= difference;
-        Debug.Log(this.transform.position);
-        this.transform.position = pos;
+        this.transform.position -= difference;
     }
 }
