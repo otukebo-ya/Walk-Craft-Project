@@ -1,4 +1,4 @@
-//MIT License
+ï»¿//MIT License
 //Copyright (c) 2023 DA LAB (https://www.youtube.com/@DA-LAB)
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,8 @@ public class Map : MonoBehaviour
     public resolution mapResolution = resolution.low;
 
     private string[] styleStr = new string[] { "light-v10", "dark-v10", "streets-v11", "outdoors-v11", "satellite-v9", "satellite-streets-v11" };
-    private double wakayamaLat = 34.231;
-    private double wakayamaLon = 135.170;
+    [SerializeField] private double wakayamaLat = 34.231;
+    [SerializeField] private double wakayamaLon = 135.170;
     private int zoom = 16;
     private string url = "";
     private Material mapMaterial;
@@ -69,7 +69,7 @@ public class Map : MonoBehaviour
     //styles/otukebo-ya/cm1r8vaar00ti01rb5vog1rwb
 
         //url = "https://api.mapbox.com/styles/v1/mapbox/" + styleStr[(int)mapStyle] + "/static/[" + boundingBox[0] + "," + boundingBox[1] + "," + boundingBox[2] + "," + boundingBox[3] + "]/" + mapWidthPx + "x" + mapHeightPx + "?" + "access_token=" + accessToken;
-        url = "https://api.mapbox.com/styles/v1/otukebo-ya/" + "cm1r8vaar00ti01rb5vog1rwb" + "/static/" +
+        url = "https://api.mapbox.com/styles/v1/cclemonade/" + "cm1rakytw00hm01r7hp7qedts" + "/static/" +
                       wakayamaLon + "," + wakayamaLat + "," + zoom + "/" +
                      mapWidthPx + "x" + mapHeightPx + "?" +
                      "access_token=" + accessToken; 
@@ -82,10 +82,10 @@ public class Map : MonoBehaviour
         }
         else 
         {
-            // «‚±‚ê‚Í‚RDƒIƒuƒWƒFƒNƒg‚É—p‚¢‚é‚à‚Ì‚ç‚µ‚¢
+            // â†“ã“ã‚Œã¯ï¼“Dã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ç”¨ã„ã‚‹ã‚‚ã®ã‚‰ã—ã„
             //gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", ((DownloadHandlerTexture)www.downloadHandler).texture);
 
-            // «‚±‚ê‚Í’¼Ú“ü‚ê‚ñ‚Å‚é
+            // â†“ã“ã‚Œã¯ç›´æ¥å…¥ã‚Œè¾¼ã‚“ã§ã‚‹
             Texture texture = DownloadHandlerTexture.GetContent(www);
             gameObject.GetComponent<RawImage>().texture = texture;
         }
