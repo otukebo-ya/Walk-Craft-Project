@@ -618,11 +618,6 @@ MonoBehaviour:
   accessToken: pk.eyJ1Ijoib3R1a2Viby15YSIsImEiOiJjbTFwY2RkOXYwM2x3MmpzYnJvaW9uZjI2In0.ZqAElmDYFsTIoJdIM95tpQ
   mapStyle: 2
   mapResolution: 1
-  boundingBox:
-  - 151.196023022085
-  - -33.8777251205232
-  - 151.216012372138
-  - -33.8683894791246
 --- !u!114 &1557924807
 MonoBehaviour:
   m_ObjectHideFlags: 0
