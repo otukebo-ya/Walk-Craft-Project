@@ -30,11 +30,10 @@ public class Map : MonoBehaviour
     public style mapStyle = style.Streets;
     public enum resolution { low = 1, high = 2 };
     public resolution mapResolution = resolution.low;
-    public double[] boundingBox = new double[] { 151.196023022085, -33.8777251205232, 151.216012372138, -33.8683894791246 }; //[lon(min), lat(min), lon(max), lat(max)]
 
     private string[] styleStr = new string[] { "light-v10", "dark-v10", "streets-v11", "outdoors-v11", "satellite-v9", "satellite-streets-v11" };
-    private double wakayamaLat = 34.226111;
-    private double wakayamaLon = 135.167500;
+    private double wakayamaLat = 34.231;
+    private double wakayamaLon = 135.170;
     private int zoom = 16;
     private string url = "";
     private Material mapMaterial;
@@ -66,9 +65,12 @@ public class Map : MonoBehaviour
 
     IEnumerator GetMapbox()
     {
+    //styles/otukebo-ya/cm1qebkbl00sg01rbeqf07qs6
+    //styles/otukebo-ya/cm1r8vaar00ti01rb5vog1rwb
+
         //url = "https://api.mapbox.com/styles/v1/mapbox/" + styleStr[(int)mapStyle] + "/static/[" + boundingBox[0] + "," + boundingBox[1] + "," + boundingBox[2] + "," + boundingBox[3] + "]/" + mapWidthPx + "x" + mapHeightPx + "?" + "access_token=" + accessToken;
-        url = "https://api.mapbox.com/styles/v1/mapbox/" + styleStr[(int)mapStyle] + "/static/" +
-                     139.6917 + "," + 35.6894 + "," + zoom + "/" +
+        url = "https://api.mapbox.com/styles/v1/otukebo-ya/" + "cm1r8vaar00ti01rb5vog1rwb" + "/static/" +
+                      wakayamaLon + "," + wakayamaLat + "," + zoom + "/" +
                      mapWidthPx + "x" + mapHeightPx + "?" +
                      "access_token=" + accessToken; 
         Debug.Log(url);
