@@ -69,7 +69,7 @@ public class Map : MonoBehaviour
     //styles/otukebo-ya/cm1r8vaar00ti01rb5vog1rwb
 
         //url = "https://api.mapbox.com/styles/v1/mapbox/" + styleStr[(int)mapStyle] + "/static/[" + boundingBox[0] + "," + boundingBox[1] + "," + boundingBox[2] + "," + boundingBox[3] + "]/" + mapWidthPx + "x" + mapHeightPx + "?" + "access_token=" + accessToken;
-        url = "https://api.mapbox.com/styles/v1/cclemonade/" + "cm1rakytw00hm01r7hp7qedts" + "/static/" +
+        url = "https://api.mapbox.com/styles/v1/cclemonade/" + "cm1sfbcuk00kc01r73oys1st0" + "/static/" +
                       wakayamaLon + "," + wakayamaLat + "," + zoom + "/" +
                      mapWidthPx + "x" + mapHeightPx + "?" +
                      "access_token=" + accessToken; 
