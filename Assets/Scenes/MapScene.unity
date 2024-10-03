@@ -615,9 +615,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacd87bd46d1085489a6e063c32acf55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessToken: pk.eyJ1Ijoib3R1a2Viby15YSIsImEiOiJjbTFwY2RkOXYwM2x3MmpzYnJvaW9uZjI2In0.ZqAElmDYFsTIoJdIM95tpQ
+  accessToken: pk.eyJ1IjoiY2NsZW1vbmFkZSIsImEiOiJjbTFyd2Q3cHcwMDN5Mmxzanc0M251NHdwIn0.D9JinR2mH22Xs0XM-I6AgQ
   mapStyle: 2
   mapResolution: 1
+  wakayamaLat: 34.231
+  wakayamaLon: 135.17
 --- !u!114 &1557924807
 MonoBehaviour:
   m_ObjectHideFlags: 0
