@@ -76,6 +76,7 @@ public class TouchDirector : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Down");
                 var touchPosition = Input.mousePosition;
                 // スクロール開始位置を取得
                 _scrollStartPos = Camera.main.ScreenToWorldPoint(touchPosition);
@@ -87,6 +88,7 @@ public class TouchDirector : MonoBehaviour
                 // タッチ操作のポジションを取得
                 var touchPosition = Input.mousePosition;
                 _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+                Debug.Log("pos" + _sceenPosition);
                 // スクロールしているか調べる。
 
                 // タッチした場所がUIの上か調べる
@@ -103,6 +105,7 @@ public class TouchDirector : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(0))
             {
+                Debug.Log("Up");
                 if (!_scrolled) { HandleTilePlacement(); }
                 // タッチを離したらスクロール開始位置を初期化する 
                 _scrollStartPos = new Vector3();

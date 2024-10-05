@@ -25,9 +25,6 @@ public class UIDirector : MonoBehaviour
         }
     }
 
-    [SerializeField] private TextMeshProUGUI _userNameText;
-    [SerializeField] private TextMeshProUGUI _coinText;
-
     [SerializeField] GameObject _displayWindow;
 
     public ItemDataBase ItemDataBase;
@@ -57,7 +54,7 @@ public class UIDirector : MonoBehaviour
             GameObject itemShadow = itemPanel.transform.Find("ItemShadow").gameObject;
             float ITEM_BUTTON_SCALE = 0.7f;
 
-            itemPanel.transform.SetParent(content.transform, false);
+            itemPanel.transform.parent = content.transform;
             itemButton.name = name;
             itemButton.GetComponent<Image>().sprite = icon[0];
             itemButton.GetComponent<ItemButton>().Active = icon[0];
@@ -84,22 +81,5 @@ public class UIDirector : MonoBehaviour
         {
             GameObject.Destroy(t.gameObject);
         }
-    }
-
-    public void DisplayPlayerInfo()
-    {
-        DisplayPlayerName();
-        DisplayHeldCoin();
-    }
-
-    public void DisplayPlayerName()
-    {
-        _userNameText.SetText(UserData.Instance.PlayerName);
-    }
-
-    public void DisplayHeldCoin() 
-    {
-        int heldcoin = UserData.Instance.HeldCoin;
-        _coinText.SetText(heldcoin.ToString());
     }
 }

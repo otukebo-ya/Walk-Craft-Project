@@ -26,7 +26,6 @@ public class TownSceneManager : MonoBehaviour
     public void Awake()
     {
         TownSceneStateMachine.Instance.Initialize(TownSceneStateMachine.Instance.ViewState);
-        UIDirector.Instance.DisplayPlayerInfo();
     }
 
     public void OnDestroy() 

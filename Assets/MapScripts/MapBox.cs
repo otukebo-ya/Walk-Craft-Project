@@ -32,9 +32,9 @@ public class Map : MonoBehaviour
     public resolution mapResolution = resolution.low;
 
     private string[] styleStr = new string[] { "light-v10", "dark-v10", "streets-v11", "outdoors-v11", "satellite-v9", "satellite-streets-v11" };
-    [SerializeField] private double latitude = 34.231;
-    [SerializeField] private double longitude = 135.170;
-    [SerializeField] private int zoom = 16;
+    [SerializeField] private double wakayamaLat = 34.231;
+    [SerializeField] private double wakayamaLon = 135.170;
+    private int zoom = 16;
     private string url = "";
     private Material mapMaterial;
     private int mapWidthPx = 1000;
@@ -70,7 +70,7 @@ public class Map : MonoBehaviour
 
         //url = "https://api.mapbox.com/styles/v1/mapbox/" + styleStr[(int)mapStyle] + "/static/[" + boundingBox[0] + "," + boundingBox[1] + "," + boundingBox[2] + "," + boundingBox[3] + "]/" + mapWidthPx + "x" + mapHeightPx + "?" + "access_token=" + accessToken;
         url = "https://api.mapbox.com/styles/v1/cclemonade/" + "cm1sfbcuk00kc01r73oys1st0" + "/static/" +
-                      longitude + "," + latitude + "," + zoom + "/" +
+                      wakayamaLon + "," + wakayamaLat + "," + zoom + "/" +
                      mapWidthPx + "x" + mapHeightPx + "?" +
                      "access_token=" + accessToken; 
         Debug.Log(url);

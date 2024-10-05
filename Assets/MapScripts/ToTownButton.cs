@@ -1,16 +1,15 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class ToTownButton : ButtonScript
+public class ToTownButton : Button
 {
-    public override void OnClick()
+    public void OnClick()
     {
         MoveTownScene();
     }
-
     private void MoveTownScene()
     {
         Debug.Log("ToTownScene!");
