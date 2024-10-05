@@ -1,12 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class ToMapButton : Button
+public class ToMapButton : ButtonScript
 {
-    public void OnClick() 
+    public override void OnClick() 
     {
         MoveMapScene();
     }
