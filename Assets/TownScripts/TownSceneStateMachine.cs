@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class TownSceneStateMachine
     public ItemWindowState ItemWindowState { get; private set; }
     public ItemPlaceState ItemPlaceState { get; private set; }
 
-    // ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿  
+    // ƒvƒ‰ƒCƒx[ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^  
     private TownSceneStateMachine() 
     {  
         this.ViewState = new ViewState();
@@ -17,9 +17,9 @@ public class TownSceneStateMachine
         this.ItemPlaceState = new ItemPlaceState();
     }
 
-    // MonoBehaviourã‚’ç”¨ã„ãªã„å ´åˆã®ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
+    // MonoBehaviour‚ğ—p‚¢‚È‚¢ê‡‚ÌƒVƒ“ƒOƒ‹ƒgƒ“
     private static TownSceneStateMachine _instance;
-    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹ãŸã‚ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£  
+    // ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é‚½‚ß‚ÌƒvƒƒpƒeƒB  
     public static TownSceneStateMachine Instance
     {
         get
@@ -32,14 +32,14 @@ public class TownSceneStateMachine
         }
     }
 
-    // ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ¼ãƒ³ã®åˆæœŸåŒ–ã€‚Viewã§åˆæœŸåŒ–ã™ã‚‹ã“ã¨ã«ãªã‚‹ã¯ãš
+    // ƒXƒe[ƒgƒ}ƒV[ƒ“‚Ì‰Šú‰»BView‚Å‰Šú‰»‚·‚é‚±‚Æ‚É‚È‚é‚Í‚¸
     public void Initialize(ITownSceneState state)
     {
         CurrentState = state;
         state.Enter();
     }
 
-    // ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’æŠœã‘ã¦æ¬¡ã®ã‚¹ãƒ†ãƒ¼ãƒˆã¸ç§»ã‚‹å‡¦ç†
+    // Œ»İ‚ÌƒXƒe[ƒg‚ğ”²‚¯‚ÄŸ‚ÌƒXƒe[ƒg‚ÖˆÚ‚éˆ—
     public void TransitionTo(ITownSceneState nextState)
     {
         Debug.Log(CurrentState.StateName + " => " + nextState.StateName);
@@ -48,7 +48,7 @@ public class TownSceneStateMachine
         nextState.Enter();
     }
 
-    // ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆãªã‚‰ã°Updateå‡¦ç†
+    // Œ»İ‚ÌƒXƒe[ƒg‚È‚ç‚ÎUpdateˆ—
     public void Update()
     {
         if (CurrentState != null)
@@ -62,9 +62,9 @@ public class TownSceneStateMachine
         return CurrentState.StateName;
     }
 
-    // ç ´æ£„ãƒ¡ã‚½ãƒƒãƒ‰  
+    // ”jŠüƒƒ\ƒbƒh  
     public void Cleanup()
     {
-        _instance = null; // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç ´æ£„  
+        _instance = null; // ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ”jŠü  
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class ItemButton : ButtonScript
+public class ItemButton : Button
 {
     private TileBase _tile;
 
