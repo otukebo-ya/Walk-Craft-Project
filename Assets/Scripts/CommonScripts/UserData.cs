@@ -1,24 +1,24 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UserData
 {
-    // ƒ†[ƒUƒf[ƒ^
-    private int _coin;
-    private string _userName;
+    // ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿
+    private int HeldCoin;
+    private string PlayerName;
     private string _userID;
 
-    // ƒvƒ‰ƒCƒx[ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    // ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     private UserData()
     {
-        // ƒ†[ƒUƒf[ƒ^‚Ì‘ã“ü
+        // ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿ã®ä»£å…¥
     }
 
-    // MonoBehaviour‚ğ—p‚¢‚È‚¢ê‡‚ÌƒVƒ“ƒOƒ‹ƒgƒ“
+    // MonoBehaviourã‚’ç”¨ã„ãªã„å ´åˆã®ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     private static UserData _instance;
 
-    // ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é‚½‚ß‚ÌƒvƒƒpƒeƒB  
+    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹ãŸã‚ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£  
     public static UserData Instance
     {
         get
