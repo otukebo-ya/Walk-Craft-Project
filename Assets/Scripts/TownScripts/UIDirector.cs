@@ -58,7 +58,7 @@ public class UIDirector : MonoBehaviour
             GameObject itemShadow = itemPanel.transform.Find("ItemShadow").gameObject;
             float ITEM_BUTTON_SCALE = 0.7f;
 
-            itemPanel.transform.parent = content.transform;
+            itemPanel.transform.SetParent(content.transform);
             itemButton.name = name;
             itemButton.GetComponent<Image>().sprite = icon[0];
             itemButton.GetComponent<ItemButton>().Active = icon[0];

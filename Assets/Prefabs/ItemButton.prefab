@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 575a31ba023fdc3498eb3a24bfc35f72, type: 2}
+  m_sharedMaterial: {fileID: 5470855244673030723, guid: 575a31ba023fdc3498eb3a24bfc35f72, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -280,5 +280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35203daff072924ab84ad3502a241be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  shadow: {fileID: 0}
   Active: {fileID: 0}
   Inactive: {fileID: 0}
+  NormalColor: {r: 0, g: 0, b: 0, a: 0}
+  SelectedColor: {r: 0, g: 0, b: 0, a: 0}

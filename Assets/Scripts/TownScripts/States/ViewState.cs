@@ -8,12 +8,14 @@ public class ViewState : ITownSceneState
 
     public void Enter()
     {
-        // その状態になった瞬間の処理
+        // 非表示、あるいは画面外のボタンがあれば元に戻す
+        // アニメーションとして実装したほうがいい
     }
 
     public void Update()
     {
-        // 毎フレームの処理
+        // 触ったアイテムがアニメーションすると楽しいんだがね
+
     }
 
     public void Exit()
