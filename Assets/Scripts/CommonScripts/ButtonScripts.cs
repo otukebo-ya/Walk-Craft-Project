@@ -20,7 +20,7 @@ public class ButtonScript : MonoBehaviour
     public void Start()
     {
         button = GetComponent<Button>();
-        shadow = GetComponent<Shadow>();
+        //shadow = GetComponent<Shadow>();
     }
 
     public virtual void OnClick()
@@ -28,7 +28,7 @@ public class ButtonScript : MonoBehaviour
         _flg = !_flg;
         Color color = (_flg) ? NormalColor : SelectedColor;
         ChangeBaseColor(color);
-        ChangeShadowColor(color);
+        //ChangeShadowColor(color);
     }
 
     public virtual void ChangeBaseColor(Color color)
@@ -37,14 +37,14 @@ public class ButtonScript : MonoBehaviour
 
         shape.settings.fillColor = color;
     }
-
+    /*
     public virtual void ChangeShadowColor(Color color)
     {
         Color.RGBToHSV(color, out float h, out float s, out float v);
         float newV = v * BRIGHTNESS_RATIO;
         shadow.effectColor = Color.HSVToRGB(h, s, newV);
         Debug.Log(Color.HSVToRGB(h, s, newV));
-    }
+    }*/
 
     public virtual void ChangeImage()
     {

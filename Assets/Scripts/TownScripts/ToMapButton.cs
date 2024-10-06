@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ToMapButton : ButtonScript
 {
-    public void OnClick() 
+    public override void OnClick() 
     {
         MoveMapScene();
     }

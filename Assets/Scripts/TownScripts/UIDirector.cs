@@ -30,10 +30,14 @@ public class UIDirector : MonoBehaviour
     public ItemDataBase ItemDataBase;
     public GameObject ItemPanel;
 
+    [SerializeField] TMP_Text PlayerNameText;
+    [SerializeField] TMP_Text HeldCoinText;
+
     // Start is called before the first frame update
     void Start()
     {
         _displayWindow.SetActive(false);
+        DisplayPlayerData();
     }
 
     // 与えられたゲームオブジェクトの表示非表示を切り替える
@@ -81,5 +85,12 @@ public class UIDirector : MonoBehaviour
         {
             GameObject.Destroy(t.gameObject);
         }
+    }
+
+    public void DisplayPlayerData()
+    {
+        PlayerNameText.SetText(PlayerData.Instance.Name);
+        string heldCoin = PlayerData.Instance.HeldCoin.ToString();
+        HeldCoinText.SetText(heldCoin);
     }
 }
