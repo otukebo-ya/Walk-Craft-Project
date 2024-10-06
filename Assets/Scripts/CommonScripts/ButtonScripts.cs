@@ -15,7 +15,7 @@ public class ButtonScript : MonoBehaviour
     protected bool _flg = true;
     public Color NormalColor;
     public Color SelectedColor;
-    private float BRIGHTNESS_RATIO = 0.9f;
+    //private float BRIGHTNESS_RATIO = 0.9f;
 
     public void Start()
     {

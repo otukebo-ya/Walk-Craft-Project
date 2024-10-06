@@ -29,15 +29,19 @@ public class TouchDirector : MonoBehaviour
     private static float SCROLL_DISTANCE_CORRECTION = 0.8f; // スクロール距離の調整
     private List<string> OnUITag = new List<string>();
     private bool _scrolled = false;
+    public bool CanScroll = true;
 
     // Update is called once per frame
     void Update()
     {
         // 中身の初期化
         OnUITag.Clear();
-
+        CanScroll = true;
         // ステートごとの固有の処理
         TownSceneStateMachine.Instance.Update();
+        
+        // ウィンドウ表示中などは、スクロールやタッチしたタイルの協調を無効にする必要がある
+        if (!CanScroll) { return; }
 
         // スクロール処理
         /*
@@ -76,7 +80,6 @@ public class TouchDirector : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Down");
                 var touchPosition = Input.mousePosition;
                 // スクロール開始位置を取得
                 _scrollStartPos = Camera.main.ScreenToWorldPoint(touchPosition);
@@ -88,7 +91,6 @@ public class TouchDirector : MonoBehaviour
                 // タッチ操作のポジションを取得
                 var touchPosition = Input.mousePosition;
                 _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-                Debug.Log("pos" + _sceenPosition);
                 // スクロールしているか調べる。
 
                 // タッチした場所がUIの上か調べる
@@ -105,7 +107,6 @@ public class TouchDirector : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(0))
             {
-                Debug.Log("Up");
                 if (!_scrolled) { HandleTilePlacement(); }
                 // タッチを離したらスクロール開始位置を初期化する 
                 _scrollStartPos = new Vector3();

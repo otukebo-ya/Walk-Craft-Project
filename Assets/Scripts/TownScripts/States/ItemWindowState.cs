@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class ItemWindowState : ITownSceneState
 {
-    private GameObject _target = GameObject.Find("ItemWindow");
     public string StateName => "ItemWindowState";
 
-    // activeにしてから子要素を作成
+    private GameObject _window = GameObject.Find("Window");
+
     public void Enter()
     {
-        UIDirector.Instance.SwitchVisibility(true, _target);
+        UIDirector.Instance.SwitchVisibility(true, _window);
         UIDirector.Instance.DisplayItemWindow();
     }
 
     public void Update()
     {
-        // 毎フレームの処理
+        // スクロール操作や、タッチ部分の協調などがおきないように
+        TouchDirector.Instance.CanScroll = false;
     }
 
-    // windowがacriveのうちに子要素を消去
     public void Exit()
     {
+
         UIDirector.Instance.DestroyWindow();
-        UIDirector.Instance.SwitchVisibility(false, _target);
+        UIDirector.Instance.SwitchVisibility(false, _window);
     }
 }

@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72c83502a72205c4ca4fd55c74f50378, type: 3}
-  m_Name: houseAndGround
+  m_Name: house_geen
   m_EditorClassIdentifier: 
   _itemType: 0
-  _name: houseAndGround
-  _tile: {fileID: 11400000, guid: 876e5154cb28ba548bb7890d31579d6f, type: 2}
-  _activeImage: {fileID: 21300000, guid: 42b1e07cd8eebd74bad58801e6257042, type: 3}
+  _name: "\u7DD1\u306E\u5BB6"
+  _tile: {fileID: 11400000, guid: f4910c24b3c30044483e9a5ccd87a827, type: 2}
+  _activeImage: {fileID: 21300000, guid: 728b89fba48c49f41b817e7765be4428, type: 3}
   _inactiveImage: {fileID: 21300000, guid: bf94cf4116a48e94093f6162ec838595, type: 3}
+  NumberOfPossessions: 5
