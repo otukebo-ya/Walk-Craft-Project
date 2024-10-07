@@ -16,7 +16,7 @@ public class ItemPlaceState : ITownSceneState
 
     public void Update()
     {
-        TouchDirector.Instance.HandleTilePlacement();
+        TouchController.Instance.HandleTilePlacement();
     }
 
     public void Exit()

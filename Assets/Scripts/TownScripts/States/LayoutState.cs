@@ -10,6 +10,7 @@ public class LayoutState : ITownSceneState
     {
         // 収集へボタンをフェードアウト
         // Viewへ戻るボタンをフェードイン
+        UIDirector.Instance.DisplayLayoutStateUI();
     }
 
     public void Update()

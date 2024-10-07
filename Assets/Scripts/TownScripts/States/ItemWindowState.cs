@@ -17,7 +17,7 @@ public class ItemWindowState : ITownSceneState
     public void Update()
     {
         // スクロール操作や、タッチ部分の協調などがおきないように
-        TouchDirector.Instance.CanScroll = false;
+        TouchController.Instance.CanScroll = false;
     }
 
     public void Exit()

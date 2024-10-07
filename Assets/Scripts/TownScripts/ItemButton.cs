@@ -14,6 +14,6 @@ public class ItemButton : ButtonScript
         base.OnClick();
         var name = this.gameObject.name;
         Item item = UIDirector.Instance.ItemDataBase.GetItemByName(name);
-        TileDirector.Instance.NewItemTile = item.Tile;
+        TileController.Instance.NewItemTile = item.Tile;
     }
 }

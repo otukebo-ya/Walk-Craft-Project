@@ -15,11 +15,15 @@ public class ButtonScript : MonoBehaviour
     protected bool _flg = true;
     public Color NormalColor;
     public Color SelectedColor;
+    public Vector2 defaultPosition;
+    public Vector2 defaultAnchors;
+    public static int FADE_TIME = 5;
     //private float BRIGHTNESS_RATIO = 0.9f;
 
     public void Start()
     {
         button = GetComponent<Button>();
+        defaultPosition = GetComponent<RectTransform>().anchoredPosition;
         //shadow = GetComponent<Shadow>();
     }
 
@@ -50,5 +54,15 @@ public class ButtonScript : MonoBehaviour
     {
         var img = GetComponent<Image>();
         img.sprite = (_flg) ? Active : Inactive;
+    }
+
+    public virtual IEnumerator FadeIn() 
+    {
+        yield return null;
+    }
+
+    public virtual IEnumerator FadeOut()
+    {
+        yield return null;
     }
 }

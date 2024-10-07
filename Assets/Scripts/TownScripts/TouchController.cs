@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class TouchDirector : MonoBehaviour
+public class TouchController : MonoBehaviour
 {
     // シングルトン
-    private static TouchDirector _instance;
-    public static TouchDirector Instance
+    private static TouchController _instance;
+    public static TouchController Instance
     {
         get
         {
             if (null == _instance)
             {
-                _instance = (TouchDirector)FindObjectOfType(typeof(TouchDirector));
+                _instance = (TouchController)FindObjectOfType(typeof(TouchController));
                 if (null == _instance)
                 {
-                    Debug.Log("TouchDirector Instance Error");
+                    Debug.Log("TouchController Instance Error");
                 }
             }
             return _instance;
@@ -100,7 +100,7 @@ public class TouchDirector : MonoBehaviour
                 if (!isOnUI)
                 {
                     // マスを強調
-                    TileDirector.Instance.EmphasizeCrickedTile(_sceenPosition);
+                    TileController.Instance.EmphasizeCrickedTile(_sceenPosition);
 
                     Scroll();
                 }
@@ -183,7 +183,7 @@ public class TouchDirector : MonoBehaviour
             // UIの上でないならタイルの設置
             if (!isOnUI)
             {
-                var td = TileDirector.Instance;
+                var td = TileController.Instance;
                 // (TODO配置するか確認する処理)
 
                 // タイルを設置

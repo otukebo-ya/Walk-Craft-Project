@@ -1,9 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Tilemaps;
+
+public enum Direction 
+{
+    TOP,
+    BOTTOM,
+    LEFT,
+    RIGHT
+}
 
 public class UIDirector : MonoBehaviour
 {
@@ -29,15 +38,31 @@ public class UIDirector : MonoBehaviour
 
     public ItemDataBase ItemDataBase;
     public GameObject ItemPanel;
+    public Button ToMapButton;
+    public Button BluePrintButton;
+    public Button PropertyButton;
+    public Button LayoutButton;
+    public Button ReturnButton;
+
 
     [SerializeField] TMP_Text PlayerNameText;
     [SerializeField] TMP_Text HeldCoinText;
+    [SerializeField] Canvas Canvas;
+    public float CanvasWidth;
+    public float CanvasHeight;
+    public Vector2 CanvasPivot;
+    public Vector2 CanvasPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         _displayWindow.SetActive(false);
         DisplayPlayerData();
+        var canvasRect = Canvas.GetComponent<RectTransform>();
+        CanvasWidth = canvasRect.rect.width;
+        CanvasHeight = canvasRect.rect.height;
+        CanvasPivot = canvasRect.pivot;
+        CanvasPosition =  canvasRect.position;
     }
 
     // 与えられたゲームオブジェクトの表示非表示を切り替える
@@ -92,5 +117,14 @@ public class UIDirector : MonoBehaviour
         PlayerNameText.SetText(PlayerData.Instance.Name);
         string heldCoin = PlayerData.Instance.HeldCoin.ToString();
         HeldCoinText.SetText(heldCoin);
+    }
+
+    public void DisplayLayoutStateUI() 
+    {
+        var LayoutButtonInstance = LayoutButton.GetComponent<LayoutButton>();
+        LayoutButtonInstance.StartCoroutine("FadeOut");
+
+        var ReturnButtonInstance = ReturnButton.GetComponent<ReturnButton>();
+        ReturnButtonInstance.StartCoroutine("FadeIn");
     }
 }
