@@ -17,10 +17,10 @@ public class LayoutButton : ButtonScript
         Vector2 delta = new Vector2((defaultPosition.x - currentPosition.x) / FADE_TIME, (defaultPosition.y - currentPosition.y) / FADE_TIME);
         for (int i = 0; i < FADE_TIME; i++)
         {
-            Debug.Log("Layout");
             rectTransform.anchoredPosition += delta;
-            yield return null;
+            yield return new WaitForSeconds(0.05f);
         }
+        yield return StartCoroutine(base.FadeIn());
     }
 
     public override IEnumerator FadeOut()
@@ -32,9 +32,9 @@ public class LayoutButton : ButtonScript
 
         for (int i = 0; i < FADE_TIME; i++)
         {
-            Debug.Log("Layout");
             rectTransform.anchoredPosition += delta;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.05f);
         }
+        yield return StartCoroutine(base.FadeOut());
     }
 }

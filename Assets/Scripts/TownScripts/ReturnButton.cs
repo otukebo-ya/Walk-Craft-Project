@@ -5,6 +5,10 @@ using UnityEngine;
 public class ReturnButton : ButtonScript
 {
     public static float BOTTOM_SPACE = 40f;
+    public void Awake() {
+        isInCanvas = false;
+    }
+
     public override void OnClick()
     {
         TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ViewState);
@@ -17,10 +21,10 @@ public class ReturnButton : ButtonScript
         Vector2 delta = new Vector2((defaultPosition.x - currentPosition.x) / FADE_TIME, (defaultPosition.y - currentPosition.y) / FADE_TIME);
         for (int i = 0; i < FADE_TIME; i++)
         {
-            Debug.Log("Return");
             rectTransform.anchoredPosition += delta;
-            yield return null;
+            yield return new WaitForSeconds(0.05f);
         }
+        yield return StartCoroutine(base.FadeOut());
     }
 
     public override IEnumerator FadeIn()
@@ -32,8 +36,8 @@ public class ReturnButton : ButtonScript
         for (int i = 0; i < FADE_TIME; i++)
         {
             rectTransform.anchoredPosition += delta;
-            Debug.Log("Return");
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.05f);
         }
+        yield return StartCoroutine(base.FadeIn());
     }
 }

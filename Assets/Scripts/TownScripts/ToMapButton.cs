@@ -26,6 +26,7 @@ public class ToMapButton : ButtonScript
             rectTransform.anchoredPosition += delta;
             yield return null;
         }
+        yield return StartCoroutine(base.FadeIn());
     }
 
     public override IEnumerator FadeOut()
@@ -40,5 +41,6 @@ public class ToMapButton : ButtonScript
             rectTransform.anchoredPosition += delta;
             yield return new WaitForSeconds(0.01f);
         }
+        yield return StartCoroutine(base.FadeOut());
     }
 }
