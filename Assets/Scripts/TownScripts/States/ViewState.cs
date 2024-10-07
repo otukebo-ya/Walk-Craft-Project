@@ -9,6 +9,13 @@ public class ViewState : ITownSceneState
     public void Enter()
     {
         // 非表示、あるいは画面外のボタンがあれば元に戻す
+        LayoutButton LayoutButtonScript = GameObject.Find("LayoutButton").GetComponent<LayoutButton>();
+        ReturnButton ReturnButtonScript = GameObject.Find("ReturnButton").GetComponent<ReturnButton>();
+        if (!LayoutButtonScript.isInCanvas) 
+        {
+            LayoutButtonScript.StartCoroutine(LayoutButtonScript.FadeIn());
+            ReturnButtonScript.StartCoroutine(ReturnButtonScript.FadeOut());
+        }
         // アニメーションとして実装したほうがいい
     }
 
