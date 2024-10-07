@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
-public class TileDirector : MonoBehaviour
+public class TileController : MonoBehaviour
 {
     // シングルトン
-    private static TileDirector _instance;
-    public static TileDirector Instance
+    private static TileController _instance;
+    public static TileController Instance
     {
         get
         {
             if (null == _instance)
             {
-                _instance = (TileDirector)FindObjectOfType(typeof(TileDirector));
+                _instance = (TileController)FindObjectOfType(typeof(TileController));
                 if (null == _instance)
                 {
                     Debug.Log("TileDirector Instance Error");
@@ -57,7 +57,6 @@ public class TileDirector : MonoBehaviour
         }
     }
 
-    // 触っているところを強調する。（TODO：リッチなアニメーションに変更）
     public void EmphasizeCrickedTile(Vector3 _currentPosition)
     {
         ChangeTile(_previousPosition, null, EffectMap);
