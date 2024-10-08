@@ -20,6 +20,6 @@ public class ItemPlaceState : ITownSceneState
 
     public void Exit()
     {
-
+        TileController.Instance.ResetChoice();
     }
 }

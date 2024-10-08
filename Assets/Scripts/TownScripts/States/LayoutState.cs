@@ -15,8 +15,6 @@ public class LayoutState : ITownSceneState
         Button layoutButton = GameObject.Find("LayoutButton").GetComponent<Button>();
         Button returnButton = GameObject.Find("ReturnButton").GetComponent<Button>();
 
-
-
         LayoutButton LayoutButtonScript = layoutButton.GetComponent<LayoutButton>();
         ReturnButton ReturnButtonScript = returnButton.GetComponent<ReturnButton>();
         if (LayoutButtonScript.IsInCanvas) {
@@ -28,7 +26,7 @@ public class LayoutState : ITownSceneState
 
         }
 
-        
+        TownSceneStateMachine.Instance.LastBaseState = TownSceneStateMachine.Instance.LayoutState;
     }
 
     public void Update()
@@ -36,6 +34,7 @@ public class LayoutState : ITownSceneState
         // タッチした場所にアイテムがあれば、それを取り外すかを聞くウィンドウ
         // ウィンドウが表示されているときは、
         // ほかのところをタッチするとウィンドウを閉じるように
+        TouchController.Instance.PickTile();
     }
 
     public void Exit()

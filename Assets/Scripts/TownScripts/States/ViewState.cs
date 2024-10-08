@@ -24,6 +24,8 @@ public class ViewState : ITownSceneState
             UIDirector.Instance.FadeOutButton(returnButton);
         }
 
+        TownSceneStateMachine.Instance.LastBaseState = TownSceneStateMachine.Instance.ViewState;
+
     }
 
     public void Update()
