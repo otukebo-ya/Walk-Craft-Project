@@ -43,7 +43,7 @@ public class UIDirector : MonoBehaviour
     public Button PropertyButton;
     public Button LayoutButton;
     public Button ReturnButton;
-
+    public Button[] Buttons;
 
     [SerializeField] TMP_Text PlayerNameText;
     [SerializeField] TMP_Text HeldCoinText;
@@ -56,13 +56,16 @@ public class UIDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _displayWindow.SetActive(false);
-        DisplayPlayerData();
         var canvasRect = Canvas.GetComponent<RectTransform>();
         CanvasWidth = canvasRect.rect.width;
         CanvasHeight = canvasRect.rect.height;
         CanvasPivot = canvasRect.pivot;
-        CanvasPosition =  canvasRect.position;
+        CanvasPosition = canvasRect.position;
+        
+        _displayWindow.SetActive(false);
+
+        DisplayPlayerData();
+
     }
 
     // 与えられたゲームオブジェクトの表示非表示を切り替える
@@ -73,6 +76,13 @@ public class UIDirector : MonoBehaviour
 
     public void DisplayItemWindow()
     {
+        FadeOutButtons();
+
+        SwitchVisibility(true, _displayWindow);
+
+        Animator animator = _displayWindow.GetComponent<Animator>();
+        animator.SetTrigger("Open");
+
         GameObject content = GameObject.Find("Window/Viewport/Content");
         foreach (Item item in ItemDataBase.items)
         {
@@ -110,6 +120,61 @@ public class UIDirector : MonoBehaviour
         {
             GameObject.Destroy(t.gameObject);
         }
+        StartCoroutine("CloseWindow");
+    }
+
+    private IEnumerator CloseWindow()
+    {
+        Animator animator = _displayWindow.GetComponent<Animator>();
+        animator.SetTrigger("Close");
+        yield return new WaitForSeconds(1.0f);
+        //SwitchVisibility(false, _displayWindow);
+        yield return null;
+    }
+
+    public void FadeOutButtons()
+    {
+        foreach(Button b in Buttons)
+        {
+            FadeOutButton(b);
+        }
+    }
+
+    public void FadeOutButton(Button button) 
+    {
+        //if (button.gameObject.name == "ReturnButton") { return; }
+        Animator animator = button.GetComponent<Animator>();
+        ButtonScript buttonScript = button.GetComponent<ButtonScript>();
+        if (buttonScript.IsInCanvas)
+        {
+            animator.SetTrigger("FadeOut");
+            buttonScript.IsInCanvas = false;
+        }
+        if (button.gameObject.name == "ReturnButton") { Debug.Log("Out!: " + button); }
+    }
+
+    public void FadeInButtons(List<string> ignoreButtonName)
+    {
+        foreach (Button b in Buttons)
+        {
+            //if (TownSceneStateMachine.Instance.BeforeState.StateName == "ViewState")
+
+            if (ignoreButtonName.Contains(b.gameObject.name)) {
+                continue;
+            }
+            FadeInButton(b);
+        }
+    }
+
+    public void FadeInButton(Button button)
+    {
+        Animator animator = button.GetComponent<Animator>();
+        ButtonScript buttonScript = button.GetComponent<ButtonScript>();
+        if (!buttonScript.IsInCanvas)
+        {
+            buttonScript.IsInCanvas = true;
+            animator.SetTrigger("FadeIn");
+        }
     }
 
     public void DisplayPlayerData()
@@ -117,14 +182,5 @@ public class UIDirector : MonoBehaviour
         PlayerNameText.SetText(PlayerData.Instance.Name);
         string heldCoin = PlayerData.Instance.HeldCoin.ToString();
         HeldCoinText.SetText(heldCoin);
-    }
-
-    public void DisplayLayoutStateUI() 
-    {
-        var LayoutButtonInstance = LayoutButton.GetComponent<LayoutButton>();
-        LayoutButtonInstance.StartCoroutine("FadeOut");
-
-        var ReturnButtonInstance = ReturnButton.GetComponent<ReturnButton>();
-        ReturnButtonInstance.StartCoroutine("FadeIn");
     }
 }

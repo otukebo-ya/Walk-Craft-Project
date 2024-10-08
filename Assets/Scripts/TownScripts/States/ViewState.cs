@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ViewState : ITownSceneState
 {
@@ -9,14 +10,20 @@ public class ViewState : ITownSceneState
     public void Enter()
     {
         // 非表示、あるいは画面外のボタンがあれば元に戻す
-        LayoutButton LayoutButtonScript = GameObject.Find("LayoutButton").GetComponent<LayoutButton>();
-        ReturnButton ReturnButtonScript = GameObject.Find("ReturnButton").GetComponent<ReturnButton>();
-        if (!LayoutButtonScript.isInCanvas) 
-        {
-            LayoutButtonScript.StartCoroutine(LayoutButtonScript.FadeIn());
-            ReturnButtonScript.StartCoroutine(ReturnButtonScript.FadeOut());
+        Button layoutButton = GameObject.Find("LayoutButton").GetComponent<Button>();
+        Button returnButton = GameObject.Find("ReturnButton").GetComponent<Button>();
+
+        LayoutButton LayoutButtonScript = layoutButton.GetComponent<LayoutButton>();
+        ReturnButton ReturnButtonScript = returnButton.GetComponent<ReturnButton>();
+
+        if (!LayoutButtonScript.IsInCanvas) {
+            UIDirector.Instance.FadeInButton(layoutButton);
         }
-        // アニメーションとして実装したほうがいい
+
+        if (ReturnButtonScript.IsInCanvas) {
+            UIDirector.Instance.FadeOutButton(returnButton);
+        }
+
     }
 
     public void Update()

@@ -9,6 +9,7 @@ public class TownSceneStateMachine
     public ItemWindowState ItemWindowState { get; private set; }
     public ItemPlaceState ItemPlaceState { get; private set; }
     public LayoutState LayoutState { get; private set; }
+    public ITownSceneState BeforeState { get; private set; }
 
     // プライベートコンストラクタ  
     private TownSceneStateMachine() 
@@ -17,6 +18,7 @@ public class TownSceneStateMachine
         this.ItemWindowState = new ItemWindowState();
         this.ItemPlaceState = new ItemPlaceState();
         this.LayoutState = new LayoutState();
+        BeforeState = ViewState;
     }
 
     // MonoBehaviourを用いない場合のシングルトン
@@ -44,8 +46,9 @@ public class TownSceneStateMachine
     // 現在のステートを抜けて次のステートへ移る処理
     public void TransitionTo(ITownSceneState nextState)
     {
-        Debug.Log(CurrentState.StateName + " => " + nextState.StateName);
+        Debug.Log(BeforeState.StateName + " => " + CurrentState.StateName + " => " + nextState.StateName);
         CurrentState.Exit();
+        if (BeforeState != CurrentState) { BeforeState = CurrentState; }
         CurrentState = nextState;
         nextState.Enter();
     }

@@ -7,10 +7,10 @@ public class ItemWindowState : ITownSceneState
     public string StateName => "ItemWindowState";
 
     private GameObject _window = GameObject.Find("Window");
+    
 
     public void Enter()
     {
-        UIDirector.Instance.SwitchVisibility(true, _window);
         UIDirector.Instance.DisplayItemWindow();
     }
 
@@ -22,8 +22,6 @@ public class ItemWindowState : ITownSceneState
 
     public void Exit()
     {
-
         UIDirector.Instance.DestroyWindow();
-        UIDirector.Instance.SwitchVisibility(false, _window);
     }
 }

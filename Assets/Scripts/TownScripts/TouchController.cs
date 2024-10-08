@@ -85,6 +85,7 @@ public class TouchController : MonoBehaviour
                 _scrollStartPos = Camera.main.ScreenToWorldPoint(touchPosition);
                 _scrolled = true;
             }
+
             if (Input.GetMouseButton(0))
             {
 
@@ -160,14 +161,11 @@ public class TouchController : MonoBehaviour
         private void Scroll()
         {
             Vector3 touchMovePos = _sceenPosition;
-            Debug.Log("diff");
             _scrolled = true;
             // 直前のタッチ位置との差を取得する
             Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
             CameraController.Instance.CamPosMove(diffPos);
             _scrollStartPos = touchMovePos;
-
-
         }
 
         // 主にstateがItemPlaceStateのときに用いることになると思う

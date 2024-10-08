@@ -18,8 +18,12 @@ public class ButtonScript : MonoBehaviour
     public Vector2 defaultPosition;
     public Vector2 defaultAnchors;
     public static int FADE_TIME = 5;
-    public bool isInCanvas = true;
+    public bool IsInCanvas;
     //private float BRIGHTNESS_RATIO = 0.9f;
+
+    public virtual void Awake() {
+        IsInCanvas = true;
+    }
 
     public void Start()
     {
@@ -55,17 +59,5 @@ public class ButtonScript : MonoBehaviour
     {
         var img = GetComponent<Image>();
         img.sprite = (_flg) ? Active : Inactive;
-    }
-
-    public virtual IEnumerator FadeIn() 
-    {
-        isInCanvas = true;
-        yield return null;
-    }
-
-    public virtual IEnumerator FadeOut()
-    {
-        isInCanvas = false;
-        yield return null;
     }
 }
