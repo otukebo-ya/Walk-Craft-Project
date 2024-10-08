@@ -9,32 +9,4 @@ public class LayoutButton : ButtonScript
     {
         TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.LayoutState);
     }
-
-    public override IEnumerator FadeIn()
-    {
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        Vector2 currentPosition = GetComponent<RectTransform>().anchoredPosition;
-        Vector2 delta = new Vector2((defaultPosition.x - currentPosition.x) / FADE_TIME, (defaultPosition.y - currentPosition.y) / FADE_TIME);
-        for (int i = 0; i < FADE_TIME; i++)
-        {
-            rectTransform.anchoredPosition += delta;
-            yield return new WaitForSeconds(0.05f);
-        }
-        yield return StartCoroutine(base.FadeIn());
-    }
-
-    public override IEnumerator FadeOut()
-    {
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        var height = GetComponent<RectTransform>().rect.height + BOTTOM_SPACE;
-        rectTransform.anchoredPosition = new Vector2(defaultPosition.x, defaultPosition.y);
-        Vector2 delta = new Vector2(0, - height / FADE_TIME);
-
-        for (int i = 0; i < FADE_TIME; i++)
-        {
-            rectTransform.anchoredPosition += delta;
-            yield return new WaitForSeconds(0.05f);
-        }
-        yield return StartCoroutine(base.FadeOut());
-    }
 }

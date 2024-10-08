@@ -10,8 +10,7 @@ public class ItemPlaceState : ITownSceneState
 
     public void Enter()
     {
-        UIDirector.Instance.SwitchVisibility(true, _window);
-        UIDirector.Instance.DisplayItemWindow();
+
     }
 
     public void Update()
@@ -21,8 +20,6 @@ public class ItemPlaceState : ITownSceneState
 
     public void Exit()
     {
-        
-        UIDirector.Instance.DestroyWindow();
-        UIDirector.Instance.SwitchVisibility(false, _window);
+
     }
 }

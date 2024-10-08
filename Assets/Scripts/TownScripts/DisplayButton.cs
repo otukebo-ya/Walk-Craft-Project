@@ -12,16 +12,6 @@ public class DisplayButton : ButtonScript
 
     public void DisplayItemWindow()
     {
-        // 表示する場合
-        if (_flg)
-        {
-            TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ItemPlaceState);
-        }
-
-        // 非表示にする場合
-        else
-        {
-            TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ViewState);
-        }
+        TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ItemWindowState);
     }
 }

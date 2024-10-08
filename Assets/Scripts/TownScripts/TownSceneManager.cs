@@ -23,7 +23,7 @@ public class TownSceneManager : MonoBehaviour
         }
     }
 
-    public void Awake()
+    public void Start()
     {
         TownSceneStateMachine.Instance.Initialize(TownSceneStateMachine.Instance.ViewState);
     }

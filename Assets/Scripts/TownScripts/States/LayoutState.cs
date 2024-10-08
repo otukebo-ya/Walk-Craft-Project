@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LayoutState : ITownSceneState
 {
@@ -10,7 +11,24 @@ public class LayoutState : ITownSceneState
     {
         // 収集へボタンをフェードアウト
         // Viewへ戻るボタンをフェードイン
-        UIDirector.Instance.DisplayLayoutStateUI();
+        // 非表示、あるいは画面外のボタンがあれば元に戻す
+        Button layoutButton = GameObject.Find("LayoutButton").GetComponent<Button>();
+        Button returnButton = GameObject.Find("ReturnButton").GetComponent<Button>();
+
+
+
+        LayoutButton LayoutButtonScript = layoutButton.GetComponent<LayoutButton>();
+        ReturnButton ReturnButtonScript = returnButton.GetComponent<ReturnButton>();
+        if (LayoutButtonScript.IsInCanvas) {
+            UIDirector.Instance.FadeOutButton(layoutButton);
+        }
+
+        if (!ReturnButtonScript.IsInCanvas) {
+            UIDirector.Instance.FadeInButton(returnButton);
+
+        }
+
+        
     }
 
     public void Update()

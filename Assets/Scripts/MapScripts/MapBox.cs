@@ -91,7 +91,6 @@ public class Map : MonoBehaviour
         }
     }
 
-
     //Set the scale of plane to match the screen size
     private void MatchPlaneToScreenSize()
     {
@@ -128,6 +127,4 @@ public class Map : MonoBehaviour
         Debug.Log("mapw: " + mapWidthPx + " maph: " + mapHeightPx);
         Debug.Log("planew: " + planeWidthScale + " planeh: " + planeHeightScale);
     }
-
-
 }
