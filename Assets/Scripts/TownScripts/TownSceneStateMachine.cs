@@ -10,6 +10,7 @@ public class TownSceneStateMachine
     public ItemPlaceState ItemPlaceState { get; private set; }
     public LayoutState LayoutState { get; private set; }
     public ITownSceneState BeforeState { get; private set; }
+    public ITownSceneState LastBaseState {  get; set; }
 
     // プライベートコンストラクタ  
     private TownSceneStateMachine() 
@@ -19,6 +20,7 @@ public class TownSceneStateMachine
         this.ItemPlaceState = new ItemPlaceState();
         this.LayoutState = new LayoutState();
         BeforeState = ViewState;
+        LastBaseState = ViewState;
     }
 
     // MonoBehaviourを用いない場合のシングルトン

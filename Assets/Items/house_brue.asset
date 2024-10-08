@@ -16,5 +16,5 @@ MonoBehaviour:
   _name: "\u9752\u3044\u5BB6"
   _tile: {fileID: 11400000, guid: 82587a5ba4e55214e8222d1fceb58520, type: 2}
   _activeImage: {fileID: 21300000, guid: c724be319acf7264e9944f78ffa0e00d, type: 3}
-  _inactiveImage: {fileID: 21300000, guid: bf94cf4116a48e94093f6162ec838595, type: 3}
+  _inactiveImage: {fileID: 21300000, guid: c724be319acf7264e9944f78ffa0e00d, type: 3}
   NumberOfPossessions: 5

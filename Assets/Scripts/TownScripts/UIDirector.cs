@@ -91,14 +91,18 @@ public class UIDirector : MonoBehaviour
             GameObject itemPanel = Instantiate(ItemPanel);
             GameObject itemButton = itemPanel.transform.Find("ItemButton").gameObject;
             GameObject itemShadow = itemPanel.transform.Find("ItemShadow").gameObject;
+            GameObject itemImage = itemButton.transform.Find("ItemImage").gameObject;
+            GameObject itemPossessionPanel = itemButton.transform.Find("PossessionPanel").gameObject;
+            GameObject itemPossession = itemPossessionPanel.transform.Find("Possession").gameObject;
             float ITEM_BUTTON_SCALE = 0.7f;
 
             itemPanel.transform.SetParent(content.transform);
             itemButton.name = name;
-            itemButton.GetComponent<Image>().sprite = icon[0];
+            itemImage.GetComponent<Image>().sprite = icon[0];
             itemButton.GetComponent<ItemButton>().Active = icon[0];
             itemButton.GetComponent<ItemButton>().Inactive = icon[1];
             itemButton.GetComponent<ItemButton>().Tile = item.Tile;
+            itemPossession.GetComponent<TextMeshProUGUI>().text = item.NumberOfPossessions.ToString();
 
             // scaleを調整する
             Vector3 unitVector = new Vector3(ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE, 0);
@@ -153,7 +157,7 @@ public class UIDirector : MonoBehaviour
         if (button.gameObject.name == "ReturnButton") { Debug.Log("Out!: " + button); }
     }
 
-    public void FadeInButtons(List<string> ignoreButtonName)
+    public void FadeInButtons(List<string> ignoreButtonName = null)
     {
         foreach (Button b in Buttons)
         {
@@ -162,6 +166,14 @@ public class UIDirector : MonoBehaviour
             if (ignoreButtonName.Contains(b.gameObject.name)) {
                 continue;
             }
+            FadeInButton(b);
+        }
+    }
+
+    public void FadeInButtons()
+    {
+        foreach (Button b in Buttons)
+        {
             FadeInButton(b);
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Tilemaps;
 
 public class TouchController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class TouchController : MonoBehaviour
     private List<string> OnUITag = new List<string>();
     private bool _scrolled = false;
     public bool CanScroll = true;
+    public TileBase PickedTile;
 
     // Update is called once per frame
     void Update()
@@ -108,7 +110,7 @@ public class TouchController : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(0))
             {
-                if (!_scrolled) { HandleTilePlacement(); }
+                //if (!_scrolled) { HandleTilePlacement(); }
                 // タッチを離したらスクロール開始位置を初期化する 
                 _scrollStartPos = new Vector3();
                 _scrolled = false;
@@ -116,60 +118,62 @@ public class TouchController : MonoBehaviour
         // #endif
         }
 
-        // レイキャストを投げて、結果を返す
-        public List<RaycastResult> RayCast(Vector3 position)
-        {
-            PointerEventData pointData = new PointerEventData(EventSystem.current);
-            pointData.position = position;
-            List<RaycastResult> rayResults = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointData, rayResults);
+    // レイキャストを投げて、結果を返す
+    public List<RaycastResult> RayCast(Vector3 position)
+    {
+        PointerEventData pointData = new PointerEventData(EventSystem.current);
+        pointData.position = position;
+        List<RaycastResult> rayResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointData, rayResults);
 
-            return rayResults;
+        return rayResults;
+    }
+
+    // レイキャスト結果のタグを確認し、スクロール可能かを返す
+    private bool IsOnUI(Vector3 position)
+    {
+        bool isOnUI;
+        var rayResults = RayCast(position);
+
+        foreach (RaycastResult result in rayResults)
+        {
+            // 中身の確認処理
+            var tag = result.gameObject.tag;
+
+            if (tag == "UI")
+            {
+                OnUITag.Add(tag);
+            }
         }
 
-        // レイキャスト結果のタグを確認し、スクロール可能かを返す
-        private bool IsOnUI(Vector3 position)
+        // ３項演算子を使った方が短くなるけど、どうする？
+        if (OnUITag.Count != 0)
         {
-            bool isOnUI;
-            var rayResults = RayCast(position);
-
-            foreach (RaycastResult result in rayResults)
-            {
-                // 中身の確認処理
-                var tag = result.gameObject.tag;
-
-                if (tag == "UI")
-                {
-                    OnUITag.Add(tag);
-                }
-            }
-
-            // ３項演算子を使った方が短くなるけど、どうする？
-            if (OnUITag.Count != 0)
-            {
-                isOnUI = true;
-            }
-            else
-            {
-                isOnUI = false;
-            }
-
-            return isOnUI;
+            isOnUI = true;
+        }
+        else
+        {
+            isOnUI = false;
         }
 
-        // スクロール情報を取得し、Cameraの位置を移動させる
-        private void Scroll()
-        {
-            Vector3 touchMovePos = _sceenPosition;
-            _scrolled = true;
-            // 直前のタッチ位置との差を取得する
-            Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
-            CameraController.Instance.CamPosMove(diffPos);
-            _scrollStartPos = touchMovePos;
-        }
+        return isOnUI;
+    }
 
-        // 主にstateがItemPlaceStateのときに用いることになると思う
-        public void HandleTilePlacement()
+    // スクロール情報を取得し、Cameraの位置を移動させる
+    private void Scroll()
+    {
+        Vector3 touchMovePos = _sceenPosition;
+        _scrolled = true;
+        // 直前のタッチ位置との差を取得する
+        Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
+        CameraController.Instance.CamPosMove(diffPos);
+        _scrollStartPos = touchMovePos;
+    }
+
+    // 主にstateがItemPlaceStateのときに用いることになると思う
+    public void HandleTilePlacement()
+    {
+        if (Input.GetMouseButtonUp(0))
         {
             // タッチ操作のポジションを取得
             var touchPosition = Input.mousePosition;
@@ -189,3 +193,25 @@ public class TouchController : MonoBehaviour
             }
         }
     }
+
+    public void PickTile() {
+        if (Input.GetMouseButtonDown(0))
+        {
+            // タッチ操作のポジションを取得
+            var touchPosition = Input.mousePosition;
+            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+
+            // タッチした場所がUIの上か調べる
+            var isOnUI = IsOnUI(touchPosition);
+
+            // UIの上でないならタイルの設置
+            if (isOnUI) { return; }
+
+            PickedTile = TileController.Instance.GetTile(_sceenPosition, TilemapType.Item);
+            if (PickedTile)
+            {
+                Debug.Log("tile  " + PickedTile.name);
+            }
+        }
+    }
+}

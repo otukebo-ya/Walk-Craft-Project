@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
+public enum TilemapType 
+{
+    Item,
+    Ground,
+    Effect
+}
 public class TileController : MonoBehaviour
 {
     // シングルトン
@@ -29,7 +35,7 @@ public class TileController : MonoBehaviour
     public Tilemap ItemMap;
     public Tilemap EffectMap;
     public TileBase Effect;
-    public TileBase NewItemTile = null;
+    public TileBase ChoicedItemTile = null;
     private Vector3 _previousPosition;
     private Vector3 _currentPosition;
 
@@ -50,10 +56,10 @@ public class TileController : MonoBehaviour
     /// </summary>
     public void ChangeTile(Vector3 position) 
     {
-        if (NewItemTile != null)
+        if (ChoicedItemTile != null)
         {
             Vector3Int grid = ConvertVec3Int(position);
-            ItemMap.SetTile(grid, NewItemTile);
+            ItemMap.SetTile(grid, ChoicedItemTile);
         }
     }
 
@@ -70,5 +76,32 @@ public class TileController : MonoBehaviour
         grid.z = 0;
 
         return grid;
+    }
+
+    public TileBase GetTile(Vector3 position, TilemapType type) {
+        Vector3Int grid = ItemMap.WorldToCell(position);
+        grid.z = 0;
+
+        Tilemap tilemap;
+        if (type == TilemapType.Item)
+        {
+            tilemap = ItemMap;
+        }else if(type == TilemapType.Ground)
+        {
+            tilemap = GroundMap;
+        }
+        else
+        {
+            tilemap = EffectMap;
+        }
+
+        TileBase tile = tilemap.GetTile(grid);
+
+        return tile;
+    }
+
+    public void ResetChoice() 
+    {
+        ChoicedItemTile = null;
     }
 }

@@ -14,6 +14,18 @@ public class ItemButton : ButtonScript
         base.OnClick();
         var name = this.gameObject.name;
         Item item = UIDirector.Instance.ItemDataBase.GetItemByName(name);
-        TileController.Instance.NewItemTile = item.Tile;
+        TileController.Instance.ChoicedItemTile = item.Tile;
+
+        List<string> ignoreButton = new List<string>();
+        if(TownSceneStateMachine.Instance.LastBaseState == TownSceneStateMachine.Instance.ViewState)
+        {
+            ignoreButton.Add("ReturnButton");
+        }
+        else
+        {
+            ignoreButton.Add("LayoutButton");
+        }
+        UIDirector.Instance.FadeInButtons(ignoreButton);
+        TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ItemPlaceState);
     }
 }
