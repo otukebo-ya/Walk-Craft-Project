@@ -9,7 +9,7 @@ public class TouchedTileOption : MonoBehaviour
     public TileBase TouchedTile;
     public Vector3Int TouchedTilePosition;
     public Button OKButton;
-    public Button RemoveButton;
+    public Button MoveButton;
     public Button DeleteButton;
 
     // シングルトン
@@ -33,7 +33,7 @@ public class TouchedTileOption : MonoBehaviour
     void Start()
     {
         OKButton.onClick.AddListener(HideOptions);
-        RemoveButton.onClick.AddListener(RemoveTile);
+        MoveButton.onClick.AddListener(MoveTile);
         DeleteButton.onClick.AddListener(DeleteTile);
     }
 
@@ -48,6 +48,7 @@ public class TouchedTileOption : MonoBehaviour
         
         this.gameObject.SetActive(true);
     }
+
     public void HideOptions() 
     {
         this.gameObject.SetActive(false);
@@ -81,12 +82,16 @@ public class TouchedTileOption : MonoBehaviour
         return newPos;
     }
 
-    public void RemoveTile()
-    {
-
-    }
-    public void DeleteTile() 
+    public void MoveTile()
     {
         
+    }
+
+    public void DeleteTile() 
+    {
+        // （TODO）持ち物に戻す作業が必要！！！
+        TileController.Instance.DeleteEmphasizedTile();
+        TileController.Instance.DeleteEmphasis();
+        this.gameObject.SetActive(false);
     }
 }
