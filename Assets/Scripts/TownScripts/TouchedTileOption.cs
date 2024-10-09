@@ -30,18 +30,32 @@ public class TouchedTileOption : MonoBehaviour
         }
     }
 
-    void Start()
+    public void SetLayoutOptionListener()
     {
+        Debug.Log("SetLayoutOption");
         OKButton.onClick.AddListener(HideOptions);
-        MoveButton.onClick.AddListener(MoveTile);
-        DeleteButton.onClick.AddListener(DeleteTile);
+        MoveButton.onClick.AddListener(MoveEnphasizedTile);
+        DeleteButton.onClick.AddListener(DeleteEnphasizedTile);
+    }
+
+    public void SetItemPlaceOptionListener() {
+        Debug.Log("SetPlaceOption");
+        OKButton.onClick.AddListener(PlaceItem);
+        MoveButton.onClick.AddListener(HideOptions);
+        DeleteButton.onClick.AddListener(ReturnItemWindow);
+    }
+
+    public void RemoveListeners() {
+        OKButton.onClick.RemoveAllListeners();
+        MoveButton.onClick.RemoveAllListeners();
+        DeleteButton.onClick.RemoveAllListeners();
     }
 
     // 表示する
     public void ShowOptions(Vector3 touchedScreenPosition)
     {
         Vector3 touchedWorldPosition = Camera.main.ScreenToWorldPoint(touchedScreenPosition);
-        TileBase touchedTile = TileController.Instance.GetTile(touchedWorldPosition, TilemapType.Item);
+        TouchedTile = TileController.Instance.GetTile(touchedWorldPosition, TilemapType.Item);
 
         Vector3 pos = DecidePosition(touchedScreenPosition);
         this.gameObject.transform.position = pos;
@@ -54,11 +68,11 @@ public class TouchedTileOption : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public Vector3 DecidePosition (Vector3 position) {
+    public Vector3 DecidePosition (Vector3 position)
+    {
         Vector3 newPos = position;
         const int X_LIMIT = 150;
         const int Y_OFFSET = 150;
-        Debug.Log(position);
         if (position.x <= X_LIMIT) 
         {
             newPos.x = position.x + X_LIMIT;
@@ -78,20 +92,29 @@ public class TouchedTileOption : MonoBehaviour
         {
             newPos.y = position.y - Y_OFFSET;
         }
-        Debug.Log(newPos);
         return newPos;
     }
 
-    public void MoveTile()
+    public void MoveEnphasizedTile()
     {
         
     }
 
-    public void DeleteTile() 
+    public void DeleteEnphasizedTile() 
     {
         // （TODO）持ち物に戻す作業が必要！！！
         TileController.Instance.DeleteEmphasizedTile();
         TileController.Instance.DeleteEmphasis();
         this.gameObject.SetActive(false);
+    }
+
+    public void PlaceItem() 
+    {
+        TileController.Instance.PlaceChoicedItemTile();
+    }
+
+    public void ReturnItemWindow() 
+    {
+        
     }
 }

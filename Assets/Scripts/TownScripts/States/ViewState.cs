@@ -37,5 +37,6 @@ public class ViewState : ITownSceneState
     public void Exit()
     {
         // 次の状態へ移る際の終了処理など
+        UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>().RemoveListeners();
     }
 }
