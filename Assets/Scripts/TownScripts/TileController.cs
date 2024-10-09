@@ -38,6 +38,7 @@ public class TileController : MonoBehaviour
     public TileBase ChoicedItemTile = null;
     private Vector3 _previousPosition;
     private Vector3 _currentPosition;
+    private Vector3 _enphasizedTilePos;
 
     /// <summary>
     /// Camera.main.ScreenToWorldPoint(Input.mousePosition)にて、
@@ -65,9 +66,15 @@ public class TileController : MonoBehaviour
 
     public void EmphasizeCrickedTile(Vector3 _currentPosition)
     {
+        _enphasizedTilePos = _currentPosition;
         ChangeTile(_previousPosition, null, EffectMap);
         ChangeTile(_currentPosition, Effect, EffectMap);
         _previousPosition = _currentPosition;
+    }
+
+    public void DeleteEmphasis() 
+    {
+        ChangeTile(_enphasizedTilePos, null, EffectMap);
     }
      
     private Vector3Int ConvertVec3Int(Vector3 position)

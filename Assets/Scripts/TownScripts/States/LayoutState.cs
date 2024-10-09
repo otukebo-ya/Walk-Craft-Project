@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
+
 
 public class LayoutState : ITownSceneState
 {
@@ -31,10 +33,7 @@ public class LayoutState : ITownSceneState
 
     public void Update()
     {
-        // タッチした場所にアイテムがあれば、それを取り外すかを聞くウィンドウ
-        // ウィンドウが表示されているときは、
-        // ほかのところをタッチするとウィンドウを閉じるように
-        TouchController.Instance.PickTile();
+        TouchController.Instance.HandleTouchedTileOption();
     }
 
     public void Exit()
