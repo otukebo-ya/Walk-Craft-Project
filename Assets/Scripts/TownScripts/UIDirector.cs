@@ -38,12 +38,8 @@ public class UIDirector : MonoBehaviour
 
     public ItemDataBase ItemDataBase;
     public GameObject ItemPanel;
-    public Button ToMapButton;
-    public Button BluePrintButton;
-    public Button PropertyButton;
-    public Button LayoutButton;
-    public Button ReturnButton;
     public Button[] Buttons;
+    [SerializeField] GameObject _touchOption; 
 
     [SerializeField] TMP_Text PlayerNameText;
     [SerializeField] TMP_Text HeldCoinText;
@@ -63,6 +59,7 @@ public class UIDirector : MonoBehaviour
         CanvasPosition = canvasRect.position;
         
         _displayWindow.SetActive(false);
+        _touchOption.SetActive(false);
 
         DisplayPlayerData();
 
@@ -194,5 +191,10 @@ public class UIDirector : MonoBehaviour
         PlayerNameText.SetText(PlayerData.Instance.Name);
         string heldCoin = PlayerData.Instance.HeldCoin.ToString();
         HeldCoinText.SetText(heldCoin);
+    }
+
+    public void DisplayPickOption()
+    {
+
     }
 }
