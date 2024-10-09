@@ -76,6 +76,11 @@ public class TileController : MonoBehaviour
     {
         ChangeTile(_enphasizedTilePos, null, EffectMap);
     }
+
+    public void DeleteEmphasizedTile()
+    {
+        ChangeTile(_enphasizedTilePos, null, ItemMap);
+    }
      
     private Vector3Int ConvertVec3Int(Vector3 position)
     {

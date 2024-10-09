@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: torii
   m_EditorClassIdentifier: 
   _itemType: 0
-  _name: torii
+  _name: "\u9CE5\u5C45"
   _tile: {fileID: 11400000, guid: 8bec85b3fccb6c04b988da44212db69f, type: 2}
   _activeImage: {fileID: 21300000, guid: 2ec6e3fe97289fa45925d486a9032fc1, type: 3}
   _inactiveImage: {fileID: 21300000, guid: 2ec6e3fe97289fa45925d486a9032fc1, type: 3}

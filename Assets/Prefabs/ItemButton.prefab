@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.5, y: 0.999}
+  m_AnchoredPosition: {x: 26, y: 30}
   m_SizeDelta: {x: 125, y: 51.998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1775824066601870890
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 575a31ba023fdc3498eb3a24bfc35f72, type: 2}
-  m_sharedMaterial: {fileID: 5470855244673030723, guid: 575a31ba023fdc3498eb3a24bfc35f72, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 32bc51b8768e7594aab2f76e91cca574, type: 2}
+  m_sharedMaterial: {fileID: -5207877008175039291, guid: 32bc51b8768e7594aab2f76e91cca574, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -208,8 +208,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 3289650
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -304,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -30}
+  m_AnchoredPosition: {x: -32, y: -162.2}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7713190026829656595
@@ -360,7 +360,7 @@ MonoBehaviour:
   settings:
     _blur: 0
     _endAngle: 360
-    _fillColor: {r: 1, g: 0, b: 0, a: 1}
+    _fillColor: {r: 1, g: 1, b: 1, a: 0}
     _fillColor2: {r: 0, g: 0, b: 0, a: 1}
     _fillOffset: {x: 0, y: 0}
     _fillPathLoops: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
     _invertArc: 0
     _lineSize: 0.05
     _obsoleteNumSides: -1
-    _outlineColor: {r: 1, g: 0.995283, b: 0.995283, a: 1}
+    _outlineColor: {r: 1, g: 1, b: 1, a: 1}
     _outlineSize: 0
     _pathSegments:
     - p0: {x: -0.3, y: 0, z: 0}
@@ -416,6 +416,7 @@ GameObject:
   - component: {fileID: 5449550030084083417}
   - component: {fileID: 1819401277733531612}
   - component: {fileID: 1373318636313637910}
+  - component: {fileID: 396961501553525496}
   m_Layer: 5
   m_Name: ItemButton
   m_TagString: UI
@@ -617,6 +618,21 @@ MonoBehaviour:
     _usePolygonMap: 0
   wasConverted: 0
   preConvertedScale: {x: 0, y: 0, z: 0}
+--- !u!114 &396961501553525496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021904271498158596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: -10, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &8080252357499761585
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,6 +644,7 @@ GameObject:
   - component: {fileID: 6628250607448879234}
   - component: {fileID: 6741952574309883549}
   - component: {fileID: 7329223445580318768}
+  - component: {fileID: 4742181267718532293}
   m_Layer: 5
   m_Name: ItemImage
   m_TagString: Untagged
@@ -692,3 +709,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4742181267718532293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8080252357499761585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.29803923}
+  m_EffectDistance: {x: -10, y: 0}
+  m_UseGraphicAlpha: 1
