@@ -17,6 +17,8 @@ public class LayoutState : ITownSceneState
         Button layoutButton = GameObject.Find("LayoutButton").GetComponent<Button>();
         Button returnButton = GameObject.Find("ReturnButton").GetComponent<Button>();
 
+        UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>().SetLayoutOptionListener();
+
         LayoutButton LayoutButtonScript = layoutButton.GetComponent<LayoutButton>();
         ReturnButton ReturnButtonScript = returnButton.GetComponent<ReturnButton>();
         if (LayoutButtonScript.IsInCanvas) {
@@ -33,11 +35,13 @@ public class LayoutState : ITownSceneState
 
     public void Update()
     {
-        TouchController.Instance.HandleTouchedTileOption();
+        TouchController.Instance.HandleLayoutTouchOption();
     }
 
     public void Exit()
     {
-        // Viewへ戻るボタンをフェードアウト
+        var TouchedTileOption = UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>();
+        TouchedTileOption.RemoveListeners();
+        TouchedTileOption.HideOptions();
     }
 }

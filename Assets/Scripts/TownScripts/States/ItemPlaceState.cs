@@ -10,16 +10,19 @@ public class ItemPlaceState : ITownSceneState
 
     public void Enter()
     {
-
+        UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>().SetItemPlaceOptionListener();
     }
 
     public void Update()
     {
-        TouchController.Instance.HandleTilePlacement();
+        TouchController.Instance.HandleTilePlaceTouchOption();
     }
 
     public void Exit()
     {
+        var TouchedTileOption = UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>();
+        TouchedTileOption.RemoveListeners();
+        TouchedTileOption.HideOptions();
         TileController.Instance.ResetChoice();
     }
 }

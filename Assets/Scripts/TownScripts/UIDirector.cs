@@ -39,7 +39,7 @@ public class UIDirector : MonoBehaviour
     public ItemDataBase ItemDataBase;
     public GameObject ItemPanel;
     public Button[] Buttons;
-    [SerializeField] GameObject _touchOption; 
+    public GameObject TouchOption; 
 
     [SerializeField] TMP_Text PlayerNameText;
     [SerializeField] TMP_Text HeldCoinText;
@@ -59,7 +59,7 @@ public class UIDirector : MonoBehaviour
         CanvasPosition = canvasRect.position;
         
         _displayWindow.SetActive(false);
-        _touchOption.SetActive(false);
+        TouchOption.SetActive(false);
 
         DisplayPlayerData();
 
@@ -151,7 +151,6 @@ public class UIDirector : MonoBehaviour
             animator.SetTrigger("FadeOut");
             buttonScript.IsInCanvas = false;
         }
-        if (button.gameObject.name == "ReturnButton") { Debug.Log("Out!: " + button); }
     }
 
     public void FadeInButtons(List<string> ignoreButtonName = null)

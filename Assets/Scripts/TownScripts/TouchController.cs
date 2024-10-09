@@ -190,12 +190,12 @@ public class TouchController : MonoBehaviour
         }
     }
 
-    public void HandleTouchedTileOption() {
+    public void HandleLayoutTouchOption() {
         if (Input.GetMouseButton(0))
         {
             TouchedTileOption touchOptionScript = TouchOption.GetComponent<TouchedTileOption>();
             var touchPosition = Input.mousePosition;
-            var touchWorldPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
 
             if (_scrolled) {
                 touchOptionScript.HideOptions();
@@ -206,16 +206,43 @@ public class TouchController : MonoBehaviour
                 // タッチした場所がUIの上か調べる
             var isOnUI = IsOnUI(touchPosition);
 
-            if (isOnUI) {
-                Debug.Log("UI");
-            }
-            // タッチした場所にアイテムがあれば、それを取り外すかを聞くウィンドウ
+            // (TODO)タッチした場所にアイテムがあれば、それを取り外すかを聞くウィンドウ
             // ウィンドウが表示されているときは、
             // ほかのところをタッチするとウィンドウを閉じるように
-            TileBase tile = TileController.Instance.GetTile(touchWorldPosition, TilemapType.Item);
+            TileBase tile = TileController.Instance.GetTile(_sceenPosition, TilemapType.Item);
             if (tile && !isOnUI) 
             {
-                TileController.Instance.EmphasizeCrickedTile(touchWorldPosition);
+                TileController.Instance.EmphasizeCrickedTile(_sceenPosition);
+                touchOptionScript.ShowOptions(touchPosition);
+            }
+        }
+    }
+
+    public void HandleTilePlaceTouchOption()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            TouchedTileOption touchOptionScript = TouchOption.GetComponent<TouchedTileOption>();
+            var touchPosition = Input.mousePosition;
+            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+
+            if (_scrolled)
+            {
+                touchOptionScript.HideOptions();
+                TileController.Instance.DeleteEmphasis();
+                return;
+            }
+
+            // タッチした場所がUIの上か調べる
+            var isOnUI = IsOnUI(touchPosition);
+
+            // (TODO)タッチした場所にアイテムがあれば、それを取り外すかを聞くウィンドウ
+            // ウィンドウが表示されているときは、
+            // ほかのところをタッチするとウィンドウを閉じるように
+            //TileBase tile = TileController.Instance.GetTile(_sceenPosition, TilemapType.Item);
+            if (!isOnUI)
+            {
+                TileController.Instance.EmphasizeCrickedTile(_sceenPosition);
                 touchOptionScript.ShowOptions(touchPosition);
             }
         }

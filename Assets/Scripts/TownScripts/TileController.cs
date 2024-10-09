@@ -116,4 +116,9 @@ public class TileController : MonoBehaviour
     {
         ChoicedItemTile = null;
     }
+
+    public void PlaceChoicedItemTile() 
+    {
+        ChangeTile(_enphasizedTilePos);
+    }
 }
