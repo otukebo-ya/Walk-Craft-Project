@@ -12,7 +12,7 @@ public class CloseWindowButton : ButtonScript
 
     public void CloseWindow()
     {
-        string beforeState = TownSceneStateMachine.Instance.BeforeState.StateName;
+        string beforeState = TownSceneStateMachine.Instance.LastBaseState.StateName;
         List<string> ignoreButtonName = new List<string>();
         if (beforeState == "ViewState")
         {
@@ -23,6 +23,6 @@ public class CloseWindowButton : ButtonScript
             ignoreButtonName.Add("LayoutButton");
         }
         UIDirector.Instance.FadeInButtons(ignoreButtonName);
-        TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.BeforeState);
+        TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.LastBaseState);
     }
 }
