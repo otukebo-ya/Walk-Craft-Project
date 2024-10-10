@@ -18,7 +18,7 @@ public class MaterialToggle : MonoBehaviour
         if (toggle.isOn)
         {
             Debug.Log("MaterialIsOn");
-            CleanWindow();
+            CleanItemWindow();
             DisplayMaterials();
         }
     }
@@ -28,9 +28,9 @@ public class MaterialToggle : MonoBehaviour
         UIDirector.Instance.LineUpMaterials();
     }
 
-    public void CleanWindow()
+    public void CleanItemWindow()
     {
-        GameObject content = GameObject.Find("Window/Viewport/Content");
+        GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
         if (content == null || content.transform == null)
         {
             return;

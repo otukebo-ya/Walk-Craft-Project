@@ -34,13 +34,17 @@ public class UIDirector : MonoBehaviour
         }
     }
 
-    [SerializeField] GameObject _displayWindow;
+    [SerializeField] GameObject _ItemWindow;
+    [SerializeField] GameObject _BluePrintWindow;
 
     public ItemDataBase ItemDataBase;
     public GameObject ItemPanel;
 
     public CraftMaterialDataBase CraftMaterialDataBase;
     public GameObject MaterialPanel;
+
+    public BluePrintDataBase BluePrintDataBase;
+    public GameObject BluePrintPanel;
 
     public Button[] Buttons;
     public GameObject TouchOption; 
@@ -62,7 +66,8 @@ public class UIDirector : MonoBehaviour
         CanvasPivot = canvasRect.pivot;
         CanvasPosition = canvasRect.position;
         
-        _displayWindow.SetActive(false);
+        _ItemWindow.SetActive(false);
+        _BluePrintWindow.SetActive(false);
         TouchOption.SetActive(false);
 
         DisplayPlayerData();
@@ -79,9 +84,9 @@ public class UIDirector : MonoBehaviour
     {
         FadeOutButtons();
 
-        SwitchVisibility(true, _displayWindow);
+        SwitchVisibility(true, _ItemWindow);
 
-        Animator animator = _displayWindow.GetComponent<Animator>();
+        Animator animator = _ItemWindow.GetComponent<Animator>();
         animator.SetTrigger("Open");
 
         LineUpItems();
@@ -89,7 +94,7 @@ public class UIDirector : MonoBehaviour
 
     public void LineUpItems()
     {
-        GameObject content = GameObject.Find("Window/Viewport/Content");
+        GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
         foreach (Item item in ItemDataBase.items)
         {
             Sprite[] icon = item.Icons;
@@ -116,12 +121,13 @@ public class UIDirector : MonoBehaviour
 
             TMP_Text buttonText = itemButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
+            Debug.Log("ADD");
         }
     }
 
     public void LineUpMaterials()
     {
-        GameObject content = GameObject.Find("Window/Viewport/Content");
+        GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
         foreach (Craftmaterial material in CraftMaterialDataBase.materials)
         {
             Sprite icon = material.Image;
@@ -145,12 +151,14 @@ public class UIDirector : MonoBehaviour
 
             TMP_Text buttonText = materialButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
+            
         }
     }
 
-    public void DestroyWindow()
+    public void DestroyItemWindow()
     {
-        GameObject content = GameObject.Find("Window/Viewport/Content");
+        Debug.Log("DESTROY!");
+        GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
         if (content == null || content.transform == null)
         {
             return;
@@ -159,17 +167,80 @@ public class UIDirector : MonoBehaviour
         {
             GameObject.Destroy(t.gameObject);
         }
-        StartCoroutine("CloseWindow");
+        StartCoroutine("CloseItemWindow");
     }
 
-    private IEnumerator CloseWindow()
+    private IEnumerator CloseItemWindow()
     {
-        Animator animator = _displayWindow.GetComponent<Animator>();
+        Animator animator = _ItemWindow.GetComponent<Animator>();
         animator.SetTrigger("Close");
         yield return new WaitForSeconds(1.0f);
-        //SwitchVisibility(false, _displayWindow);
+        //SwitchVisibility(false, _ItemWindow);
         yield return null;
     }
+
+    public void DisplayBluePrintWindow()
+    {
+        FadeOutButtons();
+
+        SwitchVisibility(true, _BluePrintWindow);
+
+        Animator animator = _BluePrintWindow.GetComponent<Animator>();
+        animator.SetTrigger("Open");
+
+        LineUpBluePrints();
+    }
+
+    public void LineUpBluePrints()
+    {
+        GameObject content = GameObject.Find("BluePrintWindow/Viewport/Content");
+        foreach (BluePrint bluePrint in BluePrintDataBase.bluePrints)
+        {
+            Sprite image = bluePrint.Image;
+            string name = bluePrint.Name;
+            GameObject bluePrintPanel = Instantiate(BluePrintPanel);
+            GameObject bluePrintButton = bluePrintPanel.transform.Find("CraftButton").gameObject;
+            GameObject ItemImageFrame = bluePrintPanel.transform.Find("ItemImageFrame").gameObject;
+            GameObject itemImage = ItemImageFrame.transform.Find("ItemImage").gameObject;
+            float ITEM_BUTTON_SCALE = 0.7f;
+
+            bluePrintPanel.transform.SetParent(content.transform);
+            bluePrintButton.name = name;
+            itemImage.GetComponent<Image>().sprite = image;
+
+            // scaleを調整する
+            Vector3 unitVector = new Vector3(ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE, 0);
+            bluePrintPanel.GetComponent<RectTransform>().localScale = unitVector;
+
+            TMP_Text buttonText = bluePrintPanel.GetComponentInChildren<TMP_Text>();
+            buttonText.text = name;
+        }
+    }
+
+    public void DestroyBluePrintWindow()
+    {
+        GameObject content = GameObject.Find("BluePrintWindow/Viewport/Content");
+        if (content == null || content.transform == null)
+        {
+            return;
+        }
+        foreach (Transform t in content.transform)
+        {
+            GameObject.Destroy(t.gameObject);
+        }
+        StartCoroutine("CloseBluePrintWindow");
+    }
+
+    private IEnumerator CloseBluePrintWindow()
+    {
+        Animator animator = _BluePrintWindow.GetComponent<Animator>();
+        animator.SetTrigger("Close");
+        yield return new WaitForSeconds(1.0f);
+        //SwitchVisibility(false, _ItemWindow);
+        _BluePrintWindow.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        yield return null;
+    }
+
 
     public void FadeOutButtons()
     {

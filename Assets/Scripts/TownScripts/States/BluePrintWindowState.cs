@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemWindowState : ITownSceneState
+public class BluePrintWindowState :ITownSceneState
 {
-    public string StateName => "ItemWindowState";
-
-    private GameObject _window = GameObject.Find("Window");
-    
+    public string StateName => "BluePrintWindowState";
 
     public void Enter()
     {
-        UIDirector.Instance.DisplayItemWindow();
+        UIDirector.Instance.DisplayBluePrintWindow();
     }
 
     public void Update()
@@ -22,6 +19,6 @@ public class ItemWindowState : ITownSceneState
 
     public void Exit()
     {
-        UIDirector.Instance.DestroyItemWindow();
+        UIDirector.Instance.DestroyBluePrintWindow();
     }
 }

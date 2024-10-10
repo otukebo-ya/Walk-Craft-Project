@@ -11,6 +11,7 @@ public class TownSceneStateMachine
     public LayoutState LayoutState { get; private set; }
     public ITownSceneState BeforeState { get; private set; }
     public ITownSceneState LastBaseState {  get; set; }
+    public BluePrintWindowState BluePrintWindowState { get; set; }
 
     // プライベートコンストラクタ  
     private TownSceneStateMachine() 
@@ -19,6 +20,7 @@ public class TownSceneStateMachine
         this.ItemWindowState = new ItemWindowState();
         this.ItemPlaceState = new ItemPlaceState();
         this.LayoutState = new LayoutState();
+        this.BluePrintWindowState = new BluePrintWindowState();
         BeforeState = ViewState;
         LastBaseState = ViewState;
     }
