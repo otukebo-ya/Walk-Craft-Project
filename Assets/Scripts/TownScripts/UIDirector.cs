@@ -38,6 +38,10 @@ public class UIDirector : MonoBehaviour
 
     public ItemDataBase ItemDataBase;
     public GameObject ItemPanel;
+
+    public CraftMaterialDataBase CraftMaterialDataBase;
+    public GameObject MaterialPanel;
+
     public Button[] Buttons;
     public GameObject TouchOption; 
 
@@ -80,6 +84,11 @@ public class UIDirector : MonoBehaviour
         Animator animator = _displayWindow.GetComponent<Animator>();
         animator.SetTrigger("Open");
 
+        LineUpItems();
+    }
+
+    public void LineUpItems()
+    {
         GameObject content = GameObject.Find("Window/Viewport/Content");
         foreach (Item item in ItemDataBase.items)
         {
@@ -106,6 +115,35 @@ public class UIDirector : MonoBehaviour
             itemPanel.GetComponent<RectTransform>().localScale = unitVector;
 
             TMP_Text buttonText = itemButton.GetComponentInChildren<TMP_Text>();
+            buttonText.text = name;
+        }
+    }
+
+    public void LineUpMaterials()
+    {
+        GameObject content = GameObject.Find("Window/Viewport/Content");
+        foreach (Craftmaterial material in CraftMaterialDataBase.materials)
+        {
+            Sprite icon = material.Image;
+            string name = material.Name;
+            GameObject materialPanel = Instantiate(MaterialPanel);
+            GameObject materialButton = materialPanel.transform.Find("MaterialButton").gameObject;
+            GameObject materialShadow = materialPanel.transform.Find("MaterialShadow").gameObject;
+            GameObject materialImage = materialButton.transform.Find("MaterialImage").gameObject;
+            GameObject materialPossessionPanel = materialButton.transform.Find("PossessionPanel").gameObject;
+            GameObject materialPossession = materialPossessionPanel.transform.Find("Possession").gameObject;
+            float ITEM_BUTTON_SCALE = 0.7f;
+
+            materialPanel.transform.SetParent(content.transform);
+            materialButton.name = name;
+            materialImage.GetComponent<Image>().sprite = icon;
+            materialPossession.GetComponent<TextMeshProUGUI>().text = material.NumberOfPossessions.ToString();
+
+            // scaleを調整する
+            Vector3 unitVector = new Vector3(ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE, 0);
+            materialPanel.GetComponent<RectTransform>().localScale = unitVector;
+
+            TMP_Text buttonText = materialButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
         }
     }
