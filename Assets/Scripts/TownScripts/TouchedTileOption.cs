@@ -11,6 +11,10 @@ public class TouchedTileOption : MonoBehaviour
     public Button OKButton;
     public Button MoveButton;
     public Button DeleteButton;
+    public Image DeleteButtonImage;
+
+    public Sprite _returnWindowImage;
+    public Sprite _pitInBox;
 
     // シングルトン
     private static TouchedTileOption _instance;
@@ -36,6 +40,8 @@ public class TouchedTileOption : MonoBehaviour
         OKButton.onClick.AddListener(HideOptions);
         MoveButton.onClick.AddListener(MoveEnphasizedTile);
         DeleteButton.onClick.AddListener(DeleteEnphasizedTile);
+
+        DeleteButtonImage.sprite = _pitInBox;
     }
 
     public void SetItemPlaceOptionListener() {
@@ -43,6 +49,9 @@ public class TouchedTileOption : MonoBehaviour
         OKButton.onClick.AddListener(PlaceItem);
         MoveButton.onClick.AddListener(HideOptions);
         DeleteButton.onClick.AddListener(ReturnItemWindow);
+
+        DeleteButtonImage.sprite = _returnWindowImage;
+
     }
 
     public void RemoveListeners() {
@@ -130,5 +139,6 @@ public class TouchedTileOption : MonoBehaviour
     {
         TouchController.Instance.AfterCloseTouchOption = true;
         HideOptions();
+        TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ItemWindowState);
     }
 }
