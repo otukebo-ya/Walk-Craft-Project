@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisplayButton : ButtonScript
+public class PropertyButton : ButtonScript
 {
     public override void OnClick()
     {

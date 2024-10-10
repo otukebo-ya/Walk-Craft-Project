@@ -1,18 +1,23 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BluePrintDataBase : MonoBehaviour
+[CreateAssetMenu(fileName = "BluePrintDataBase", menuName = "CreateBluePrintDataBase")]
+public class BluePrintDataBase : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<BluePrint> bluePrints = new List<BluePrint>();
 
-    // Update is called once per frame
-    void Update()
+    // 名前（string）の一致するものがあれば取り出す
+    public BluePrint GetBluePrintByName(string name)
     {
-        
+        foreach (var bluePrint in bluePrints)
+        {
+            if (bluePrint.Name == name)
+            {
+                return bluePrint;
+            }
+        }
+        return null;
     }
 }
