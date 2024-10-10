@@ -27,7 +27,6 @@ public class LayoutState : ITownSceneState
 
         if (!ReturnButtonScript.IsInCanvas) {
             UIDirector.Instance.FadeInButton(returnButton);
-
         }
 
         TownSceneStateMachine.Instance.LastBaseState = TownSceneStateMachine.Instance.LayoutState;

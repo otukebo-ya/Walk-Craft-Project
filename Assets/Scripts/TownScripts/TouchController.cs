@@ -33,6 +33,7 @@ public class TouchController : MonoBehaviour
     public bool CanScroll = true;
     public TileBase PickedTile;
     public GameObject TouchOption;
+    public bool AfterCloseTouchOption = false;
 
     // Update is called once per frame
     void Update()
@@ -81,36 +82,37 @@ public class TouchController : MonoBehaviour
 
             // スクロール処理
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                var touchPosition = Input.mousePosition;
-                // スクロール開始位置を取得
-                _scrollStartPos = Camera.main.ScreenToWorldPoint(touchPosition);
-            }
+        if (Input.GetMouseButtonDown(0))
+        {
+            var touchPosition = Input.mousePosition;
+            // スクロール開始位置を取得
+            _scrollStartPos = Camera.main.ScreenToWorldPoint(touchPosition);
+        }
 
-            if (Input.GetMouseButton(0))
-            {
-                // タッチ操作のポジションを取得
-                var touchPosition = Input.mousePosition;
-                _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-                // スクロールしているか調べる。
+        if (Input.GetMouseButton(0))
+        {
+            // タッチ操作のポジションを取得
+            var touchPosition = Input.mousePosition;
+            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+            // スクロールしているか調べる。
 
-                // タッチした場所がUIの上か調べる
-                var isOnUI = IsOnUI(touchPosition);
+            // タッチした場所がUIの上か調べる
+            var isOnUI = IsOnUI(touchPosition);
 
-                // UIの上でないならスクロール処理を行う。
-                if (!isOnUI)
-                {
-                    Scroll();
-                }
-            }
-            if (Input.GetMouseButtonUp(0))
+            // UIの上でないならスクロール処理を行う。
+            if (!isOnUI)
             {
-                //if (!_scrolled) { HandleTilePlacement(); }
-                // タッチを離したらスクロール開始位置を初期化する 
-                _scrollStartPos = new Vector3();
-                _scrolled = false;
+                Scroll();
             }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            //if (!_scrolled) { HandleTilePlacement(); }
+            // タッチを離したらスクロール開始位置を初期化する 
+            _scrollStartPos = new Vector3();
+            _scrolled = false;
+        }
+        AfterCloseTouchOption = false;
         // #endif
         }
 
@@ -191,7 +193,9 @@ public class TouchController : MonoBehaviour
     }
 
     public void HandleLayoutTouchOption() {
-        if (Input.GetMouseButton(0))
+        if (AfterCloseTouchOption) { return; }
+
+        if (Input.GetMouseButtonUp(0))
         {
             TouchedTileOption touchOptionScript = TouchOption.GetComponent<TouchedTileOption>();
             var touchPosition = Input.mousePosition;
@@ -220,7 +224,9 @@ public class TouchController : MonoBehaviour
 
     public void HandleTilePlaceTouchOption()
     {
-        if (Input.GetMouseButton(0))
+        if (AfterCloseTouchOption) { return; }
+
+        if (Input.GetMouseButtonUp(0))
         {
             TouchedTileOption touchOptionScript = TouchOption.GetComponent<TouchedTileOption>();
             var touchPosition = Input.mousePosition;

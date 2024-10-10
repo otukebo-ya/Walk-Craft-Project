@@ -57,7 +57,11 @@ public class TouchedTileOption : MonoBehaviour
         Vector3 touchedWorldPosition = Camera.main.ScreenToWorldPoint(touchedScreenPosition);
         TouchedTile = TileController.Instance.GetTile(touchedWorldPosition, TilemapType.Item);
 
-        Vector3 pos = DecidePosition(touchedScreenPosition);
+        Tilemap itemMap = TileController.Instance.ItemMap;
+        Vector3Int touchedTileCell = itemMap.WorldToCell(touchedWorldPosition);
+        Vector3 touchedTilePos = itemMap.GetCellCenterWorld(touchedTileCell);
+        Vector3 touchedTileScreenPosition = Camera.main.WorldToScreenPoint(touchedTilePos);
+        Vector3 pos = DecidePosition(touchedTileScreenPosition);
         this.gameObject.transform.position = pos;
         
         this.gameObject.SetActive(true);
@@ -71,15 +75,17 @@ public class TouchedTileOption : MonoBehaviour
     public Vector3 DecidePosition (Vector3 position)
     {
         Vector3 newPos = position;
-        const int X_LIMIT = 150;
+        const int X_LIMIT = 75;
+        const int X_OFFSET = 110;
         const int Y_OFFSET = 150;
+
         if (position.x <= X_LIMIT) 
         {
-            newPos.x = position.x + X_LIMIT;
+            newPos.x = X_OFFSET;
             Debug.Log("migi");
         }else if(position.x > Screen.width - X_LIMIT)
         {
-            newPos.x = position.x - X_LIMIT;
+            newPos.x = Screen.width - X_OFFSET;
             Debug.Log("hidari");
 
         }
@@ -97,7 +103,8 @@ public class TouchedTileOption : MonoBehaviour
 
     public void MoveEnphasizedTile()
     {
-        
+        TouchController.Instance.AfterCloseTouchOption = true;
+        HideOptions();
     }
 
     public void DeleteEnphasizedTile() 
@@ -105,16 +112,23 @@ public class TouchedTileOption : MonoBehaviour
         // （TODO）持ち物に戻す作業が必要！！！
         TileController.Instance.DeleteEmphasizedTile();
         TileController.Instance.DeleteEmphasis();
-        this.gameObject.SetActive(false);
+
+        TouchController.Instance.AfterCloseTouchOption = true;
+        HideOptions();
     }
 
     public void PlaceItem() 
     {
         TileController.Instance.PlaceChoicedItemTile();
+        TileController.Instance.DeleteEmphasis();
+        TouchController.Instance.AfterCloseTouchOption = true;
+        HideOptions();
+        TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ItemWindowState);
     }
 
     public void ReturnItemWindow() 
     {
-        
+        TouchController.Instance.AfterCloseTouchOption = true;
+        HideOptions();
     }
 }
