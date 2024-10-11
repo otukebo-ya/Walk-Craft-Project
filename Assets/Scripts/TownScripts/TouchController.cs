@@ -27,7 +27,7 @@ public class TouchController : MonoBehaviour
 
     private Vector3 _scrollStartPos = new Vector3(); // スクロールの起点となるタッチポジション
     private Vector3 _sceenPosition = new Vector3();
-    private static float SCROLL_DISTANCE_CORRECTION = 0.8f; // スクロール距離の調整
+    private static float SCROLL_DISTANCE_CORRECTION = 0.6f; // スクロール距離の調整
     private List<string> OnUITag = new List<string>();
     private bool _scrolled = false;
     public bool CanScroll = true;
