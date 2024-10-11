@@ -42,5 +42,6 @@ public class LayoutState : ITownSceneState
         var TouchedTileOption = UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>();
         TouchedTileOption.RemoveListeners();
         TouchedTileOption.HideOptions();
+        TileController.Instance.DeleteEmphasis();
     }
 }
