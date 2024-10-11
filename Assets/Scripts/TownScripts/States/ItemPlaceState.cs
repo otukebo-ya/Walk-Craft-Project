@@ -23,6 +23,7 @@ public class ItemPlaceState : ITownSceneState
         var TouchedTileOption = UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>();
         TouchedTileOption.RemoveListeners();
         TouchedTileOption.HideOptions();
+        TileController.Instance.DeleteEmphasis();
         TileController.Instance.ResetChoice();
     }
 }
