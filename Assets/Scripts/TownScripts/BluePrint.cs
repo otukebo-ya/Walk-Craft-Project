@@ -8,6 +8,8 @@ public class BluePrint : ScriptableObject
 {
     [SerializeField] private string _name;
     [SerializeField] private Sprite _image;
+    public MterialItems[] NeedMaterials;
+
 
     public string Name
     {
