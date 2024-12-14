@@ -207,7 +207,7 @@ public class TouchController : MonoBehaviour
                 return;
             }
 
-                // タッチした場所がUIの上か調べる
+            // タッチした場所がUIの上か調べる
             var isOnUI = IsOnUI(touchPosition);
 
             // (TODO)タッチした場所にアイテムがあれば、それを取り外すかを聞くウィンドウ
