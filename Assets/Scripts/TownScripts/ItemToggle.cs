@@ -27,6 +27,7 @@ public class ItemToggle : MonoBehaviour
     {
         UIDirector.Instance.LineUpItems();
     }
+
     public void CleanItemWindow()
     {
         GameObject content = GameObject.Find("ItemWindow/Viewport/Content");

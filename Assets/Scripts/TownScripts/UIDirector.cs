@@ -175,7 +175,7 @@ public class UIDirector : MonoBehaviour
         Animator animator = _ItemWindow.GetComponent<Animator>();
         animator.SetTrigger("Close");
         yield return new WaitForSeconds(1.0f);
-        //SwitchVisibility(false, _ItemWindow);
+        SwitchVisibility(false, _ItemWindow);
         yield return null;
     }
 
@@ -240,7 +240,6 @@ public class UIDirector : MonoBehaviour
         _BluePrintWindow.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         yield return null;
     }
-
 
     public void FadeOutButtons()
     {

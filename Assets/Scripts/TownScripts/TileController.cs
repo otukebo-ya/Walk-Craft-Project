@@ -10,6 +10,7 @@ public enum TilemapType
     Ground,
     Effect
 }
+
 public class TileController : MonoBehaviour
 {
     // シングルトン
