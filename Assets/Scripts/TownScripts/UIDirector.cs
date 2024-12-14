@@ -236,7 +236,7 @@ public class UIDirector : MonoBehaviour
         Animator animator = _BluePrintWindow.GetComponent<Animator>();
         animator.SetTrigger("Close");
         yield return new WaitForSeconds(1.0f);
-        //SwitchVisibility(false, _ItemWindow);
+        SwitchVisibility(false, _BluePrintWindow);
         _BluePrintWindow.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         yield return null;
     }
