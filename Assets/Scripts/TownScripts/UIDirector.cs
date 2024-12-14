@@ -151,7 +151,6 @@ public class UIDirector : MonoBehaviour
 
             TMP_Text buttonText = materialButton.GetComponentInChildren<TMP_Text>();
             buttonText.text = name;
-            
         }
     }
 
@@ -174,7 +173,7 @@ public class UIDirector : MonoBehaviour
     {
         Animator animator = _ItemWindow.GetComponent<Animator>();
         animator.SetTrigger("Close");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.2f);
         SwitchVisibility(false, _ItemWindow);
         yield return null;
     }
@@ -182,7 +181,6 @@ public class UIDirector : MonoBehaviour
     public void DisplayBluePrintWindow()
     {
         FadeOutButtons();
-
         SwitchVisibility(true, _BluePrintWindow);
 
         Animator animator = _BluePrintWindow.GetComponent<Animator>();
@@ -235,7 +233,7 @@ public class UIDirector : MonoBehaviour
     {
         Animator animator = _BluePrintWindow.GetComponent<Animator>();
         animator.SetTrigger("Close");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.2f);
         SwitchVisibility(false, _BluePrintWindow);
         _BluePrintWindow.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         yield return null;
