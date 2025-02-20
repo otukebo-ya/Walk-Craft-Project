@@ -107,14 +107,13 @@ public class TouchController : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            //if (!_scrolled) { HandleTilePlacement(); }
             // タッチを離したらスクロール開始位置を初期化する 
             _scrollStartPos = new Vector3();
             _scrolled = false;
         }
         AfterCloseTouchOption = false;
         // #endif
-        }
+    }
 
     // レイキャストを投げて、結果を返す
     public List<RaycastResult> RayCast(Vector3 position)
@@ -165,7 +164,6 @@ public class TouchController : MonoBehaviour
         Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
         if (touchMovePos != _scrollStartPos) { _scrolled = true; };
         CameraController.Instance.CamPosMove(diffPos);
-        //_scrollStartPos = touchMovePos;
     }
 
     // 主にstateがItemPlaceStateのときに用いることになると思う
@@ -195,7 +193,7 @@ public class TouchController : MonoBehaviour
     public void HandleLayoutTouchOption() {
         if (AfterCloseTouchOption) { return; }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButton(0))
         {
             TouchedTileOption touchOptionScript = TouchOption.GetComponent<TouchedTileOption>();
             var touchPosition = Input.mousePosition;
@@ -214,10 +212,15 @@ public class TouchController : MonoBehaviour
             // ウィンドウが表示されているときは、
             // ほかのところをタッチするとウィンドウを閉じるように
             TileBase tile = TileController.Instance.GetTile(_sceenPosition, TilemapType.Item);
-            if (tile && !isOnUI) 
+            if (tile) 
             {
                 TileController.Instance.EmphasizeCrickedTile(_sceenPosition);
                 touchOptionScript.ShowOptions(touchPosition);
+            }
+            else if(!isOnUI)
+            {
+                touchOptionScript.HideOptions();
+                TileController.Instance.DeleteEmphasis();
             }
         }
     }
@@ -226,7 +229,7 @@ public class TouchController : MonoBehaviour
     {
         if (AfterCloseTouchOption) { return; }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButton(0))
         {
             TouchedTileOption touchOptionScript = TouchOption.GetComponent<TouchedTileOption>();
             var touchPosition = Input.mousePosition;

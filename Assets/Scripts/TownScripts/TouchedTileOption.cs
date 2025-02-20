@@ -86,7 +86,7 @@ public class TouchedTileOption : MonoBehaviour
         Vector3 newPos = position;
         const int X_LIMIT = 75;
         const int X_OFFSET = 110;
-        const int Y_OFFSET = 150;
+        const int Y_OFFSET = 50;
 
         if (position.x <= X_LIMIT) 
         {
