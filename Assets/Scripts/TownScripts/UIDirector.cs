@@ -251,11 +251,20 @@ public class UIDirector : MonoBehaviour
     {
         //if (button.gameObject.name == "ReturnButton") { return; }
         Animator animator = button.GetComponent<Animator>();
+        if (animator == null)
+        {
+            return;
+        }
         ButtonScript buttonScript = button.GetComponent<ButtonScript>();
         if (buttonScript.IsInCanvas)
         {
             animator.SetTrigger("FadeOut");
+            Debug.Log("fadeout");
             buttonScript.IsInCanvas = false;
+        }
+        else
+        {
+            Debug.Log(button.name+"画面内にいないよ");
         }
     }
 

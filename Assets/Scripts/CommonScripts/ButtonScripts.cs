@@ -43,7 +43,10 @@ public class ButtonScript : MonoBehaviour
     public virtual void ChangeBaseColor(Color color)
     {
         var shape = GetComponent<Shape>();
-
+        if (shape==null)
+        {
+            return;
+        }
         shape.settings.fillColor = color;
     }
     /*
