@@ -259,7 +259,7 @@ public class UIDirector : MonoBehaviour
         if (buttonScript.IsInCanvas)
         {
             animator.SetTrigger("FadeOut");
-            Debug.Log("fadeout");
+            Debug.Log(button.name+"fadeout");
             buttonScript.IsInCanvas = false;
         }
         else
