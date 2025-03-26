@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#nullable enable
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +8,15 @@ public class ItemPlaceState : ITownSceneState
     public string StateName => "ItemPlaceState";
 
     private GameObject _window = GameObject.Find("Window");
+    private TouchedTileOption? _touchedTileOption = null;
 
     public void Enter()
     {
-        UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>().SetItemPlaceOptionListener();
+        if (_touchedTileOption is null)
+        {
+            _touchedTileOption = UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>();
+        }
+        _touchedTileOption.SetItemPlaceOptionListener();
     }
 
     public void Update()
@@ -20,10 +26,7 @@ public class ItemPlaceState : ITownSceneState
 
     public void Exit()
     {
-        var TouchedTileOption = UIDirector.Instance.TouchOption.GetComponent<TouchedTileOption>();
-        TouchedTileOption.RemoveListeners();
-        TouchedTileOption.HideOptions();
-        TileController.Instance.DeleteEmphasis();
-        TileController.Instance.ResetChoice();
+        _touchedTileOption?.ClearTileOptions();
+        TileController.Instance.ClearTileController();
     }
 }

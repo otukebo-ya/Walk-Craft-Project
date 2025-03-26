@@ -34,25 +34,30 @@ public class TouchedTileOption : MonoBehaviour
         }
     }
 
+    // 建物片付ける用のオプション表示
     public void SetLayoutOptionListener()
     {
-        Debug.Log("SetLayoutOption");
+        //Debug.Log("LayoutOption");
         OKButton.onClick.AddListener(HideOptions);
         MoveButton.onClick.AddListener(MoveEnphasizedTile);
         DeleteButton.onClick.AddListener(DeleteEnphasizedTile);
 
+        // 右端ボタンの画像を「片付ける」に
         DeleteButtonImage.sprite = _pitInBox;
     }
 
+    // 建物配置用のオプション
     public void SetItemPlaceOptionListener() {
-        Debug.Log("SetPlaceOption");
+        //Debug.Log("PlaceOption");
         OKButton.onClick.AddListener(PlaceItem);
         MoveButton.onClick.AddListener(HideOptions);
         DeleteButton.onClick.AddListener(ReturnItemWindow);
 
+        // 右端ボタンの画像を「戻る」に
         DeleteButtonImage.sprite = _returnWindowImage;
 
     }
+
 
     public void RemoveListeners() {
         OKButton.onClick.RemoveAllListeners();
@@ -81,6 +86,13 @@ public class TouchedTileOption : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    public void ClearTileOptions()
+    {
+        RemoveListeners();
+        HideOptions();
+    }
+
+    // オプションボタンの位置が画面内に収まるよう決定する
     public Vector3 DecidePosition (Vector3 position)
     {
         Vector3 newPos = position;
@@ -110,16 +122,18 @@ public class TouchedTileOption : MonoBehaviour
         return newPos;
     }
 
+    // タッチ位置の強調を移動する
     public void MoveEnphasizedTile()
     {
         TouchController.Instance.AfterCloseTouchOption = true;
         HideOptions();
     }
 
+    // タッチ位置の強調を削除する
     public void DeleteEnphasizedTile() 
     {
         // （TODO）持ち物に戻す作業が必要！！！
-        TileController.Instance.DeleteEmphasizedTile();
+        TileController.Instance.DeleteEmphasizedItem();
         TileController.Instance.DeleteEmphasis();
 
         TouchController.Instance.AfterCloseTouchOption = true;

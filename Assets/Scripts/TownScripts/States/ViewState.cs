@@ -9,30 +9,12 @@ public class ViewState : ITownSceneState
 
     public void Enter()
     {
-        // 非表示、あるいは画面外のボタンがあれば元に戻す
-        // 以下のボタンは廃止
-        //Button layoutButton = GameObject.Find("LayoutButton").GetComponent<Button>();
-        //Button returnButton = GameObject.Find("ReturnButton").GetComponent<Button>();
 
-        //LayoutButton LayoutButtonScript = layoutButton.GetComponent<LayoutButton>();
-        //ReturnButton ReturnButtonScript = returnButton.GetComponent<ReturnButton>();
-        /*
-        if (!LayoutButtonScript.IsInCanvas) {
-            UIDirector.Instance.FadeInButton(layoutButton);
-        }
-
-        if (ReturnButtonScript.IsInCanvas) {
-            UIDirector.Instance.FadeOutButton(returnButton);
-        }
-
-        TownSceneStateMachine.Instance.LastBaseState = TownSceneStateMachine.Instance.ViewState;
-        */
     }
 
     public void Update()
     {
-        // 触ったアイテムがアニメーションすると楽しいんだがね
-
+        // 触ったアイテムがアニメーションするとうれしい
     }
 
     public void Exit()

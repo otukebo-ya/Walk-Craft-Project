@@ -18,7 +18,7 @@ public class ItemToggle : MonoBehaviour
         if (toggle.isOn)
         {
             Debug.Log("ItemIsOn");
-            CleanItemWindow();
+            UIDirector.Instance.CleanItemWindow();
             DisplayItems();
         }
     }
@@ -26,18 +26,5 @@ public class ItemToggle : MonoBehaviour
     public void DisplayItems()
     {
         UIDirector.Instance.LineUpItems();
-    }
-
-    public void CleanItemWindow()
-    {
-        GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
-        if (content == null || content.transform == null)
-        {
-            return;
-        }
-        foreach (Transform t in content.transform)
-        {
-            GameObject.Destroy(t.gameObject);
-        }
     }
 }

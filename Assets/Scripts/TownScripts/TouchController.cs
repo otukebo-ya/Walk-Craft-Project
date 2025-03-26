@@ -26,74 +26,39 @@ public class TouchController : MonoBehaviour
     }
 
     private Vector3 _scrollStartPos = new Vector3(); // スクロールの起点となるタッチポジション
-    private Vector3 _sceenPosition = new Vector3();
+    private Vector3 _screenPosition = new Vector3();
     private static float SCROLL_DISTANCE_CORRECTION = 0.8f; // スクロール距離の調整
-    private List<string> OnUITag = new List<string>();
     private bool _scrolled = false;
     public bool CanScroll = true;
-    public TileBase PickedTile;
     public GameObject TouchOption;
     public bool AfterCloseTouchOption = false;
+    private Camera _mainCamera;
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        _mainCamera = Camera.main;
+    }
     void Update()
     {
-        // 中身の初期化
-        OnUITag.Clear();
         CanScroll = true;
+
         // ステートごとの固有の処理
         TownSceneStateMachine.Instance.Update();
         
-        // ウィンドウ表示中などは、スクロールやタッチしたタイルの協調を無効にする必要がある
         if (!CanScroll) { return; }
-
-        // スクロール処理
-        /*
-        #if UNITY_IOS || UNITY_ANDROID //IOSまたはAndroidの時
-        	if (Input.GetMouseButtonDown (0))
-            {
-                // タッチ操作のポジションを取得
-                var touchPosition = Input.mousePosition;
-                _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-        
-                // スクロールしているか調べる。
-                if (_sceenPosition != _scrollStartPos)
-                {
-                    _scrolled = true;
-                }
-        
-                // タッチした場所がUIの上か調べる
-                var isOnUI = IsOnUI(touchPosition);
-        
-                // UIの上でないならスクロール処理を行う。
-                if (!isOnUI)
-                {
-                    // マスを強調
-                    TileDirector.Instance.EmphasizeCrickedTile(_sceenPosition);
-        
-                    Scroll();
-                }
-            } else{
-                // タッチを離したらスクロール開始位置を初期化する 
-                _scrollStartPos = new Vector3();
-                _scrolled = false;
-            }
-        #else */ //Unityエディターの時
-
-            // スクロール処理
 
         if (Input.GetMouseButtonDown(0))
         {
             var touchPosition = Input.mousePosition;
             // スクロール開始位置を取得
-            _scrollStartPos = Camera.main.ScreenToWorldPoint(touchPosition);
+            _scrollStartPos = _mainCamera.ScreenToWorldPoint(touchPosition);
         }
 
         if (Input.GetMouseButton(0))
         {
             // タッチ操作のポジションを取得
             var touchPosition = Input.mousePosition;
-            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+            _screenPosition = _mainCamera.ScreenToWorldPoint(touchPosition);
             // スクロールしているか調べる。
 
             // タッチした場所がUIの上か調べる
@@ -112,7 +77,6 @@ public class TouchController : MonoBehaviour
             _scrolled = false;
         }
         AfterCloseTouchOption = false;
-        // #endif
     }
 
     // レイキャストを投げて、結果を返す
@@ -129,40 +93,21 @@ public class TouchController : MonoBehaviour
     // レイキャスト結果のタグを確認し、スクロール可能かを返す
     private bool IsOnUI(Vector3 position)
     {
-        bool isOnUI;
         var rayResults = RayCast(position);
 
-        foreach (RaycastResult result in rayResults)
-        {
-            // 中身の確認処理
-            var tag = result.gameObject.tag;
-
-            if (tag == "UI")
-            {
-                OnUITag.Add(tag);
-            }
-        }
-
-        // ３項演算子を使った方が短くなるけど、どうする？
-        if (OnUITag.Count != 0)
-        {
-            isOnUI = true;
-        }
-        else
-        {
-            isOnUI = false;
-        }
-
-        return isOnUI;
+        return rayResults.Exists(result => result.gameObject.CompareTag("UI"));
     }
 
     // スクロール情報を取得し、Cameraの位置を移動させる
     private void Scroll()
     {
-        Vector3 touchMovePos = _sceenPosition;
+        Vector3 touchMovePos = _screenPosition;
         // 直前のタッチ位置との差を取得する
         Vector3 diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos - _scrollStartPos);
-        if (touchMovePos != _scrollStartPos) { _scrolled = true; };
+        if ((touchMovePos - _scrollStartPos).magnitude > 0.01f)
+        {
+            _scrolled = true;
+        }
         CameraController.Instance.CamPosMove(diffPos);
     }
 
@@ -173,7 +118,7 @@ public class TouchController : MonoBehaviour
         {
             // タッチ操作のポジションを取得
             var touchPosition = Input.mousePosition;
-            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+            _screenPosition = _mainCamera.ScreenToWorldPoint(touchPosition);
 
             // タッチした場所がUIの上か調べる
             var isOnUI = IsOnUI(touchPosition);
@@ -181,11 +126,10 @@ public class TouchController : MonoBehaviour
             // UIの上でないならタイルの設置
             if (!isOnUI)
             {
-                var td = TileController.Instance;
                 // (TODO配置するか確認する処理)
 
                 // タイルを設置
-                td.ChangeTile(_sceenPosition);
+                TileController.Instance.ChangeTile(_screenPosition);
             }
         }
     }
@@ -197,7 +141,7 @@ public class TouchController : MonoBehaviour
         {
             TouchedTileOption touchOptionScript = TouchOption.GetComponent<TouchedTileOption>();
             var touchPosition = Input.mousePosition;
-            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+            _screenPosition = _mainCamera.ScreenToWorldPoint(touchPosition);
 
             if (_scrolled) {
                 touchOptionScript.HideOptions();
@@ -211,10 +155,10 @@ public class TouchController : MonoBehaviour
             // (TODO)タッチした場所にアイテムがあれば、それを取り外すかを聞くウィンドウ
             // ウィンドウが表示されているときは、
             // ほかのところをタッチするとウィンドウを閉じるように
-            TileBase tile = TileController.Instance.GetTile(_sceenPosition, TilemapType.Item);
+            TileBase tile = TileController.Instance.GetTile(_screenPosition, TilemapType.Item);
             if (tile) 
             {
-                TileController.Instance.EmphasizeCrickedTile(_sceenPosition);
+                TileController.Instance.EmphasizeCrickedTile(_screenPosition);
                 touchOptionScript.ShowOptions(touchPosition);
             }
             else if(!isOnUI)
@@ -233,7 +177,7 @@ public class TouchController : MonoBehaviour
         {
             TouchedTileOption touchOptionScript = TouchOption.GetComponent<TouchedTileOption>();
             var touchPosition = Input.mousePosition;
-            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+            _screenPosition = _mainCamera.ScreenToWorldPoint(touchPosition);
 
             if (_scrolled)
             {
@@ -248,17 +192,17 @@ public class TouchController : MonoBehaviour
             // (TODO)タッチした場所にアイテムがあれば、それを取り外すかを聞くウィンドウ
             // ウィンドウが表示されているときは、
             // ほかのところをタッチするとウィンドウを閉じるように
-            //TileBase tile = TileController.Instance.GetTile(_sceenPosition, TilemapType.Item);
+            //TileBase tile = TileController.Instance.GetTile(_screenPosition, TilemapType.Item);
             if (!isOnUI)
             {
-                TileController.Instance.EmphasizeCrickedTile(_sceenPosition);
+                TileController.Instance.EmphasizeCrickedTile(_screenPosition);
                 touchOptionScript.ShowOptions(touchPosition);
             }
         }
     }
 
     public TileBase MemorizeTile() {
-        TileBase TouchedTile = TileController.Instance.GetTile(_sceenPosition, TilemapType.Item);
+        TileBase TouchedTile = TileController.Instance.GetTile(_screenPosition, TilemapType.Item);
         if (TouchedTile)
         {
             Debug.Log("tilePicked!  " + TouchedTile.name);
@@ -272,14 +216,14 @@ public class TouchController : MonoBehaviour
         {
             // タッチ操作のポジションを取得
             var touchPosition = Input.mousePosition;
-            _sceenPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+            _screenPosition = _mainCamera.ScreenToWorldPoint(touchPosition);
 
             // タッチした場所がUIの上か調べる
             var isOnUI = IsOnUI(touchPosition);
 
             if (isOnUI) { return null; }
 
-            TileBase tile = TileController.Instance.GetTile(_sceenPosition, TilemapType.Item);
+            TileBase tile = TileController.Instance.GetTile(_screenPosition, TilemapType.Item);
             if (tile)
             {
                 Debug.Log("tile  " + tile.name);
