@@ -41,10 +41,6 @@ public class TileController : MonoBehaviour
     private Vector3 _currentPosition;
     private Vector3 _enphasizedTilePos;
 
-    /// <summary>
-    /// Camera.main.ScreenToWorldPoint(Input.mousePosition)にて、
-    /// 座標を変換してから使いましょう。
-    /// </summary>
     void ChangeTile(Vector3 position, TileBase tile,Tilemap map)
     {
         Vector3Int grid = ConvertVec3Int(position);
@@ -52,10 +48,6 @@ public class TileController : MonoBehaviour
     }
 
     // オーバーロード。アイテムを設置するためだけ用。
-    /// <summary>
-    /// Camera.main.ScreenToWorldPoint(Input.mousePosition)にて、
-    /// 座標を変換してから使いましょう。
-    /// </summary>
     public void ChangeTile(Vector3 position) 
     {
         if (ChoicedItemTile != null)
@@ -65,12 +57,13 @@ public class TileController : MonoBehaviour
         }
     }
 
-    public void EmphasizeCrickedTile(Vector3 _currentPosition)
+    // 指定タイルを強調する
+    public void EmphasizeCrickedTile(Vector3 position)
     {
-        _enphasizedTilePos = _currentPosition;
+        _enphasizedTilePos = position;
         ChangeTile(_previousPosition, null, EffectMap);
-        ChangeTile(_currentPosition, Effect, EffectMap);
-        _previousPosition = _currentPosition;
+        ChangeTile(position, Effect, EffectMap);
+        _previousPosition = position;
     }
 
     public void DeleteEmphasis() 
@@ -78,7 +71,7 @@ public class TileController : MonoBehaviour
         ChangeTile(_enphasizedTilePos, null, EffectMap);
     }
 
-    public void DeleteEmphasizedTile()
+    public void DeleteEmphasizedItem()
     {
         ChangeTile(_enphasizedTilePos, null, ItemMap);
     }
@@ -116,6 +109,12 @@ public class TileController : MonoBehaviour
     public void ResetChoice() 
     {
         ChoicedItemTile = null;
+    }
+
+    public void ClearTileController()
+    {
+        DeleteEmphasis();
+        ResetChoice();
     }
 
     public void PlaceChoicedItemTile() 

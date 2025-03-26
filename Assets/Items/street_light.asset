@@ -17,4 +17,5 @@ MonoBehaviour:
   _tile: {fileID: 11400000, guid: 7ba2334267e94504fb1b95d78b2c0475, type: 2}
   _activeImage: {fileID: 21300000, guid: 34ad7db589809d944bc53c9baad5ac7e, type: 3}
   _inactiveImage: {fileID: 21300000, guid: 34ad7db589809d944bc53c9baad5ac7e, type: 3}
-  NumberOfPossessions: 0
+  _image: {fileID: 21300000, guid: 34ad7db589809d944bc53c9baad5ac7e, type: 3}
+  _numberOfPossessions: 0

@@ -11,16 +11,14 @@ public class TownSceneStateMachine
     public LayoutState LayoutState { get; private set; }
     public ITownSceneState BeforeState { get; private set; }
     public ITownSceneState LastBaseState {  get; set; }
-    public BluePrintWindowState BluePrintWindowState { get; set; }
-
+    public TouchedTileOption TouchedTileOption { get; private set; }
     // プライベートコンストラクタ  
     private TownSceneStateMachine() 
-    {  
+    {        
         this.ViewState = new ViewState();
         this.ItemWindowState = new ItemWindowState();
         this.ItemPlaceState = new ItemPlaceState();
         this.LayoutState = new LayoutState();
-        this.BluePrintWindowState = new BluePrintWindowState();
         BeforeState = ViewState;
         LastBaseState = ViewState;
     }

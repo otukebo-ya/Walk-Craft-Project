@@ -30,7 +30,6 @@ public class TownSceneManager : MonoBehaviour
 
     public void OnDestroy() 
     {
-        // ステートマシンの削除
         TownSceneStateMachine.Instance.Cleanup();
     }
 }

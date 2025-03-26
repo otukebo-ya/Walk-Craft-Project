@@ -19,17 +19,16 @@ public class ButtonScript : MonoBehaviour
     public Vector2 defaultAnchors;
     public static int FADE_TIME = 5;
     public bool IsInCanvas;
-    //private float BRIGHTNESS_RATIO = 0.9f;
 
     public virtual void Awake() {
         IsInCanvas = true;
+        Debug.Log(this.name + "is in canvas");
     }
 
     public void Start()
     {
         button = GetComponent<Button>();
         defaultPosition = GetComponent<RectTransform>().anchoredPosition;
-        //shadow = GetComponent<Shadow>();
     }
 
     public virtual void OnClick()
@@ -37,7 +36,6 @@ public class ButtonScript : MonoBehaviour
         _flg = !_flg;
         Color color = (_flg) ? NormalColor : SelectedColor;
         ChangeBaseColor(color);
-        //ChangeShadowColor(color);
     }
 
     public virtual void ChangeBaseColor(Color color)
@@ -49,14 +47,6 @@ public class ButtonScript : MonoBehaviour
         }
         shape.settings.fillColor = color;
     }
-    /*
-    public virtual void ChangeShadowColor(Color color)
-    {
-        Color.RGBToHSV(color, out float h, out float s, out float v);
-        float newV = v * BRIGHTNESS_RATIO;
-        shadow.effectColor = Color.HSVToRGB(h, s, newV);
-        Debug.Log(Color.HSVToRGB(h, s, newV));
-    }*/
 
     public virtual void ChangeImage()
     {

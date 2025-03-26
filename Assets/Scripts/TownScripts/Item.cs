@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 [Serializable]
 [CreateAssetMenu(fileName = "Item", menuName = "CreateItem")]
-public class Item : ScriptableObject
+public class Item : ScriptableObject, IInventry, IHasTile
 {
     public enum Type // 実装するItemの種類
     {
@@ -19,7 +19,8 @@ public class Item : ScriptableObject
     [SerializeField] private TileBase _tile;
     [SerializeField] private Sprite _activeImage;
     [SerializeField] private Sprite _inactiveImage;
-    [SerializeField] public  int NumberOfPossessions = 0;
+    [SerializeField] private Sprite _image;
+    [SerializeField] private int _numberOfPossessions = 0;
 
     public Type ItemType{ get; protected set; }
     public string Name
@@ -54,7 +55,30 @@ public class Item : ScriptableObject
         {
             Icons = value;
         }
-    }    
+    }
+
+    public Sprite Image
+    {
+        get
+        {
+            return _image;
+        }
+        protected set
+        {
+            Image = value;
+        }
+    }
+
+    public int NumberOfPossessions{
+        get
+        {
+            return _numberOfPossessions;
+        }
+        protected set
+        {
+            _numberOfPossessions = value;
+        }
+    }
 
     public Item(Item item)
     {

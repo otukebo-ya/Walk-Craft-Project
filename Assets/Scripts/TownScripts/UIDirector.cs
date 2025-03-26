@@ -57,7 +57,6 @@ public class UIDirector : MonoBehaviour
     public Vector2 CanvasPivot;
     public Vector2 CanvasPosition;
 
-    // Start is called before the first frame update
     void Start()
     {
         var canvasRect = Canvas.GetComponent<RectTransform>();
@@ -71,7 +70,6 @@ public class UIDirector : MonoBehaviour
         TouchOption.SetActive(false);
 
         DisplayPlayerData();
-
     }
 
     // 与えられたゲームオブジェクトの表示非表示を切り替える
@@ -80,6 +78,7 @@ public class UIDirector : MonoBehaviour
         gameObject.SetActive(visible);
     }
 
+    // ボタンを排除し、アイテムウィンドウ表示をおこなう
     public void DisplayItemWindow()
     {
         FadeOutButtons();
@@ -92,71 +91,51 @@ public class UIDirector : MonoBehaviour
         LineUpItems();
     }
 
-    public void LineUpItems()
+    // アイテムウィンドウにアイテムを並べる
+    public  void LineUpItems()
     {
-        GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
-        foreach (Item item in ItemDataBase.items)
-        {
-            Sprite[] icon = item.Icons;
-            string name = item.Name;
-            GameObject itemPanel = Instantiate(ItemPanel);
-            GameObject itemButton = itemPanel.transform.Find("ItemButton").gameObject;
-            GameObject itemShadow = itemPanel.transform.Find("ItemShadow").gameObject;
-            GameObject itemImage = itemButton.transform.Find("ItemImage").gameObject;
-            GameObject itemPossessionPanel = itemButton.transform.Find("PossessionPanel").gameObject;
-            GameObject itemPossession = itemPossessionPanel.transform.Find("Possession").gameObject;
-            float ITEM_BUTTON_SCALE = 0.7f;
-
-            itemPanel.transform.SetParent(content.transform);
-            itemButton.name = name;
-            itemImage.GetComponent<Image>().sprite = icon[0];
-            itemButton.GetComponent<ItemButton>().Active = icon[0];
-            itemButton.GetComponent<ItemButton>().Inactive = icon[1];
-            itemButton.GetComponent<ItemButton>().Tile = item.Tile;
-            itemPossession.GetComponent<TextMeshProUGUI>().text = item.NumberOfPossessions.ToString();
-
-            // scaleを調整する
-            Vector3 unitVector = new Vector3(ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE, 0);
-            itemPanel.GetComponent<RectTransform>().localScale = unitVector;
-
-            TMP_Text buttonText = itemButton.GetComponentInChildren<TMP_Text>();
-            buttonText.text = name;
-            Debug.Log("ADD");
-        }
+        LineUpButtonsInWindow(ItemDataBase.items,ItemPanel);
     }
 
+    // アイテムウィンドウに素材を並べる
     public void LineUpMaterials()
     {
+        LineUpButtonsInWindow(CraftMaterialDataBase.materials, MaterialPanel);
+    }
+
+    public void LineUpButtonsInWindow<T>(List<T> elements, GameObject panelPrefab) where T : class
+    {
         GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
-        foreach (Craftmaterial material in CraftMaterialDataBase.materials)
+        float ITEM_BUTTON_SCALE = 0.7f;
+
+        foreach (var element in elements)
         {
-            Sprite icon = material.Image;
-            string name = material.Name;
-            GameObject materialPanel = Instantiate(MaterialPanel);
-            GameObject materialButton = materialPanel.transform.Find("MaterialButton").gameObject;
-            GameObject materialShadow = materialPanel.transform.Find("MaterialShadow").gameObject;
-            GameObject materialImage = materialButton.transform.Find("MaterialImage").gameObject;
-            GameObject materialPossessionPanel = materialButton.transform.Find("PossessionPanel").gameObject;
-            GameObject materialPossession = materialPossessionPanel.transform.Find("Possession").gameObject;
-            float ITEM_BUTTON_SCALE = 0.7f;
+            GameObject panel = Instantiate(panelPrefab);
+            Transform buttonTransform = panel.transform.Find("Button");
+            GameObject button = buttonTransform.gameObject;
+            GameObject imageObject = buttonTransform.Find("Image").gameObject;
+            GameObject possessionPanel = buttonTransform.Find("PossessionPanel").gameObject;
+            GameObject possessionTextObj = possessionPanel.transform.Find("Possession").gameObject;
+            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
 
-            materialPanel.transform.SetParent(content.transform);
-            materialButton.name = name;
-            materialImage.GetComponent<Image>().sprite = icon;
-            materialPossession.GetComponent<TextMeshProUGUI>().text = material.NumberOfPossessions.ToString();
-
-            // scaleを調整する
-            Vector3 unitVector = new Vector3(ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE, 0);
-            materialPanel.GetComponent<RectTransform>().localScale = unitVector;
-
-            TMP_Text buttonText = materialButton.GetComponentInChildren<TMP_Text>();
-            buttonText.text = name;
+            panel.transform.SetParent(content.transform);
+            panel.GetComponent<RectTransform>().localScale = new Vector3(ITEM_BUTTON_SCALE, ITEM_BUTTON_SCALE, 0);
+            if (element is IInventry inventryData)
+            {
+                button.name = inventryData.Name;
+                imageObject.GetComponent<Image>().sprite = inventryData.Image;
+                possessionTextObj.GetComponent<TextMeshProUGUI>().text = inventryData.NumberOfPossessions.ToString();
+                buttonText.text = inventryData.Name;
+            }
+            if (element is IHasTile elementWithTile)
+            {
+                button.GetComponent<ItemButton>().Tile = elementWithTile.Tile;
+            }
         }
     }
 
-    public void DestroyItemWindow()
+    public void CleanItemWindow()
     {
-        Debug.Log("DESTROY!");
         GameObject content = GameObject.Find("ItemWindow/Viewport/Content");
         if (content == null || content.transform == null)
         {
@@ -166,9 +145,16 @@ public class UIDirector : MonoBehaviour
         {
             GameObject.Destroy(t.gameObject);
         }
+    }
+
+    // アイテムウィンドウを破棄
+    public void DestroyItemWindow()
+    {
+        CleanItemWindow();
         StartCoroutine("CloseItemWindow");
     }
 
+    // アイテムウィンドウを閉じる
     private IEnumerator CloseItemWindow()
     {
         Animator animator = _ItemWindow.GetComponent<Animator>();
@@ -177,6 +163,80 @@ public class UIDirector : MonoBehaviour
         SwitchVisibility(false, _ItemWindow);
         yield return null;
     }
+
+    public void FadeOutButtons()
+    {
+        foreach(Button b in Buttons)
+        {
+            FadeOutButton(b);
+        }
+    }
+
+    // 特定のボタン用のオーバーロード
+    public void FadeOutButton(Button button) 
+    {
+        Animator animator = button.GetComponent<Animator>();
+        if (animator == null)
+        {
+            return;
+        }
+        ButtonScript buttonScript = button.GetComponent<ButtonScript>();
+        if (buttonScript.IsInCanvas)
+        {
+            animator.SetTrigger("FadeOut");
+            Debug.Log(button.name+"fadeout");
+            buttonScript.IsInCanvas = false;
+        }
+        else
+        {
+            Debug.Log(button.name+"　画面内にいないよ");
+        }
+    }
+
+    public void FadeInButtons(List<string> ignoreButtonName = null)
+    {
+        foreach (Button b in Buttons)
+        {
+            //if (TownSceneStateMachine.Instance.BeforeState.StateName == "ViewState")
+
+            if (ignoreButtonName.Contains(b.gameObject.name)) {
+                continue;
+            }
+            FadeInButton(b);
+        }
+    }
+
+    public void FadeInButtons()
+    {
+        foreach (Button b in Buttons)
+        {
+            FadeInButton(b);
+        }
+    }
+
+    public void FadeInButton(Button button)
+    {
+        Animator animator = button.GetComponent<Animator>();
+        ButtonScript buttonScript = button.GetComponent<ButtonScript>();
+        if (!buttonScript.IsInCanvas)
+        {
+            buttonScript.IsInCanvas = true;
+            animator.SetTrigger("FadeIn");
+        }
+    }
+
+    public void DisplayPlayerData()
+    {
+        PlayerNameText.SetText(PlayerData.Instance.Name);
+        string heldCoin = PlayerData.Instance.HeldCoin.ToString();
+        HeldCoinText.SetText(heldCoin);
+    }
+
+    public void DisplayPickOption()
+    {
+
+    }
+    /*
 
     public void DisplayBluePrintWindow()
     {
@@ -238,77 +298,5 @@ public class UIDirector : MonoBehaviour
         _BluePrintWindow.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         yield return null;
     }
-
-    public void FadeOutButtons()
-    {
-        foreach(Button b in Buttons)
-        {
-            FadeOutButton(b);
-        }
-    }
-
-    public void FadeOutButton(Button button) 
-    {
-        //if (button.gameObject.name == "ReturnButton") { return; }
-        Animator animator = button.GetComponent<Animator>();
-        if (animator == null)
-        {
-            return;
-        }
-        ButtonScript buttonScript = button.GetComponent<ButtonScript>();
-        if (buttonScript.IsInCanvas)
-        {
-            animator.SetTrigger("FadeOut");
-            Debug.Log(button.name+"fadeout");
-            buttonScript.IsInCanvas = false;
-        }
-        else
-        {
-            Debug.Log(button.name+"画面内にいないよ");
-        }
-    }
-
-    public void FadeInButtons(List<string> ignoreButtonName = null)
-    {
-        foreach (Button b in Buttons)
-        {
-            //if (TownSceneStateMachine.Instance.BeforeState.StateName == "ViewState")
-
-            if (ignoreButtonName.Contains(b.gameObject.name)) {
-                continue;
-            }
-            FadeInButton(b);
-        }
-    }
-
-    public void FadeInButtons()
-    {
-        foreach (Button b in Buttons)
-        {
-            FadeInButton(b);
-        }
-    }
-
-    public void FadeInButton(Button button)
-    {
-        Animator animator = button.GetComponent<Animator>();
-        ButtonScript buttonScript = button.GetComponent<ButtonScript>();
-        if (!buttonScript.IsInCanvas)
-        {
-            buttonScript.IsInCanvas = true;
-            animator.SetTrigger("FadeIn");
-        }
-    }
-
-    public void DisplayPlayerData()
-    {
-        PlayerNameText.SetText(PlayerData.Instance.Name);
-        string heldCoin = PlayerData.Instance.HeldCoin.ToString();
-        HeldCoinText.SetText(heldCoin);
-    }
-
-    public void DisplayPickOption()
-    {
-
-    }
+*/
 }

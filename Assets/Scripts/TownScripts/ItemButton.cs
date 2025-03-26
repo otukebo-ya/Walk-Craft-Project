@@ -16,16 +16,16 @@ public class ItemButton : ButtonScript
         Item item = UIDirector.Instance.ItemDataBase.GetItemByName(name);
         TileController.Instance.ChoicedItemTile = item.Tile;
 
-        List<string> ignoreButton = new List<string>();
+        List<string> ignoreButtons = new List<string>();
         if(TownSceneStateMachine.Instance.LastBaseState == TownSceneStateMachine.Instance.ViewState)
         {
-            ignoreButton.Add("ReturnButton");
+            ignoreButtons.Add("ReturnButton");
         }
         else
         {
-            ignoreButton.Add("LayoutButton");
+            ignoreButtons.Add("LayoutButton");
         }
-        UIDirector.Instance.FadeInButtons(ignoreButton);
+        UIDirector.Instance.FadeInButtons(ignoreButtons);
         TownSceneStateMachine.Instance.TransitionTo(TownSceneStateMachine.Instance.ItemPlaceState);
     }
 }

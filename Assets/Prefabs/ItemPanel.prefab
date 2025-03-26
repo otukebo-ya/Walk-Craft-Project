@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4386267818791917078}
   - component: {fileID: 4071927346205038907}
   m_Layer: 5
-  m_Name: ItemShadow
+  m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5021904271498158596, guid: 5ee30a4a50333bb4eb9f311fa73ccfcf, type: 3}
       propertyPath: m_Name
-      value: ItemButton
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080252357499761585, guid: 5ee30a4a50333bb4eb9f311fa73ccfcf, type: 3}
+      propertyPath: m_Name
+      value: Image
       objectReference: {fileID: 0}
     - target: {fileID: 9085973424239047715, guid: 5ee30a4a50333bb4eb9f311fa73ccfcf, type: 3}
       propertyPath: m_Pivot.x
